@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hot Mils</title>
+        <link rel="shortcut icon" href="./images/favicon.ico">
+        <link type="text/css" rel="stylesheet" href="./css/styles.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="./css/form.css"  media="screen,projection"/>
+        <script type = "text/javascript" src = "./js/script.js"></script>
+        <style>
+            main{
+                display: flex;
+            }
+
+            .signin-box {
+                height: 300px;
+                margin: auto;
+                background-image: url("./images/meal-col.jpg");
+                background-repeat: no-repeat;
+            }
+
+            form div {
+                height: 250px;
+                margin: 15px;
+            }
+
+
+        </style>
+    </head>
+    <body>
+        
+        <header>
+            <nav class="header">
+                <div class ="drawer hide-on-medium-and-up" onclick="opennav()">
+                    <div class="menu-stroke" style ="margin-top: 4px"></div>
+                    <div class="menu-stroke"></div>
+                    <div class="menu-stroke" style ="margin-bottom: 4px"></div>
+                </div>
+                <div class="logo">
+                   <a><img src ="./images/logo.png"/></a>
+                </div>
+                <ul class ="linkItems hide-on-small-only">
+                    <li class="linkItem" ><a href = "./index.html" style ="width: 90px">Home</a></li>
+					 <li class="linkItem" ><a href = "./signin.html" style ="width: 90px" class="active">Sign in</a></li>
+                    <li class="linkItem" ><a href = "./signup.html" style ="width: 90px; border-left: 1px solid #ff9980">Sign up</a></li>
+                </ul>
+            </nav>
+
+            <div class = "s-12 backdrop hide-on-medium-and-up" id ="backdrop" onclick="closenav()">
+                    
+            </div>
+            <nav class = "sidenav close" id="sidenav">
+                    <div class="s-12 side-nav-logo">
+                            
+                                <a><img src ="./images/logo2.png"/></a>
+                            
+                    </div>
+                    <ul class ="sideItems">
+                            <li class="sideItem s-12" ><a class ="side-link" href = "./index.html" >Home</a></li>
+                            <li class="sideItem s-12" ><a class ="side-link" href = "./signup.html" >Sign up</a></li>
+                    </ul>
+                    
+
+            </nav>
+            
+        </header>
+        <main style ="height: 600px">
+            <div class = "s-10 m-6 l-4 signin-box boxshadow">
+                <form>
+                    <div class="transbox">
+                            <input type ="text" placeholder="username" id ="username" name ="username">
+                            <input type ="password" placeholder="password" id ="password", name ="password">
+                            <input type ="submit" value = "sign-in">
+                    </div>
+                </form>
+            </div>
+        </main>
+        <footer class= "s-12" style = "">
+            <h5 class="white text-align-center">Babatunde@andelabootcamp</h5>
+        </footer>
+    </body>
+</html>
