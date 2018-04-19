@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sign Up</title>
+        <link rel="shortcut icon" href="./images/favicon.ico">
+        <link type="text/css" rel="stylesheet" href="./css/styles.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="./css/form.css"  media="screen,projection"/>
+        <script type = "text/javascript" src = "./js/script.js"></script>
+        <style>
+            main{
+                display: flex;
+                background-image: url("./images/delicious-food-1.jpg");
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+
+            .signup-box {
+                height: 600px;
+                margin: auto;
+                
+            }
+
+            form div {
+                height: 600px;
+                margin: 15px;
+            }
+
+
+        </style>
+    </head>
+    <body>
+        
+        <header>
+            <nav class="header">
+                <div class ="drawer hide-on-medium-and-up" onclick="opennav()">
+                    <div class="menu-stroke" style ="margin-top: 4px"></div>
+                    <div class="menu-stroke"></div>
+                    <div class="menu-stroke" style ="margin-bottom: 4px"></div>
+                </div>
+                <div class="logo">
+                   <a><img src ="./images/logo.png"/></a>
+                </div>
+                <ul class ="linkItems hide-on-small-only">
+                    <li class="linkItem" ><a href = "./index.html" style ="width: 90px">Home</a></li>
+					 <li class="linkItem" ><a href = "./signin.html" style ="width: 90px">Sign in</a></li>
+                    <li class="linkItem" ><a href = "#" class="active" style ="width: 90px; border-left: 1px solid #ff9980">Sign up</a></li>
+                </ul>
+            </nav>
+
+            <div class = "s-12 backdrop hide-on-medium-and-up" id ="backdrop" onclick="closenav()">
+                    
+            </div>
+            <nav class = "sidenav close" id="sidenav">
+                    <div class="s-12 side-nav-logo">
+                            
+                                <a><img src ="./images/logo2.png"/></a>
+                            
+                    </div>
+                    <ul class ="sideItems">
+                            <li class="sideItem s-12" ><a class ="side-link" href = "./index.html" >Home</a></li>
+                            <li class="sideItem s-12" ><a class ="side-link" href = "./signin.html" >Sign in</a></li>
+                    </ul>
+            </nav>
+            
+        </header>
+        <main style ="height: 650px">
+            <div class = "s-12 signup-box">
+                <form>
+                    <div class="transbox   s-11 m-6 l-5 offset-l-7 offset-m-3" style ="padding-top: 20px;">
+                            <h2 style = "color:white; text-align:center">Sign Up</h2>
+                            <input type="text" id="fname" name="firstname" placeholder="Firstname">
+                            <input type="text" id="lname" name="lastname" placeholder="Lastname">
+                            <input type="email" id="email" name="email" placeholder=" john@example.com">
+                            <input type="radio" id="sex" name="sex" value="Male"><label style="font-size: 1.2em; font-weight: bold; color: white;" for="Male">Male</label>
+                            <input type="radio" id="sex" name="sex" value="Female"><label style="font-size: 1.2em; font-weight: bold; color: white;" for="female">Female</label>
+                            <input type="password" id="lname" name="lastname" placeholder="Password">
+                            <input type="password" id="lname" name="lastname" placeholder=" Confirm Password">
+                               
+                            <select id="country" name="country" placeholder="Country">
+                                <option value="australia">Australia</option>
+                                <option value="canada">Canada</option>
+                                <option value="usa">USA</option>
+                            </select>
+                                
+                            <input type="submit" value=" + Create Account">
+                    </div>
+                </form>
+            </div>
+        </main>
+        <footer class= "s-12" style = "">
+            <h5 class="white text-align-center">Babatunde@andelabootcamp</h5>
+        </footer>
+    </body>
+</html>
