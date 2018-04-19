@@ -7,7 +7,7 @@
         <script type = "text/javascript" src = "./js/script.js"></script>
     </head>
     <body>
-        
+        <!-- Header -->
         <header>
             <nav class="header">
                 <div class ="drawer hide-on-medium-and-up" onclick="opennav()">
@@ -15,9 +15,11 @@
                     <div class="menu-stroke"></div>
                     <div class="menu-stroke" style ="margin-bottom: 4px"></div>
                 </div>
+                <!--Logo-->
                 <div class="logo">
                    <a><img src ="./images/logo.png"/></a>
                 </div>
+                <!--Navgation-->
                 <ul class ="linkItems hide-on-small-only">
                     <li class="linkItem" ><a href = "./signin.html" style ="width: 90px">Sign in</a></li>
                     <li class="linkItem" ><a href = "./signup.html" style ="width: 90px; border-left: 1px solid #ff9980">Sign up</a></li>
@@ -27,6 +29,7 @@
             <div class = "s-12 backdrop hide-on-medium-and-up" id ="backdrop" onclick="closenav()">
                     
             </div>
+            <!-- Side navgation -->
             <nav class = "sidenav close" id="sidenav">
                     <div class="s-12 side-nav-logo">
                             
@@ -43,17 +46,20 @@
             
         </header>
         <main>
+            <!-- Page Caption -->
             <div class ="caption">
                 <div class = "caption-background">
                         
                         <div class = "overlay"></div>
                         <div class = "caption-text">Order for Meal Online</div>
+                        <!-- Search Bar -->
                         <div class= "search s-12"><input type = "text" class ="search__input s-9" placeholder="Search Meal" ></div>
                 </div>
             </div>
             <div class="menu container s-12">
                 <div class ="menu-header s-12">
                     <div class ="menu-tag s-12 m-4 l-2"><h2 style ="color:white; text-align:center">Menu</h2></div>
+                    <!-- Menu Category -->
                     <div class ="menu-category s-12 m-6 l-5">
 						<select id ="meal-category" name="meal-category">
                                 <option value="">--Category--</option>
@@ -65,6 +71,7 @@
 						<button style="height: 35px; font-weight: bold">GO</button>
                     </div>
                 </div>
+                <!-- Menu -->
                 <div class ="menu-list s-12">
                     <div class ="meal boxshadow">
                         <div class ="meal-image"><img src = "./images/Dark_Cherry_Smoothie.jpg" width="200px" height= "170px"/></div>
@@ -120,6 +127,7 @@
                     </div>
 
                 </div>
+                <!-- Menu Pagination -->
                 <center>
                     <ul class="pagination">
                         <li><a href="#">«</a></li>
@@ -136,6 +144,8 @@
                 
             </div>
         </main>
+
+        <!-- Footer -->
         <footer class= "s-12">
             <h5 class="white text-align-center">Babatunde@andelabootcamp</h5>
         </footer>
