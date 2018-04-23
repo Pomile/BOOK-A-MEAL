@@ -91,6 +91,64 @@ body{
         padding: 10px 22px;
         text-decoration: none;
 }
+.clip{
+    border-radius: 35px;
+    background-color: orange;
+    width: 150px;
+    height: 40px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+.greetings-clip {
+    width: 110px;
+    height: 39px;
+    color: white;
+    float: left;
+    font-size: 1.2em;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.picture-clip {
+    height: 39px;
+    width: 40px;
+    border-radius: 35px;
+    background-color: white;
+    float: left;
+}
+.dropdown-content{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: none;
+    width: 150px;
+    height: 200px;
+    position: absolute;
+    top: 61px;
+    background-color: orangered;
+
+}
+
+.dropdown-linkItem a{
+        display: block;
+        width:100%;
+        height: 45px;
+        padding-top: 0px;
+        font-size: 18px;
+        text-align: justify;
+        color: white;
+        padding: 10px 22px;
+        text-decoration: none;
+}
+
+.dropdown-linkItem a:hover,
+.dropdown-linkItem:hover,
+.dropdown-linkItem a:active,
+.dropdown-sideItem a.active{
+    color: white!important;
+    background-color: red!important;
+
+}
 
 .side-nav-logo {
     padding: 22px 22px;
@@ -324,6 +382,17 @@ ul.pagination li a:hover:not(.active) {background-color: #ddd;}
 
 .white{
     color: white;
+}
+.red {
+    background-color: red;
+}
+
+.btn-floating {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    cursor: pointer;
+
 }
 
 .flow-text {

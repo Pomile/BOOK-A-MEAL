@@ -50,7 +50,15 @@ function removeTabBoxes(){
 }
 
 
- document.onload = displayTabBox("add-meal-content", 1);
+
+const menupage = document.getElementById("menu-page");
+if(menupage){
+    document.onload = displayTabBox("setup-menu-content", 1);
+} else {
+    document.onload = displayTabBox("add-meal-content", 1);
+}
+
+ 
 
  function getFeedBack(type) {
     const backdrop = document.getElementById("meal-backdrop");
@@ -84,4 +92,12 @@ function removeTabBoxes(){
 
 const closeModal = (id) => {
 	return document.getElementById(id).style.display = "none";
+};
+
+function toggle (id) {
+    let displayStatus = document.getElementById(id);
+    if (displayStatus.style.display === "block") {
+       return displayStatus.style.display = "none"
+    }
+    return displayStatus.style.display = "block"
 };
