@@ -1,165 +1,228 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Hot Mils</title>
-        <link rel="shortcut icon" href="./images/favicon.ico">
-        <link type="text/css" rel="stylesheet" href="./css/styles.css"  media="screen,projection"/>
-        <script type = "text/javascript" src = "./js/script.js"></script>
-    </head>
-    <body>
-        <!-- Header -->
-        <header>
-            <nav class="header">
-                <div class ="drawer hide-on-medium-and-up" onclick="opennav()">
-                    <div class="menu-stroke" style ="margin-top: 4px"></div>
-                    <div class="menu-stroke"></div>
-                    <div class="menu-stroke" style ="margin-bottom: 4px"></div>
-                </div>
-                <!--Logo-->
-                <div class="logo">
-                   <a><img src ="./images/logo.png"/></a>
-                </div>
-                <!--Navgation-->
-                <ul class ="linkItems hide-on-medium-and-down">
-                        <li class="linkItem" ><a href = "./index.html" style ="width: 90px;">Home</a></li>
-                        <li class="linkItem" ><a href = "#basket" style ="width: 90px;">Basket</a></li>
-                        <li class="linkItem" ><a href = "./admin.html" style ="width: 90px;">Admin</a></li>
-                        
-                        <li class="linkItem" >
-                                <div class = "clip" onclick="toggle('dropdown-content')">
-                                    <div class ="greetings-clip">Welcome</div>
-                                    <img class ="picture-clip" src ="./images/admin.jpg" />
-                                </div>
-                                <ul class ="dropdown-content" id = "dropdown-content">
-                                        <li class="dropdown-linkItem" ><a href = "./profile.html" style ="width: 90px;">Profile</a></li>
-                                        <li class="dropdown-linkItem" ><a href = "./index.html" style ="width: 90px;">Logout</a></li>
-                                </ul>
+
+<head>
+    <title>Hot Mils</title>
+    <link rel="shortcut icon" href="./images/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="./css/styles.css" media="screen,projection" />
+    <script type="text/javascript" src="./js/script.js"></script>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="header">
+            <div class="drawer hide-on-medium-and-up" onclick="opennav()">
+                <div class="menu-stroke" style="margin-top: 4px"></div>
+                <div class="menu-stroke"></div>
+                <div class="menu-stroke" style="margin-bottom: 4px"></div>
+            </div>
+            <!--Logo-->
+            <div class="logo">
+                <a>
+                    <img src="./images/logo.png" />
+                </a>
+            </div>
+            <!--Navgation-->
+            <ul class="linkItems hide-on-medium-and-down">
+                <li class="linkItem">
+                    <a href="./index.html" style="width: 90px;">Home</a>
+                </li>
+                <li class="linkItem">
+                    <a href="#basket" style="width: 90px;">Basket</a>
+                </li>
+                <li class="linkItem">
+                    <a href="./admin.html" style="width: 90px;">Admin</a>
+                </li>
+
+                <li class="linkItem">
+                    <div class="clip" onclick="toggle('dropdown-content')">
+                        <div class="greetings-clip">Welcome</div>
+                        <img class="picture-clip" src="./images/admin.jpg" />
+                    </div>
+                    <ul class="dropdown-content" id="dropdown-content">
+                        <li class="dropdown-linkItem">
+                            <a href="./profile.html" style="width: 90px;">Profile</a>
+                        </li>
+                        <li class="dropdown-linkItem">
+                            <a href="./index.html" style="width: 90px;">Logout</a>
                         </li>
                     </ul>
-            </nav>
+                </li>
+            </ul>
+        </nav>
 
-            <div class = "s-12 backdrop hide-on-medium-and-up" id ="backdrop" onclick="closenav()">
-                    
-            </div>
-            <!-- Side navgation -->
-            <nav class = "sidenav close" id="sidenav">
-                    <div class="s-12 m-12 side-nav-logo">
-                            
-                                <a><img src ="./images/admin.jpg" style ="border-radius: 50%;"/></a>
-                            
-                    </div>
-                    <ul class ="sideItems">
-                            <li class="sideItem s-12 m-12" ><a class ="side-link" href = "./userindex.html" >Home</a></li>
-                            <li class="sideItem s-12 m-12" ><a class ="side-link" href = "./admin.html" >Dashboard</a></li>
-                            <li class="sideItem s-12 m-12" ><a class ="side-link" href = "./orders.html" >Orders</a></li>
-                            <li class="sideItem s-12 m-12" ><a class ="side-link" href = "./index.html" >Sign out</a></li>
-                    </ul>
-            </nav>
-            
-        </header>
-        <main>
-            <!-- Page Caption -->
-            <div class ="caption">
-                <div class = "caption-background">
-                        
-                        <div class = "overlay"></div>
-                        <div class = "caption-text">Order for Meal Online</div>
-                        <!-- Search Bar -->
-                        <div class= "search s-12"><input type = "text" class ="search__input s-9" placeholder="Search Meal" ></div>
-                </div>
-            </div>
-            <div class="menu container s-12">
-                <div class ="menu-header s-12">
-                    <div class ="menu-tag s-12 m-4 l-2"><h2 style ="color:white; text-align:center">Menu</h2></div>
-                    <!-- Menu Category -->
-                    <div class ="menu-category s-12 m-6 l-5">
-						<select id ="meal-category" name="meal-category">
-                                <option value="">--Category--</option>
-                                <option value="breakfast">Breakfast</option>
-                                <option value="lunch">Lunch</option>
-                                <option value="dinner">Dinner</option>
-                                <option value="super">Super</option>
-                        </select>
-						<button style="height: 35px; font-weight: bold">GO</button>
-                    </div>
-                </div>
-                <!-- Menu -->
-                <div class ="menu-list s-12">
-                    <div class ="meal boxshadow">
-                        <div class ="meal-image"><img src = "./images/Dark_Cherry_Smoothie.jpg" width="200px" height= "170px"/></div>
-                        <div class="meal-tag">
-                                <div class =" fs-16 text-align-center white">N 2500</div>
-                                <div class = " fs-16 text-align-center white">Cherry Smoothy</div> 
-                            </div>
-                    </div>
-                    <div class ="meal boxshadow">
-                            <div class="meal-image"><img src = "./images/sandwich_cheese.jpg" width="200px" height= "170px"/></div>
-                            <div class="meal-tag">
-                                <div class =" fs-16 text-align-center white">N 1500</div>
-                                <div class = " fs-16 text-align-center white">Sandwich Cheese</div> 
-                            </div>
-                    </div>
-                    <div class ="meal boxshadow">
-                            <div class ="meal-image"><img src = "./images/fish-chip.jpg" width="200px" height= "170px"/></div>
-                            <div class="meal-tag">
-                                    <div class =" fs-16 text-align-center white">N 4500</div>
-                                    <div class = " fs-16 text-align-center white flow-text">Fish Chips</div> 
-                                </div>
-                    </div>
-                    <div class ="meal boxshadow">
-                            <div class="meal-image"><img src = "./images/amala-yahoo.jpg" width="200px" height= "170px"/></div>
-                            <div class="meal-tag">
-                                    <div class =" fs-16 text-align-center white"> N1000</div>
-                                    <div class = " fs-16 text-align-center white flow-text">Amala with assorted</div> 
-                                </div>
-                    </div>
-                    <div class ="meal boxshadow">
-                            <div class="meal-image"><img src = "./images/pastal.jpg" width="200px" height= "170px"/></div>
-                            <div class="meal-tag">
-                                    <div class =" fs-16 text-align-center white"> N1000</div>
-                                    <div class = " fs-16 text-align-center white flow-text">Pastal Beef</div> 
-                                </div>
-                    </div>
-                    <div class ="meal boxshadow">
-                            <div class="meal-image"><img src = "./images/oha_soup.jpg" width="200px" height= "170px"/></div>
-                            <div class="meal-tag">
-                                    <div class =" fs-16 text-align-center white"> N2000</div>
-                                    <div class = " fs-16 text-align-center white flow-text">Oha soup</div> 
-                                </div>
-                    </div>
-					<div class ="meal boxshadow">
-                            <div class="meal-image"><img src = "./images/yummy_food_35.jpg" width="200px" height= "170px"/></div>
-                            <div class="meal-tag">
-                                    <div class =" fs-16 text-align-center white"> N1000</div>
-                                    <div class = " fs-16 text-align-center white flow-text">Amala with assorted</div> 
-                                </div>
-                    </div>
-                    <div class ="meal boxshadow">
-                            <div class="meal-image"><img src = "./images/pastal_beef.jpg" width="200px" height= "170px"/></div>
-                    </div>
+        <div class="s-12 backdrop hide-on-medium-and-up" id="backdrop" onclick="closenav()">
 
+        </div>
+        <!-- Side navgation -->
+        <nav class="sidenav close" id="sidenav">
+            <div class="s-12 m-12 side-nav-logo">
+
+                <a>
+                    <img src="./images/admin.jpg" style="border-radius: 50%;" />
+                </a>
+
+            </div>
+            <ul class="sideItems">
+                <li class="sideItem s-12 m-12">
+                    <a class="side-link" href="./userindex.html">Home</a>
+                </li>
+                <li class="sideItem s-12 m-12">
+                    <a class="side-link" href="./admin.html">Dashboard</a>
+                </li>
+                <li class="sideItem s-12 m-12">
+                    <a class="side-link" href="./orders.html">Orders</a>
+                </li>
+                <li class="sideItem s-12 m-12">
+                    <a class="side-link" href="./index.html">Sign out</a>
+                </li>
+            </ul>
+        </nav>
+
+    </header>
+    <main>
+        <!-- Page Caption -->
+        <div class="caption">
+            <div class="caption-background">
+
+                <div class="overlay"></div>
+                <div class="caption-text">Order for Meal Online</div>
+                <!-- Search Bar -->
+                <div class="search s-12">
+                    <input type="text" class="search__input s-9" placeholder="Search Meal">
                 </div>
-                <!-- Menu Pagination -->
-                <center>
-                    <ul class="pagination">
-                        <li><a href="#">«</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a class="active" href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">6</a></li>
-                        <li><a href="#">7</a></li>
-                        <li><a href="#">»</a></li>
+            </div>
+        </div>
+        <div class="menu container s-12">
+            <div class="menu-header s-12">
+                <div class="menu-tag s-12 m-4 l-2">
+                    <h2 style="color:white; text-align:center">Menu</h2>
+                </div>
+                <!-- Menu Category -->
+                <div class="menu-category s-12 m-6 l-5">
+                    <select id="meal-category" name="meal-category">
+                        <option value="">--Category--</option>
+                        <option value="breakfast">Breakfast</option>
+                        <option value="lunch">Lunch</option>
+                        <option value="dinner">Dinner</option>
+                        <option value="super">Super</option>
+                    </select>
+                    <button style="height: 35px; font-weight: bold">GO</button>
+                </div>
+            </div>
+            <!-- Menu -->
+            <div class="menu-list s-12">
+                <div class="meal boxshadow">
+                    <div class="meal-image">
+                        <img src="./images/Dark_Cherry_Smoothie.jpg" width="200px" height="170px" />
+                    </div>
+                    <div class="meal-tag">
+                        <div class=" fs-16 text-align-center white">N 2500</div>
+                        <div class=" fs-16 text-align-center white">Cherry Smoothy</div>
+                    </div>
+                </div>
+                <div class="meal boxshadow">
+                    <div class="meal-image">
+                        <img src="./images/sandwich_cheese.jpg" width="200px" height="170px" />
+                    </div>
+                    <div class="meal-tag">
+                        <div class=" fs-16 text-align-center white">N 1500</div>
+                        <div class=" fs-16 text-align-center white">Sandwich Cheese</div>
+                    </div>
+                </div>
+                <div class="meal boxshadow">
+                    <div class="meal-image">
+                        <img src="./images/fish-chip.jpg" width="200px" height="170px" />
+                    </div>
+                    <div class="meal-tag">
+                        <div class=" fs-16 text-align-center white">N 4500</div>
+                        <div class=" fs-16 text-align-center white flow-text">Fish Chips</div>
+                    </div>
+                </div>
+                <div class="meal boxshadow">
+                    <div class="meal-image">
+                        <img src="./images/amala-yahoo.jpg" width="200px" height="170px" />
+                    </div>
+                    <div class="meal-tag">
+                        <div class=" fs-16 text-align-center white"> N1000</div>
+                        <div class=" fs-16 text-align-center white flow-text">Amala with assorted</div>
+                    </div>
+                </div>
+                <div class="meal boxshadow">
+                    <div class="meal-image">
+                        <img src="./images/pastal.jpg" width="200px" height="170px" />
+                    </div>
+                    <div class="meal-tag">
+                        <div class=" fs-16 text-align-center white"> N1000</div>
+                        <div class=" fs-16 text-align-center white flow-text">Pastal Beef</div>
+                    </div>
+                </div>
+                <div class="meal boxshadow">
+                    <div class="meal-image">
+                        <img src="./images/oha_soup.jpg" width="200px" height="170px" />
+                    </div>
+                    <div class="meal-tag">
+                        <div class=" fs-16 text-align-center white"> N2000</div>
+                        <div class=" fs-16 text-align-center white flow-text">Oha soup</div>
+                    </div>
+                </div>
+                <div class="meal boxshadow">
+                    <div class="meal-image">
+                        <img src="./images/yummy_food_35.jpg" width="200px" height="170px" />
+                    </div>
+                    <div class="meal-tag">
+                        <div class=" fs-16 text-align-center white"> N1000</div>
+                        <div class=" fs-16 text-align-center white flow-text">Amala with assorted</div>
+                    </div>
+                </div>
+                <div class="meal boxshadow">
+                    <div class="meal-image">
+                        <img src="./images/pastal_beef.jpg" width="200px" height="170px" />
+                    </div>
+                </div>
+
+            </div>
+            <!-- Menu Pagination -->
+            <center>
+                <ul class="pagination">
+                    <li>
+                        <a href="#">«</a>
+                    </li>
+                    <li>
+                        <a href="#">1</a>
+                    </li>
+                    <li>
+                        <a class="active" href="#">2</a>
+                    </li>
+                    <li>
+                        <a href="#">3</a>
+                    </li>
+                    <li>
+                        <a href="#">4</a>
+                    </li>
+                    <li>
+                        <a href="#">5</a>
+                    </li>
+                    <li>
+                        <a href="#">6</a>
+                    </li>
+                    <li>
+                        <a href="#">7</a>
+                    </li>
+                    <li>
+                        <a href="#">»</a>
+                    </li>
                 </ul>
-                </center>
-                
-            </div>
-        </main>
+            </center>
 
-        <!-- Footer -->
-        <footer class= "s-12">
-            <h5 class="white text-align-center">Babatunde@andelabootcamp</h5>
-        </footer>
-    </body>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="s-12">
+        <h5 class="white text-align-center">Babatunde@andelabootcamp</h5>
+    </footer>
+</body>
+
 </html>
