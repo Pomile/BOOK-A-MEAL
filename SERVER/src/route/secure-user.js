@@ -14,8 +14,7 @@ const securedRouter = express.Router();
 
 securedRouter.post(
   '/meals',
-  verifyUser,
-  permit(['caterer', 'admin']),
+  permit('caterer', 'admin'),
   MealCreator.addMeal,
 );
 

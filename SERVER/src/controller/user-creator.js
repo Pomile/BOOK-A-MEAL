@@ -15,7 +15,7 @@ class UserCreator {
       data.users.push({
         id: userId, firstname, lastname, email, sex, password, country, role,
       });
-      console.log(data.users);
+      // console.log(data.users);
     } else {
       res.status(409).json({ msg: 'user already existed' });
     }

@@ -78,9 +78,9 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         .set('Accept', 'application/json')
         .send(userData)
         .end((err, res) => {
-          userId = res.body.id;
+          userId = res.body.user;
           isAuthentic = res.body.isAuth;
-          console.log(res.body);
+          // console.log(res.body);
           expect(res.body.msg).to.equal('user logged in sucessfully');
           done();
         });
@@ -91,6 +91,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
     it('should add a meal', (done) => {
       const meal = {
         name: 'Fried Rice with Chicken',
+        description: 'tasty fried rice and chicken which include carrot, green beans with salad',
         price: '1500',
         category: 'Lunch',
       };
@@ -101,7 +102,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         .send(meal)
         .end((err, res) => {
           expect(res.status).to.equal(201);
-          expect(res.body.msg).to.equal('added meal sucessfully');
+          expect(res.body.msg).to.equal('meal added successfully');
           done();
         });
     });

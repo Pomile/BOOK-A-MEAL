@@ -20,7 +20,7 @@ app.use('/api/v1/users', openRoutes);
 app.use('/api/v1/auth', securedRoutes);
 
 app.use((err, req, res, next) => {
-  if (err.status == 404) {
+  if (err.status === 404) {
     res.status(404).send('Not Found');
   }
   next();
