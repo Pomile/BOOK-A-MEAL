@@ -106,5 +106,42 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
           done();
         });
     });
+
+    it('should modify a meal', (done) => {
+      const meal = {
+        name: 'Fried Rice with Chicken',
+        description: 'tasty rice and chicken which include carrot, green beans with salad',
+        price: '1500',
+        category: 'Lunch',
+      };
+
+      request(app)
+        .put('/api/v1/auth/meals/1')
+        .set({ authorization: `${isAuthentic}`, user: `${userId}` })
+        .send(meal)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.msg).to.equal('meal modified successfully');
+          done();
+        });
+    });
+
+    it('should delete a meal', (done) => {
+      const meal = {
+        name: 'Fried Rice with Chicken',
+        description: 'tasty rice and chicken which include carrot, green beans with salad',
+        price: '1500',
+        category: 'Lunch',
+      };
+
+      request(app)
+        .delete('/api/v1/auth/meals/1')
+        .set({ authorization: `${isAuthentic}`, user: `${userId}` })
+        .send(meal)
+        .end((err, res) => {
+          expect(res.status).to.equal(204);
+          done();
+        });
+    });
   });
 });
