@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import openRoutes from './src/route/user';
-// import securedRoutes from './src/route/secure-user';
+import securedRoutes from './src/route/secure-user';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -16,8 +16,8 @@ app.use(bodyParser.text({ type: 'text/plain' }));
 app.use(bodyParser.raw({ type: '*/octet-stream' }));
 
 
-app.use('/api/v1/user', openRoutes);
-// app.use('/api/v1/auth', securedRoutes);
+app.use('/api/v1/users', openRoutes);
+app.use('/api/v1/auth', securedRoutes);
 
 app.use((err, req, res, next) => {
   if (err.status == 404) {

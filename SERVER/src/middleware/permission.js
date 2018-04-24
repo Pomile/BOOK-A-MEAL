@@ -1,7 +1,10 @@
-const permit = (...permited) => {
-  const isPermited = role => permited.indexOf(role) > -1;
+
+
+const permit = (permited) => {
+  const isPermited = role => permited.include(role);
   return (req, res, next) => {
-    if (req.isAuthentic && isPermited(req.user.role)) {
+    if (req.headers.authorization && isPermited(req.user.role)) {
+      console.log(req.user);
       next();
     } else {
       res.status(403).json({ message: 'Forbidden' });

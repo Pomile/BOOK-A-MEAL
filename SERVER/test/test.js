@@ -7,10 +7,12 @@ const { describe, it, after } = mocha;
 const expect = chai.expect;
 
 let isAuthentic;
+let userId;
 
 describe('BOOK-A-MEAL API TEST SUITE', () => {
   after((done) => {
-    console.log(isAuthentic);
+    // console.log(isAuthentic);
+    console.log(userId);
     done();
   });
   describe('Users can create an account and log in', () => {
@@ -47,6 +49,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
       const userData = {
         firstname: 'Bolanle',
         lastname: 'Muritala',
+        username: 'bolly',
         email: 'bola.kudi@live.com',
         sex: 'M',
         password: 'moneyspeaking123',
@@ -75,8 +78,30 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         .set('Accept', 'application/json')
         .send(userData)
         .end((err, res) => {
+          userId = res.body.id;
           isAuthentic = res.body.isAuth;
+          console.log(res.body);
           expect(res.body.msg).to.equal('user logged in sucessfully');
+          done();
+        });
+    });
+  });
+
+  describe('Manage Meals Options', () => {
+    it('should add a meal', (done) => {
+      const meal = {
+        name: 'Fried Rice with Chicken',
+        price: '1500',
+        category: 'Lunch',
+      };
+
+      request(app)
+        .post('/api/v1/auth/meals')
+        .set({ authorization: `${isAuthentic}`, user: `${userId}` })
+        .send(meal)
+        .end((err, res) => {
+          expect(res.status).to.equal(201);
+          expect(res.body.msg).to.equal('added meal sucessfully');
           done();
         });
     });

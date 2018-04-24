@@ -29,7 +29,6 @@ class UserCreator {
           success: true,
           user: userId,
           msg: 'users added successfully',
-          
         });
     }
   }
