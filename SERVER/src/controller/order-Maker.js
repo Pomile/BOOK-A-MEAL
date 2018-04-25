@@ -12,13 +12,24 @@ class OrderMaker {
     const year = date.getFullYear().toString();
     const todaysDate = `${month}/${day}/${year}`;
 
-    // find selected meal the menu
-    const selectedMeal = data.menus.find(meal => meal.id === mealId);
-    const { price, name } = selectedMeal;
+    // find selected meal in the menu
+    const todaysMenu = data.menus.map((menu) => {
+      if (menu.date === todaysDate) {
+        return menu;
+      }
+      return null;
+    });
+
+    const mealsOption = todaysMenu[0].meals;
+
+    const selectedMeal = mealsOption.find(meal => meal.id === mealId);
+    const { name, price } = selectedMeal;
+
     if (selectedMeal) {
       data.orders.push({
         id: countOrders + 1,
-        name: email,
+        username: email,
+        meal: name,
         price,
         date: todaysDate,
       });
