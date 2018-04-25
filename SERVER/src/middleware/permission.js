@@ -1,7 +1,6 @@
 import { data } from '../db/data';
 
 const permit = (...permited) => (req, res, next) => {
-  console.log(req.headers.user);
   const userData = data.users.find(user => user.id === Number(req.headers.user));
   const userRole = userData.role;
   const authorized = req.headers.authorization;

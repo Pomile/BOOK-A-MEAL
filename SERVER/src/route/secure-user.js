@@ -44,5 +44,12 @@ securedRouter.post(
 
 );
 
+securedRouter.get(
+  '/menu',
+  verifyUser,
+  MenuGetter.getTodaysMenu,
+
+);
+
 
 export default securedRouter;
