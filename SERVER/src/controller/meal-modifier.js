@@ -7,7 +7,6 @@ class MealModifier {
     } = req.body;
 
     const id = req.params.mealId;
-    // console.log(id);
 
     const mealIndex = data.meals.findIndex(meal => meal.id === +id);
     if (mealIndex !== undefined) {

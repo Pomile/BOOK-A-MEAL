@@ -7,14 +7,12 @@ class MealCreator {
       name, description, price, category,
     } = req.body;
     const mealId = initialMealsCount + 1;
-    // find if existing account has a user name
     const findByMealName = data.meals.find(meal => meal.name === name);
-    // console.log(findByEmail);
+
     if (findByMealName === undefined) {
       data.meals.push({
         id: mealId, name, description, price, category,
       });
-      // console.log(data.meals);
     } else {
       res.status(409).json({ msg: 'This meal already existed' });
     }
