@@ -10,6 +10,7 @@ import MenuGetter from '../controller/menu-getter';
 import OrderMaker from '../controller/order-Maker';
 import OrdersGetter from '../controller/orders-getter';
 import OrderModifier from '../controller/order-modifier';
+import OrderGetter from '../controller/order-getter';
 
 import permit from '../middleware/permission';
 import { verifyUser } from '../middleware/verification';
@@ -73,6 +74,13 @@ securedRouter.put(
   '/orders/:orderId',
   verifyUser,
   OrderModifier.modifyAnOrder,
+
+);
+
+securedRouter.get(
+  '/:customerId/orders',
+  verifyUser,
+  OrderGetter.getOrder,
 
 );
 
