@@ -1,10 +1,10 @@
 import express from 'express';
 import MealCreator from '../controller/meal-creator';
-import { data } from '../db/data';
 import MealRemover from '../controller/meal-remover';
 import MealModifier from '../controller/meal-modifier';
 // import MealGetter from '../controller/meal-getter';
-// import MealsGetter from '../controller/meals-getter';
+import MealsGetter from '../controller/meals-getter';
+import MenuCreator from '../controller/menu-creator';
 
 import permit from '../middleware/permission';
 import { verifyUser } from '../middleware/verification';
@@ -28,6 +28,19 @@ securedRouter.delete(
   '/meals/:mealId',
   permit('caterer', 'admin'),
   MealRemover.deleteAMeal,
+);
+
+securedRouter.get(
+  '/meals',
+  permit('caterer', 'admin'),
+  MealsGetter.getMeals,
+);
+
+securedRouter.post(
+  '/menus',
+  permit('caterer', 'admin'),
+  MenuCreator.addAMenu,
+
 );
 
 

@@ -144,4 +144,29 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
   });
+
+  describe(' setup menu for a specific day', () => {
+    it('should return list of meals', (done) => {
+      request(app)
+        .get('/api/v1/auth/meals')
+        .set({ authorization: `${isAuthentic}`, user: `${userId}` })
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.sucess).to.equal(true);
+          done();
+        });
+    });
+
+    it('should setup menu by selecting meals from available options', (done) => {
+      request(app)
+        .post('/api/v1/auth/menus')
+        .set({ authorization: `${isAuthentic}`, user: `${userId}` })
+        .send({ meals: [3, 2] })
+        .end((err, res) => {
+          expect(res.status).to.equal(201);
+          expect(res.body.success).to.equal(true);
+          done();
+        });
+    });
+  });
 });
