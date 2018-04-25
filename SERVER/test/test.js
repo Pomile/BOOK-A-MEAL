@@ -201,4 +201,18 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
   });
+
+  describe('Make an Order from the options presented in the menu', () => {
+    it('should make an order from the menu', (done) => {
+      request(app)
+        .post('/api/v1/auth/orders')
+        .set({ authorization: `${isCustomerAuthentic}`, user: `${customerId}` })
+        .send({ mealId: 1 })
+        .end((err, res) => {
+          expect(res.status).to.equal(201);
+          expect(res.body.success).to.equal(true);
+          done();
+        });
+    });
+  });
 });
