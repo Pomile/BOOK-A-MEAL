@@ -2,7 +2,7 @@ import { data } from '../db/data';
 
 class MenuGetter {
   static getTodaysMenu(req, res) {
-    console.log(req.user);
+    // console.log(req.user);
     const date = new Date();
     const month = (date.getMonth() + 1).toString();
     const day = date.getDate().toString();

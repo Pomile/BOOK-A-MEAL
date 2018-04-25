@@ -18,7 +18,8 @@ class OrderMaker {
     if (selectedMeal) {
       data.orders.push({
         id: countOrders + 1,
-        name: email,
+        username: email,
+        meal: name,
         price,
         date: todaysDate,
       });

@@ -95,7 +95,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
       const meal = {
         name: 'Fried Rice with Chicken',
         description: 'tasty fried rice and chicken which include carrot, green beans with salad',
-        price: '1500',
+        price: 1500,
         category: 'Lunch',
       };
 
@@ -210,6 +210,19 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         .send({ mealId: 1 })
         .end((err, res) => {
           expect(res.status).to.equal(201);
+          expect(res.body.success).to.equal(true);
+          done();
+        });
+    });
+  });
+
+  describe('Get all orders for a specific day', () => {
+    it('should return all orders for a specific day', (done) => {
+      request(app)
+        .get('/api/v1/auth/orders?date=4/25/2018')
+        .set({ authorization: `${isAuthentic}`, user: `${userId}` })
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
           expect(res.body.success).to.equal(true);
           done();
         });
