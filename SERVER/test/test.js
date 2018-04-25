@@ -207,7 +207,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
       request(app)
         .post('/api/v1/auth/orders')
         .set({ authorization: `${isCustomerAuthentic}`, user: `${customerId}` })
-        .send({ mealId: 1 })
+        .send({ mealId: 2 })
         .end((err, res) => {
           expect(res.status).to.equal(201);
           expect(res.body.success).to.equal(true);
