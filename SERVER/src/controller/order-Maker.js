@@ -24,7 +24,7 @@ class OrderMaker {
 
     const selectedMeal = mealsOption.find(meal => meal.id === mealId);
     const { name, price } = selectedMeal;
-
+    
     if (selectedMeal) {
       data.orders.push({
         id: countOrders + 1,
