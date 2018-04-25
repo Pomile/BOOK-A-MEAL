@@ -8,11 +8,14 @@ const expect = chai.expect;
 
 let isAuthentic;
 let userId;
+let isCustomerAuthentic;
+let customerId;
 
 describe('BOOK-A-MEAL API TEST SUITE', () => {
   after((done) => {
     // console.log(isAuthentic);
     console.log(userId);
+    console.log(customerId);
     done();
   });
   describe('Users can create an account and log in', () => {
@@ -68,7 +71,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
 
-    it('User should be able to log in', (done) => {
+    it('should be able to log in as caterer', (done) => {
       const userData = {
         username: 'softsky@live.com',
         password: 'testing123',
@@ -165,6 +168,26 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         .end((err, res) => {
           expect(res.status).to.equal(201);
           expect(res.body.success).to.equal(true);
+          done();
+        });
+    });
+  });
+
+  describe('Get menu for the day', () => {
+    it('should be able to log in as customer', (done) => {
+      const userData = {
+        username: 'bola.kudi@live.com',
+        password: 'moneyspeaking123',
+      };
+      request(app)
+        .post('/api/v1/users/auth')
+        .set('Accept', 'application/json')
+        .send(userData)
+        .end((err, res) => {
+          customerId = res.body.user;
+          isCustomerAuthentic = res.body.isAuth;
+          // console.log(res.body);
+          expect(res.body.msg).to.equal('user logged in sucessfully');
           done();
         });
     });

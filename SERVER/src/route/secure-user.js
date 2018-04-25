@@ -5,6 +5,7 @@ import MealModifier from '../controller/meal-modifier';
 // import MealGetter from '../controller/meal-getter';
 import MealsGetter from '../controller/meals-getter';
 import MenuCreator from '../controller/menu-creator';
+import MenuGetter from '../controller/menu-getter';
 
 import permit from '../middleware/permission';
 import { verifyUser } from '../middleware/verification';
