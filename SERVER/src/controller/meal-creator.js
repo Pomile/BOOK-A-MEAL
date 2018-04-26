@@ -4,14 +4,14 @@ class MealCreator {
   static addMeal(req, res) {
     const initialMealsCount = data.meals.length;
     const {
-      name, description, price, category,
+      name, description, price, type,
     } = req.body;
     const mealId = initialMealsCount + 1;
     const findByMealName = data.meals.find(meal => meal.name === name);
 
     if (findByMealName === undefined) {
       data.meals.push({
-        id: mealId, name, description, price, category,
+        id: mealId, name, description, price, type,
       });
     } else {
       res.status(409).json({ msg: 'This meal already existed' });

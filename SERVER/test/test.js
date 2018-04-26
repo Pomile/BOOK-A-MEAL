@@ -93,10 +93,10 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
   describe('Manage Meals Options', () => {
     it('should add a meal', (done) => {
       const meal = {
-        name: 'Fried Rice with Chicken',
+        name: 'Fried Rice with shreded chicken',
         description: 'tasty fried rice and chicken which include carrot, green beans with salad',
         price: 1500,
-        category: 'Lunch',
+        type: 'intercontinental',
       };
 
       request(app)
@@ -112,10 +112,10 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
 
     it('should modify a meal', (done) => {
       const meal = {
-        name: 'Fried Rice with Chicken',
-        description: 'tasty rice and chicken which include carrot, green beans with salad',
+        name: 'Fried Rice with shreded meat',
+        description: 'tasty fried rice and chicken which include carrot, green beans with salad',
         price: '1500',
-        category: 'Lunch',
+        type: 'Intercontinental',
       };
 
       request(app)
@@ -130,17 +130,9 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
     });
 
     it('should delete a meal', (done) => {
-      const meal = {
-        name: 'Fried Rice with Chicken',
-        description: 'tasty rice and chicken which include carrot, green beans with salad',
-        price: '1500',
-        category: 'Lunch',
-      };
-
       request(app)
         .delete('/api/v1/auth/meals/1')
         .set({ authorization: `${isAuthentic}`, user: `${userId}` })
-        .send(meal)
         .end((err, res) => {
           expect(res.status).to.equal(204);
           done();
