@@ -247,4 +247,17 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
   });
+
+  describe('Authenticated users (customers) should be able to see their order history', () => {
+    it('should return order history for a user', (done) => {
+      request(app)
+        .get(`/api/v1/auth/${customerId}/orders`)
+        .set({ authorization: `${isCustomerAuthentic}`, user: `${customerId}` })
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.success).to.equal(true);
+          done();
+        });
+    });
+  });
 });

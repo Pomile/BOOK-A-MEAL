@@ -80,7 +80,7 @@ securedRouter.put(
 securedRouter.get(
   '/:customerId/orders',
   verifyUser,
-  OrderGetter.getOrder,
+  OrderGetter.getOrders,
 
 );
 
