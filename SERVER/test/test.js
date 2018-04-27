@@ -186,7 +186,6 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         .end((err, res) => {
           customerId = res.body.user;
           isCustomerAuthentic = res.body.isAuth;
-          // console.log(res.body);
           expect(res.body.msg).to.equal('user logged in sucessfully');
           done();
         });
