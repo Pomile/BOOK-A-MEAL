@@ -9,10 +9,6 @@ const expect = chai.expect;
 let isAuthentic;
 
 describe('BOOK-A-MEAL API TEST SUITE', () => {
-  after((done) => {
-    console.log(isAuthentic);
-    done();
-  });
   describe('Users can create an account and log in', () => {
     it('should access the home page', (done) => {
       request(app)
