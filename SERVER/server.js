@@ -27,10 +27,7 @@ app.use((err, req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  if (err) {
-    res.status(500).send('Something broke!');
-  }
+  res.status(500).send('Something broke!');
 });
 
 app.all('*', (req, res) => {
