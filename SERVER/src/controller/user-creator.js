@@ -10,7 +10,7 @@ class UserCreator {
 
     // find if existing account has a user name
     const findByEmail = data.users.find(user => user.email === email);
-    // console.log(findByEmail);
+    console.log(findByEmail);
     if (findByEmail === undefined) {
       data.users.push({
         firstname, lastname, email, sex, password, country,
