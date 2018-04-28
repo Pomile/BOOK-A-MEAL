@@ -8,14 +8,14 @@
       "babel-register"
     ],
     "include": [
-      "specs/"
+      "spec/"
     ],
     "sourceMap": false,
     "instrument": false
   },
   "scripts": {
     "start": "nodemon --watch . --exec npm run babel ./server.js",
-    "test": "nodemon --watch . --exec cross-env NODE_ENV=test nyc mocha  --compilers js:babel-core/register --recursive ./specs/test.js --exit",
+    "test": "nodemon --watch . --exec cross-env NODE_ENV=test nyc mocha  --compilers js:babel-core/register --recursive ./spec/test.js --exit",
     "babel": "./node_modules/.bin/babel-node"
   },
   "author": "Babatunde Ogedengbe",
