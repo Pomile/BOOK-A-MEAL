@@ -3,10 +3,19 @@
   "version": "1.0.0",
   "description": "Book a meal application",
   "main": "server.js",
-  
+  "nyc": {
+    "require": [
+      "babel-register"
+    ],
+    "include": [
+      "spec/"
+    ],
+    "sourceMap": false,
+    "instrument": false
+  },
   "scripts": {
     "start": "nodemon --watch . --exec npm run babel ./server.js",
-    "test": "nodemon --watch . --exec mocha  --compilers js:babel-core/register --recursive ./test/test.js --exit",
+    "test": "nodemon --watch . --exec nyc mocha  --compilers js:babel-core/register --recursive ./spec/test.js --exit",
     "babel": "./node_modules/.bin/babel-node"
   },
   "author": "Babatunde Ogedengbe",
@@ -31,6 +40,7 @@
     "eslint-plugin-import": "^2.11.0",
     "mocha": "^5.1.1",
     "nodemon": "^1.17.3",
+    "nyc": "^11.7.1",
     "supertest": "^3.0.0"
   }
 }
