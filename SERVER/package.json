@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "Book a meal application",
   "main": "server.js",
+  
   "scripts": {
     "start": "nodemon --watch . --exec npm run babel ./server.js",
-    "test": "nodemon --watch . --exec mocha  --compilers js:babel-core/register --recursive ./test/test.js",
+    "test": "nodemon --watch . --exec mocha  --compilers js:babel-core/register --recursive ./test/test.js --exit",
     "babel": "./node_modules/.bin/babel-node"
   },
   "author": "Babatunde Ogedengbe",
