@@ -15,5 +15,4 @@ const passwordEncryption = (req, res, next) => {
     next();
   });
 };
-
 export default passwordEncryption;

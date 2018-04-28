@@ -8,6 +8,4 @@ const permit = (...permited) => {
     }
   };
 };
-
-
 export default permit;
