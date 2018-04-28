@@ -16,7 +16,7 @@
       "babel-register"
     ],
     "include": [
-      "SERVER/test/"
+      "SERVER/spec/"
     ],
     "sourceMap": false,
     "instrument": false

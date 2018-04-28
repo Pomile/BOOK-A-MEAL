@@ -15,7 +15,7 @@
     "require": [
       "babel-register"
     ],
-    "include": ["spec/", "src/"],
+    "include": ["spec/"],
     "sourceMap": false,
     "instrument": false
   },
