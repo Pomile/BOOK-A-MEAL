@@ -40,14 +40,13 @@ class MenuCreator {
         date: todaysDate,
       });
       res.status(201).json({ success: true, msg: 'menu added sucessfully' });
-      console.log(menu);
+
       const content = menu.reduce((initial, meal) => `
             ${initial} <tr>
               <td>${meal.name}</td>
               <td>${meal.price}</td>
               <td>${meal.type}</td>
               </tr>`, '');
-      console.log(content);
 
       const mailOptions = {
         from: 'ogedengbe123@gmail.com',
