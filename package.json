@@ -16,8 +16,7 @@
       "babel-register"
     ],
     "include": [
-      "SERVER/test/",
-      "SERVER/src/controller/"
+      "SERVER/test/"
     ],
     "sourceMap": false,
     "instrument": false
