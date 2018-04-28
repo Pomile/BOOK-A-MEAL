@@ -17,7 +17,7 @@
     ],
     "include": [
       "SERVER/test/",
-      "SERVER/src/"
+      "SERVER/src/controller/"
     ],
     "sourceMap": false,
     "instrument": false

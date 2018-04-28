@@ -4,10 +4,7 @@ import passwordEncryption from '../middleware/encryption';
 import UserCreator from '../controller/user-creator';
 import userAuth from '../controller/user-auth';
 
-// import controller that authenticate user
-
 const router = express.Router();
-
 
 router.get('/', (req, res) => {
   res.send('You are Welcome. Please Book a Meal');
@@ -26,6 +23,5 @@ router.post(
   validateUserCrediential,
   userAuth.Authenticate,
 );
-
 
 export default router;

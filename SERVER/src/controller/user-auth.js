@@ -1,14 +1,10 @@
 import bcrypt from 'bcrypt';
-import 'babel-core/register';
-import 'babel-polyfill/';
 import { data } from '../db/data';
 
 class UserAuthenticator {
-  static async Authenticate(req, res) {
-    const {
-      username, password,
-    } = req.body;
-    const userData = await data.users.find(user => user.email === username);
+  static Authenticate(req, res) {
+    const { username, password } = req.body;
+    const userData = data.users.find(user => user.email === username);
     if (userData === undefined) {
       res.status(404).json({ msg: 'user not found' });
     } else {
@@ -23,5 +19,4 @@ class UserAuthenticator {
     }
   }
 }
-
 export default UserAuthenticator;
