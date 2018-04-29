@@ -1,13 +1,14 @@
 import { data } from '../db/data';
 
 exports.verifyUser = (req, res, next) => {
-  const userData = data.users.find(user => user.id === Number(req.headers.user));
   const authorized = req.headers.authorization;
-  if (authorized === 'true') {
+  const userId = req.headers.user;
+  if (authorized === 'false') {
+    res.status(403).json({ msg: 'user not authentic' });
+  } else {
+    const userData = data.users.find(user => user.id === Number(userId));
     req.user = userData;
     next();
-  } else {
-    res.json(403).json({ sucess: false, msg: 'access denied' });
   }
 };
 

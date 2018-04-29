@@ -17,7 +17,7 @@ class UserCreator {
         id: userId, firstname, lastname, email, sex, password, country, role,
       });
     } else {
-      res.status(409).json({ msg: 'user already existed' });
+      res.status(409).json({ msg: 'user already existing' });
     }
 
     const finalUsersCount = data.users.length;

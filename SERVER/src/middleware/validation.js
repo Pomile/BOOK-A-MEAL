@@ -51,7 +51,6 @@ exports.validateUserCrediential = [
 exports.validationApi = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    console.log(errors.mapped());
     res.status(422).json({ errors: errors.mapped() });
   }
   next();

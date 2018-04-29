@@ -20,7 +20,7 @@ class UserAuthenticator {
             sucess: true, msg: 'user logged in sucessfully', isAuth: true, user: userData.id,
           });
         } else {
-          res.status(401).json({ sucess: false, msg: 'password mismatch' });
+          res.status(401).json({ sucess: false, msg: 'invalid password' });
         }
       });
     }
