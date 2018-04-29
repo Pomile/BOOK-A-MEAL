@@ -16,13 +16,6 @@ class UserCreator {
       data.users.push({
         id: userId, firstname, lastname, email, sex, password, country, role,
       });
-    } else {
-      res.status(409).json({ msg: 'user already existing' });
-    }
-
-    const finalUsersCount = data.users.length;
-
-    if (finalUsersCount > initialUsersCount) {
       res
         .status(201)
         .json({
@@ -30,6 +23,8 @@ class UserCreator {
           user: userId,
           msg: 'users added successfully',
         });
+    } else {
+      res.status(409).json({ msg: 'user already existing' });
     }
   }
 }
