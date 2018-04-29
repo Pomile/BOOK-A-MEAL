@@ -12,21 +12,19 @@ class OrderMaker {
     const year = date.getFullYear().toString();
     const todaysDate = `${month}/${day}/${year}`;
 
-    // find selected meal the menu
-    const selectedMeal = data.menus.find(meal => meal.id === mealId);
-    const { price, name } = selectedMeal;
-    if (selectedMeal) {
-      data.orders.push({
-        id: countOrders + 1,
-        username: email,
-        meal: name,
-        price,
-        date: todaysDate,
-      });
-      res.status(201).json({ msg: `Thank you ${firstname}. you have ordered for ${name}`, success: true });
-    } else {
-      res.status(404).json({ msg: `This Meal ${name} is not available` });
-    }
+    // find selected meal in the menu
+    const todaysMenu = data.menus.find(menu => menu.date === todaysDate);
+    const mealsOption = todaysMenu.meals;
+    const selectedMeal = mealsOption.find(meal => meal.id === mealId);
+    const { name, price } = selectedMeal;
+    data.orders.push({
+      id: countOrders + 1,
+      username: email,
+      meal: name,
+      price,
+      date: todaysDate,
+    });
+    res.status(201).json({ msg: `Thank you ${firstname}. you have ordered for ${name}`, success: true });
   }
 }
 

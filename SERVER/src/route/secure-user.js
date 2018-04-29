@@ -8,7 +8,6 @@ import MenuCreator from '../controller/menu-creator';
 import MenuGetter from '../controller/menu-getter';
 
 import OrderMaker from '../controller/order-Maker';
-import OrdersGetter from '../controller/orders-getter';
 
 import permit from '../middleware/permission';
 import { verifyUser } from '../middleware/verification';
@@ -58,13 +57,6 @@ securedRouter.post(
   '/orders',
   verifyUser,
   OrderMaker.makeOrder,
-
-);
-
-securedRouter.get(
-  '/orders',
-  permit('caterer', 'admin'),
-  OrdersGetter.getOrders,
 
 );
 
