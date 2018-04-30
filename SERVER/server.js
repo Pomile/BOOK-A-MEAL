@@ -30,9 +30,7 @@ app.use((err, req, res, next) => {
   res.status(500).send('Something broke!');
 });
 
-app.all('*', (req, res) => {
-  res.send('Page Not Found');
-});
+
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
