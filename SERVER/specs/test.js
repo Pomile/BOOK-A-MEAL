@@ -420,18 +420,6 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
   });
-
-  describe('Unknown paths', () => {
-    it('should return path not found for unknown paths', (done) => {
-      request(app)
-        .get('/mnjghjghjgh')
-        .end((err, res) => {
-          expect(res.body.msg).to.equal('Page Not Found');
-          done();
-        });
-    });
-  });
-
   describe('Get all orders for a specific day', () => {
     it('should return all orders for a specific day', (done) => {
       request(app)
@@ -453,6 +441,16 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         .end((err, res) => {
           expect(res.status).to.equal(404);
           expect(res.body.success).to.equal(false);
+          done();
+        });
+    });
+  });
+  describe('Unknown paths', () => {
+    it('should return path not found for unknown paths', (done) => {
+      request(app)
+        .get('/mnjghjghjgh')
+        .end((err, res) => {
+          expect(res.body.msg).to.equal('Page Not Found');
           done();
         });
     });
