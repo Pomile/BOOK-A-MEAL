@@ -9,7 +9,8 @@ class MealModifier {
     const id = req.params.mealId;
 
     const mealIndex = data.meals.findIndex(meal => meal.id === +id);
-    if (mealIndex !== undefined) {
+    console.log(mealIndex);
+    if (mealIndex !== -1) {
       data.meals[mealIndex].name = name;
       data.meals[mealIndex].description = description;
       data.meals[mealIndex].price = price;
