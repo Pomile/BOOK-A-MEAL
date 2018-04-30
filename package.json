@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon --watch . --exec npm run babel ./server.js",
-    "test": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text mocha  --compilers js:babel-core/register --recursive ./SERVER/spec/test.js",
+    "test": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text mocha  --compilers js:babel-core/register --recursive ./SERVER/specs/test.js",
     "babel": "./node_modules/.bin/babel-node",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
@@ -16,7 +16,8 @@
       "babel-register"
     ],
     "include": [
-      "SERVER/spec/"
+	"SERVER/src/"
+      "SERVER/specs/"
     ],
     "sourceMap": false,
     "instrument": false
