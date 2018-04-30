@@ -7,15 +7,18 @@ class MenuGetter {
     const day = date.getDate().toString();
     const year = date.getFullYear().toString();
     const todaysDate = `${month}/${day}/${year}`;
-    const todaysMenuIndex = data.menus.findIndex(menu => menu.date === todaysDate);
+    const todaysMenu = data.menus.find(menu => menu.date === todaysDate);
+    res.status(200).json({ data: todaysMenu, success: true })
+      .end();
+    /* const todaysMenuIndex = data.menus.findIndex(menu => menu.date === todaysDate);
     if (todaysMenuIndex !== -1) {
       const todaysMenu = data.menus.find(menu => menu.date === todaysDate);
       res.json({ data: todaysMenu, success: true })
         .end();
     } else {
-      res.status(404).json({ msg: 'menu not set for the day' })
+      res.status(404).json({ msg: 'menu not been set for the day' })
         .end();
-    }
+    } */
   }
 }
 

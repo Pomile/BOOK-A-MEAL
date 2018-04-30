@@ -19,21 +19,6 @@ app.use(bodyParser.raw({ type: '*/octet-stream' }));
 app.use('/api/v1/users', openRoutes);
 app.use('/api/v1/auth', securedRoutes);
 
-app.use((err, req, res, next) => {
-  if (err.status === 404) {
-    res.status(404).send('Not Found');
-  }
-  next();
-});
-
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('Something broke!');
-});
-
-app.all('*', (req, res) => {
-  res.send('Page Not Found');
-});
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
