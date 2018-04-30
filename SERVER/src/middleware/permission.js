@@ -7,7 +7,7 @@ const permit = (...permited) => (req, res, next) => {
   if (authorized === 'true' && permited.indexOf(userRole) !== -1) {
     next();
   } else {
-    res.status(403).json({ message: 'access deined' });
+    res.status(403).json({ message: 'access denied' });
   }
 };
 
