@@ -36,3 +36,5 @@ The admin user can assign the following roles:
 A caterer can set menu for the day, add a meal, remove a meal, update a meal , view ordered history, view total money made for the day.
 A superuser leverage on the priviledges of a caterer and can also delete a user, freeze user account.
 Admin user can perform all of the above and assign priviledges to users.
+
+https://coveralls.io/repos/github/Pomile/BOOK-A-MEAL/badge.svg?branch=user_signup_and_signin-API(Coverage Status)!:https://coveralls.io/github/Pomile/BOOK-A-MEAL?branch=user_signup_and_signin-API
