@@ -7,13 +7,16 @@
     "require": [
       "babel-register"
     ],
-    "include": "src/",
+    "include": [
+      "src/",
+      "spec/"
+    ],
     "sourceMap": false,
     "instrument": false
   },
   "scripts": {
     "start": "nodemon --watch . --exec npm run babel ./server.js",
-    "test": "nodemon --watch . --exec nyc mocha  --compilers js:babel-core/register --recursive ./specs/test.js --exit",
+    "test": "nodemon --watch . --exec cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text mocha  --compilers js:babel-core/register --recursive ./specs/test.js --exit",
     "babel": "./node_modules/.bin/babel-node"
   },
   "author": "Babatunde Ogedengbe",
@@ -34,6 +37,7 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "chai": "^4.1.2",
+    "coveralls": "^3.0.0",
     "cross-env": "^5.1.4",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
