@@ -8,12 +8,12 @@ class OrderGetter {
         return order;
       }
       return null;
-    }).filter(item => item !== null);
-
-    if (findOrdersByCustomerName) {
+    });
+    const customerOrders = findOrdersByCustomerName.filter(item => item !== null);
+    if (customerOrders.length > 0) {
       res.status(200).json({ success: true, data: findOrdersByCustomerName });
     } else {
-      res.status(404).json({ msg: 'Order history cannot be found' });
+      res.status(404).json({ msg: 'Order history cannot be found', success: false });
     }
   }
 }
