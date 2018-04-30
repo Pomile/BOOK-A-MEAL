@@ -335,9 +335,6 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
           done();
         });
     });
-  });
-
-  describe('Set menu for the day', () => {
     it('should setup menu by selecting meals from available options', (done) => {
       request(app)
         .post('/api/v1/auth/menus')
@@ -346,6 +343,18 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         .end((err, res) => {
           expect(res.status).to.equal(201);
           expect(res.body.success).to.equal(true);
+          done();
+        });
+    });
+
+    it('should not set menu if no meal is selected', (done) => {
+      request(app)
+        .post('/api/v1/auth/menus')
+        .set({ authorization: `${isAuthentic}`, user: `${userId}` })
+        .send({ meals: [0] })
+        .end((err, res) => {
+          expect(res.status).to.equal(409);
+          expect(res.body.success).to.equal(false);
           done();
         });
     });
