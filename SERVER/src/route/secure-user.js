@@ -8,7 +8,7 @@ import MenuCreator from '../controller/menu-creator';
 import MenuGetter from '../controller/menu-getter';
 
 import permit from '../middleware/permission';
-import { verifyUser } from '../middleware/verification';
+// import { verifyUser } from '../middleware/verification';
 
 const securedRouter = express.Router();
 

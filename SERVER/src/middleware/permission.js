@@ -1,14 +1,13 @@
 import { data } from '../db/data';
 
 const permit = (...permited) => (req, res, next) => {
-  console.log(req.headers.user);
   const userData = data.users.find(user => user.id === Number(req.headers.user));
   const userRole = userData.role;
   const authorized = req.headers.authorization;
   if (authorized === 'true' && permited.indexOf(userRole) !== -1) {
     next();
   } else {
-    res.status(403).json({ message: 'access deined' });
+    res.status(403).json({ message: 'access denied' });
   }
 };
 
