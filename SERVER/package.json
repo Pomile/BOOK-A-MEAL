@@ -8,8 +8,8 @@
       "babel-register"
     ],
     "include": [
-      "src/",
-      "specs/"
+      "specs/",
+      "src/"
     ],
     "sourceMap": false,
     "instrument": false
