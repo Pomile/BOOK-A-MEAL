@@ -6,10 +6,6 @@ import userAuth from '../controller/user-auth';
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.send('You are Welcome. Please Book a Meal');
-});
-
 router.post(
   '/',
   userValidator,
