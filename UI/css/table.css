@@ -1,0 +1,38 @@
+.manage-menu, .order-summary, .order-details {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.manage-menu th, td {
+    text-align: left;
+    padding: 8px;
+}
+.manage-menu tr {
+    cursor: pointer;
+}
+
+.manage-menu tr:hover {
+    background-color: #f7795a;
+}
+
+.order-summary th, td {
+    text-align: left;
+    padding: 8px;
+}
+.order-summary tr {
+    cursor: pointer;
+}
+
+.order-summary tr:hover,
+.order-summary tr:active,
+.order-summary tr.active {
+    background-color: #f7795a;
+}
+
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+    background-color: red;
+    color: white;
+}

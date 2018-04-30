@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dashboard</title>
+    <link rel="shortcut icon" href="./images/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="./css/styles.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="./css/form.css" media="screen,projection" />
+
+    <style>
+        .tools {
+            height: 100px;
+            margin-top: 70px;
+            display: flex;
+        }
+
+        .tools .tool a:hover,
+        .tools .tool a:active,
+        .tools .tool a.active {
+            background-color: rgb(0, 0, 0, 0.3)!important;
+        }
+
+        .tool {
+            width: 100px;
+            margin-left: 10px;
+            margin-top: 15px;
+        }
+
+        .tool:last-child {
+            margin-left: auto;
+        }
+
+        main {
+            background-image: url("./images/delicious-admin.jpg");
+            background-repeat: no-repeat;
+        }
+
+        .clip {
+            border-radius: 35px;
+            background-color: orange;
+            width: 150px;
+            height: 40px;
+            margin-top: 10px;
+        }
+
+        .greetings-clip {
+            width: 110px;
+            height: 39px;
+            color: white;
+            float: left;
+            font-size: 1.2em;
+            text-align: center;
+            padding-top: 10px;
+        }
+
+        .picture-clip {
+            height: 39px;
+            width: 40px;
+            border-radius: 35px;
+            background-color: white;
+            float: left;
+        }
+
+        .tool-tabs {
+            height: 700px;
+            background-color: red;
+        }
+
+        .tool-icon {
+            width: 72px;
+
+        }
+
+        .arrow-up {
+            display: none;
+        }
+
+        .tool-title {
+            color: white;
+            text-align: center;
+            font-weight: 200;
+            width: 72px;
+        }
+
+        .tool-drop {
+            padding-top: 15px;
+            cursor: pointer;
+
+        }
+
+        .add-tool:hover,
+        .add-tool:active,
+        .add-tool.active {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .remove-tool:hover,
+        .remove-tool:active,
+        .remove-tool.active {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .update-tool:hover,
+        .update-tool:active,
+        .update-tool.active {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .active-arrow-up {
+            display: block;
+        }
+
+        .btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 30px;
+            background-color: red;
+            position: absolute;
+            z-index: 110;
+            right: 0;
+            bottom: 0;
+            padding-top: 8px;
+        }
+
+        .meal-picture {
+            height: 150px;
+            width: 150px;
+            background-color: rgb(250, 60, 35);
+            background-image: url("./images/add_mea_150.png");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .form-elements {
+            background-color: rgb(212, 14, 14);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="header">
+            <div class="drawer hide-on-large-only" onclick="opennav()">
+                <div class="menu-stroke" style="margin-top: 4px"></div>
+                <div class="menu-stroke"></div>
+                <div class="menu-stroke" style="margin-bottom: 4px"></div>
+            </div>
+            <!--Logo-->
+            <div class="logo">
+                <a>
+                    <img src="./images/logo.png" />
+                </a>
+            </div>
+            <!--Navgation-->
+            <ul class="linkItems hide-on-medium-and-down">
+                <li class="linkItem">
+                    <a href="./userindex.html" style="width: 90px;">Home</a>
+                </li>
+                <li class="linkItem">
+                    <a href="./orders.html" style="width: 90px;">Orders</a>
+                </li>
+                <li class="linkItem">
+                    <a href="#dashboard" class="active" style="width: 90px; border-left: 1px solid #ff9980;">Dashboard</a>
+                </li>
+                <li class="linkItem">
+                    <div class="clip" onclick="toggle('dropdown-content')">
+                        <div class="greetings-clip">Welcome</div>
+                        <img class="picture-clip" src="./images/admin.jpg" />
+                    </div>
+                    <ul class="dropdown-content" id="dropdown-content">
+                        <li class="dropdown-linkItem">
+                            <a href="./profile.html" style="width: 90px;">Profile</a>
+                        </li>
+                        <li class="dropdown-linkItem">
+                            <a href="./index.html" style="width: 90px;">Logout</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="backdrop hide-on-large-only" id="backdrop" onclick="closenav()" style="width:100%;">
+
+        </div>
+        <!-- Side navigation -->
+        <nav class="sidenav close" id="sidenav">
+            <div class="s-12 m-12 side-nav-logo">
+
+                <a>
+                    <img src="./images/admin.jpg" style="border-radius: 50%;" />
+                </a>
+
+            </div>
+            <ul class="sideItems">
+                <li class="sideItem s-12 m-12">
+                    <a class="side-link" href="./userindex.html">Home</a>
+                </li>
+                <li class="sideItem s-12 m-12">
+                    <a class="side-link" href="./admin.html">Dashboard</a>
+                </li>
+                <li class="sideItem s-12 m-12">
+                    <a class="side-link" href="./signup.html">Orders</a>
+                </li>
+                <li class="sideItem s-12 m-12">
+                    <a class="side-link" href="./index.html">Sign out</a>
+                </li>
+            </ul>
+        </nav>
+
+    </header>
+    <main style="height: 700px; position: relative" class="mo-main-h">
+        <!-- Page Caption -->
+        <div class="tools transbox s-12">
+            <a href="#meal" class="tool active" onmouseover="" onmouseout="" id="meal">
+                <div class="">
+                    <center>
+                        <div class="tool-icon">
+                            <img src="./images/meal.png">
+                        </div>
+                        <div class="arrow-up active-arrow-up" id="meal-arrowup">
+                            <img src="./images/arrow_up.png">
+                        </div>
+                    </center>
+                </div>
+            </a>
+
+            <a href="./menu.html" class="tool" onmouseover="displayArrowUp('menu-arrowup')" onmouseout="hideArrowUp('menu-arrowup')"
+                id="menu">
+                <div>
+                    <center>
+                        <div class="tool-icon">
+                            <img src="./images/set_menu_52.png">
+                        </div>
+                        <div class="active arrow-up" id="menu-arrowup">
+                            <img src="./images/arrow_up.png">
+                        </div>
+                    </center>
+                </div>
+            </a>
+            <a class="tool" onmouseover="displayArrowUp('admin-arrowup')" onmouseout="hideArrowUp('admin-arrowup')" id="admin">
+                <div>
+                    <center>
+                        <div class="tool-icon">
+                            <img src="./images/admin.png">
+                        </div>
+                        <div class="active arrow-up" id="admin-arrowup">
+                            <img src="./images/arrow_up.png">
+                        </div>
+                    </center>
+                </div>
+            </a>
+            <a class="tool">
+                <div class="tool hide-on-small-only">
+                    <div class="white" style="font-size: 42px">Meal</div>
+                </div>
+            </a>
+        </div>
+        <div class="s-12 flex-box" style="flex-flow: wrap">
+            <div class="tool-tabs s-12 m-12 l-1">
+                <div class="transbox flex-box flex-column-driection" style="height: 100%; width: 90%; margin-left: 5%;">
+                    <div class=" tool-drop add-tool active" onclick="displayTabBox('add-meal-content', this.id)" id=1>
+                        <center>
+                            <img src="./images/add_meal.png">
+                            <div class="white">Add meal</div>
+                        </center>
+                    </div>
+                    <div class="tool-drop remove-tool" onclick="displayTabBox('remove-meal-content', this.id)" id=2>
+                        <center>
+                            <img src="./images/remove_meal.png">
+                            <div class="white">remove meal</div>
+                        </center>
+
+                    </div>
+                    <div class="tool-drop update-tool" onclick="displayTabBox('update-meal-content', this.id)" id=3>
+                        <center>
+                            <img src="./images/update_meal.png">
+                            <div class="white">Update meal</div>
+                        </center>
+                    </div>
+                </div>
+
+            </div>
+            <div class="tools-content s-12 m-12 l-11" style="background-color: white; height: auto;">
+
+
+                <div class="mealtabs s-12 m-12 l-8" id="add-meal-content">
+                    <div>
+                        <h2 style="color: gray; padding-left: 30px;">Add Meal</h2>
+                    </div>
+                    <div class="form-holder" style="background-color: rgb(145, 5, 5); margin-left: 25px;">
+                        <form>
+                            <div class="flex-box" style="flex-flow: wrap; justify-content: space-around; padding-top: 10px">
+                                <div class="picture-holder s-12 m-4 l-3">
+                                    <div class="meal-picture">
+
+                                    </div>
+                                    <input type="file" onchange="readURL(this);" name="image" />
+                                </div>
+                                <div class="form-elements s-12 m-8 l-8">
+                                    <div>
+                                        <input type="text" placeholder="name" name="name" />
+                                    </div>
+                                    <div>
+                                        <input type="text" placeholder="price" name="price" />
+                                    </div>
+                                    <div>
+                                        <select id="meal-category" name="meal-category" style="height: 50px" placeholder="Category">
+                                            <option value="">--Category--</option>
+                                            <option value="breakfast">Breakfast</option>
+                                            <option value="lunch">Lunch</option>
+                                            <option value="dinner">Dinner</option>
+                                            <option value="super">Super</option>
+                                            <option value="super">All</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <textarea name="message" rows="10" cols="70" style="height: 200px" placeholder="Description">
+                                                        Meal description.
+                                                </textarea>
+                                    </div>
+                                    <div>
+                                        <input type="button" value="Submit" onclick="getFeedBack('add')" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </form>
+                    </div>
+
+                </div>
+                <div class="mealtabs" id="remove-meal-content">
+                    <h2 style="color: gray; padding-left: 30px;">Remove Meal</h2>
+                    <div class="s-12 flex-box" style="justify-content:space-between; flex-flow:wrap;">
+                        <div class="s-12 m-6 l-5">
+                            <input type="search" placeholder="search meal" style="" />
+                        </div>
+                        <div class="menu-category s-12 m-6 l-4">
+                            <select id="meal-category" name="meal-category" style="height: 50px">
+                                <option value="">--Category--</option>
+                                <option value="breakfast">Breakfast</option>
+                                <option value="lunch">Lunch</option>
+                                <option value="dinner">Dinner</option>
+                                <option value="super">Super</option>
+                                <option value="super">All</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="menu-list s-12">
+                        <div class="meal boxshadow" id=1 onclick="getFeedBack('remove')">
+                            <div class="meal-image">
+                                <img src="./images/Dark_Cherry_Smoothie.jpg" width="200px" height="170px" />
+                            </div>
+                            <div class="meal-tag" style="height: 30px; top: 0!important">
+                                <div class=" fs-16 text-align-center white name">Cherry Smoothy</div>
+                            </div>
+                            <div class="btn">
+                                <center>
+                                    <img src="./images/removebtn.png">
+                                </center>
+                            </div>
+                        </div>
+                        <div class="meal boxshadow" id=2 onclick="getFeedBack('remove')">
+                            <div class="meal-image">
+                                <img src="./images/sandwich_cheese.jpg" width="200px" height="170px" />
+                            </div>
+                            <div class="meal-tag" style="height: 30px; top: 0!important">
+                                <div class=" fs-16 text-align-center white">Sandwich Cheese</div>
+                            </div>
+                            <div class="btn">
+                                <center>
+                                    <img src="./images/removebtn.png">
+                                </center>
+                            </div>
+                        </div>
+                        <div class="meal boxshadow" id=3 onclick="getFeedBack('remove')">
+                            <div class="meal-image">
+                                <img src="./images/fish-chip.jpg" width="200px" height="170px" />
+                            </div>
+                            <div class="meal-tag" style="height: 30px; top: 0!important">
+
+                                <div class=" fs-16 text-align-center white flow-text">Fish Chips</div>
+                            </div>
+                            <div class="btn">
+                                <center>
+                                    <img src="./images/removebtn.png">
+                                </center>
+                            </div>
+                        </div>
+                        <div class="meal boxshadow" id=4 onclick="getFeedBack('remove')">
+                            <div class="meal-image">
+                                <img src="./images/amala-yahoo.jpg" width="200px" height="170px" />
+                            </div>
+                            <div class="meal-tag" style="height: 30px; top: 0!important">
+
+                                <div class=" fs-16 text-align-center white flow-text">Amala with assorted</div>
+                            </div>
+                            <div class="btn">
+                                <center>
+                                    <img src="./images/removebtn.png">
+                                </center>
+                            </div>
+                        </div>
+                        <div class="meal boxshadow" id=5 onclick="getFeedBack('remove')">
+                            <div class="meal-image">
+                                <img src="./images/pastal.jpg" width="200px" height="170px" />
+                            </div>
+                            <div class="meal-tag" style="height: 30px; top: 0!important">
+
+                                <div class=" fs-16 text-align-center white flow-text">Pastal Beef</div>
+                            </div>
+                            <div class="btn">
+                                <center>
+                                    <img src="./images/removebtn.png">
+                                </center>
+                            </div>
+                        </div>
+                        <div class="meal boxshadow" id=6 onclick="getFeedBack('remove')">
+                            <div class="meal-image">
+                                <img src="./images/oha_soup.jpg" width="200px" height="170px" />
+                            </div>
+                            <div class="meal-tag" style="height: 30px; top: 0!important">
+
+                                <div class=" fs-16 text-align-center white flow-text">Oha soup</div>
+                            </div>
+                            <div class="btn">
+                                <center>
+                                    <img src="./images/removebtn.png">
+                                </center>
+                            </div>
+                        </div>
+                        <div class="meal boxshadow" id=7 onclick="getFeedBack('remove')">
+                            <div class="meal-image">
+                                <img src="./images/yummy_food_35.jpg" width="200px" height="170px" />
+                            </div>
+                            <div class="meal-tag" style="height: 30px; top: 0!important">
+
+                                <div class=" fs-16 text-align-center white flow-text">Amala with assorted</div>
+                            </div>
+                            <div class="btn">
+                                <center>
+                                    <img src="./images/removebtn.png">
+                                </center>
+                            </div>
+                        </div>
+                        <div class="meal boxshadow" id=8 onclick="getFeedBack('remove')">
+                            <div class="meal-image">
+                                <img src="./images/pastal_beef.jpg" width="200px" height="170px" />
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <div class="mealtabs" id="update-meal-content">
+                    <h2 style="color: gray; padding-left: 30px;">Modify Meal</h2>
+                    <div class="s-12 flex-box" style="justify-content:space-between; flex-flow:wrap;">
+                        <div class="s-12 m-6 l-5">
+                            <input type="search" placeholder="search meal" style="" />
+                        </div>
+                        <div class="menu-category s-12 m-6 l-4">
+                            <select id="meal-category" name="meal-category" style="height: 50px">
+                                <option value="">--Category--</option>
+                                <option value="breakfast">Breakfast</option>
+                                <option value="lunch">Lunch</option>
+                                <option value="dinner">Dinner</option>
+                                <option value="super">Super</option>
+                                <option value="super">All</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="menu-list s-12">
+                        <div class="meal boxshadow" id=1 onclick="showModal('modal')">
+                            <div class="meal-image">
+                                <img src="./images/Dark_Cherry_Smoothie.jpg" width="200px" height="170px" />
+                            </div>
+                            <div class="meal-tag" style="height: 30px; top: 0!important">
+                                <div class=" fs-16 text-align-center white name">Cherry Smoothy</div>
+                            </div>
+                            <div class="btn">
+                                <center>
+                                    <img src="./images/updatebtn.png">
+                                </center>
+                            </div>
+                        </div>
+                        <div class="meal boxshadow" id=2 onclick="showModal('modal')">
+                            <div class="meal-image">
+                                <img src="./images/sandwich_cheese.jpg" width="200px" height="170px" />
+                            </div>
+                            <div class="meal-tag" style="height: 30px; top: 0!important">
+                                <div class=" fs-16 text-align-center white">Sandwich Cheese</div>
+                            </div>
+                            <div class="btn">
+                                <center>
+                                    <img src="./images/updatebtn.png">
+                                </center>
+                            </div>
+                        </div>
+                        <div class="meal boxshadow" id=3 onclick="showModal('modal')">
+                            <div class="meal-image">
+                                <img src="./images/fish-chip.jpg" width="200px" height="170px" />
+                            </div>
+                            <div class="meal-tag" style="height: 30px; top: 0!important">
+
+                                <div class=" fs-16 text-align-center white flow-text">Fish Chips</div>
+                            </div>
+                            <div class="btn">
+                                <center>
+                                    <img src="./images/updatebtn.png">
+                                </center>
+                            </div>
+                        </div>
+                        <div class="meal boxshadow" id=4 onclick="showModal('modal')">
+                            <div class="meal-image">
+                                <img src="./images/amala-yahoo.jpg" width="200px" height="170px" />
+                            </div>
+                            <div class="meal-tag" style="height: 30px; top: 0!important">
+
+                                <div class=" fs-16 text-align-center white flow-text">Amala with assorted</div>
+                            </div>
+                            <div class="btn">
+                                <center>
+                                    <img src="./images/updatebtn.png">
+                                </center>
+                            </div>
+                        </div>
+                        <div class="meal boxshadow" id=5 onclick="showModal('modal')">
+                            <div class="meal-image">
+                                <img src="./images/pastal.jpg" width="200px" height="170px" />
+                            </div>
+                            <div class="meal-tag" style="height: 30px; top: 0!important">
+
+                                <div class=" fs-16 text-align-center white flow-text">Pastal Beef</div>
+                            </div>
+                            <div class="btn">
+                                <center>
+                                    <img src="./images/updatebtn.png">
+                                </center>
+                            </div>
+                        </div>
+                        <div class="meal boxshadow" id=6 onclick="showModal('modal')">
+                            <div class="meal-image">
+                                <img src="./images/oha_soup.jpg" width="200px" height="170px" />
+                            </div>
+                            <div class="meal-tag" style="height: 30px; top: 0!important">
+
+                                <div class=" fs-16 text-align-center white flow-text">Oha soup</div>
+                            </div>
+                            <div class="btn">
+                                <center>
+                                    <img src="./images/updatebtn.png">
+                                </center>
+                            </div>
+                        </div>
+                        <div class="meal boxshadow" id=7 onclick="showModal('modal')">
+                            <div class="meal-image">
+                                <img src="./images/yummy_food_35.jpg" width="200px" height="170px" />
+                            </div>
+                            <div class="meal-tag" style="height: 30px; top: 0!important">
+
+                                <div class=" fs-16 text-align-center white flow-text">Amala with assorted</div>
+                            </div>
+                            <div class="btn">
+                                <center>
+                                    <img src="./images/updatebtn.png">
+                                </center>
+                            </div>
+                        </div>
+                        <div class="meal boxshadow" id=8 onclick="showModal('modal')">
+                            <div class="meal-image">
+                                <img src="./images/pastal_beef.jpg" width="200px" height="170px" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="backdrop" id="meal-backdrop" onclick="closeBackdrop('modal')" style="width:100%;">
+            <center>
+                <h1 style="color: white; margin-top: 25%;" id="action-message"></h1>
+            </center>
+        </div>
+
+        <div class="backdrop s-12 l-12" id="modal" style="padding-top: 100px">
+
+            <span class="close" onclick="closeModal('modal')">&times;</span>
+            <div></div>
+            <div class="form-holder" style="background-color: rgb(145, 5, 5); margin-left: 25px;">
+                <form>
+                    <div class="flex-box" style="flex-flow: wrap; justify-content: space-around">
+                        <div class="picture-holder s-12 m-4 l-3">
+                            <div class="meal-picture">
+                                <img src="./images/Dark_Cherry_Smoothie.jpg" width="150px" height="150px" />
+                            </div>
+                            <input type="file" onchange="readURL(this);" name="image" />
+                        </div>
+                        <div class="form-elements s-12 m-8 l-8">
+                            <div>
+                                <input type="text" placeholder="name" name="name" value="cherry smoothies" />
+                            </div>
+                            <div>
+                                <input type="text" placeholder="price" name="price" value="N3400" />
+                            </div>
+                            <div>
+                                <select id="meal-category" name="meal-category" style="height: 50px" placeholder="Category">
+
+                                    <option value="breakfast">Breakfast</option>
+                                    <option value="lunch">Lunch</option>
+                                    <option value="dinner">Dinner</option>
+                                    <option value="super">Super</option>
+                                    <option value="super">All</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <textarea name="message" rows="10" cols="70" style="height: 150px" placeholder="Description">
+                                                        Meal description.
+                                                </textarea>
+                            </div>
+                            <div>
+                                <input type="button" value="Save" onclick="getFeedBack('modify'), closeModal('modal')" />
+                            </div>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+
+        </div>
+        </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="s-12" style="">
+        <h5 class="white text-align-center">Babatunde@andelabootcamp</h5>
+    </footer>
+    <script type="text/javascript" src="./js/script.js"></script>
+</body>
+
+</html>

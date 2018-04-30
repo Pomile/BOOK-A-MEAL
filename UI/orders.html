@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Orders</title>
+    <link rel="shortcut icon" href="./images/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="./css/styles.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="./css/form.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="./css/table.css" media="screen,projection" />
+
+    <style>
+        .page-title {
+            height: 100px;
+            margin-top: 70px;
+
+        }
+
+
+
+        .titledfddgd {
+            width: 100px;
+
+        }
+
+
+        main {
+            background-image: url("./images/delicious-admin.jpg");
+            background-repeat: no-repeat;
+        }
+
+        .clip {
+            border-radius: 35px;
+            background-color: orange;
+            width: 150px;
+            height: 40px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .greetings-clip {
+            width: 110px;
+            height: 39px;
+            color: white;
+            float: left;
+            font-size: 1.2em;
+            text-align: center;
+            padding-top: 10px;
+        }
+
+        .picture-clip {
+            height: 39px;
+            width: 40px;
+            border-radius: 35px;
+            background-color: white;
+            float: left;
+        }
+
+        .title {
+            color: white;
+            font-weight: 200;
+            padding-left: 30px;
+            padding-top: 30px;
+            text-align: justify;
+        }
+
+        .btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 30px;
+            background-color: red;
+            position: absolute;
+            z-index: 110;
+            right: 0;
+            bottom: 0;
+            padding-top: 8px;
+        }
+
+
+        .form-elements {
+            background-color: rgb(212, 14, 14);
+        }
+    </style>
+</head>
+
+<body id="menu-page">
+    <!-- Header -->
+    <header>
+        <nav class="header">
+            <div class="drawer hide-on-large-only" onclick="opennav()">
+                <div class="menu-stroke" style="margin-top: 4px"></div>
+                <div class="menu-stroke"></div>
+                <div class="menu-stroke" style="margin-bottom: 4px"></div>
+            </div>
+            <!--Logo-->
+            <div class="logo">
+                <a>
+                    <img src="./images/logo.png" />
+                </a>
+            </div>
+            <!--Navgation-->
+            <ul class="linkItems hide-on-medium-and-down">
+                <li class="linkItem">
+                    <a href="./userindex.html" style="width: 90px;">Home</a>
+                </li>
+                <li class="linkItem">
+                    <a href="./orders.html" style="width: 90px;">Orders</a>
+                </li>
+                <li class="linkItem">
+                    <a href="./admin.html" class="active" style="width: 90px; border-left: 1px solid #ff9980;">Dashboard</a>
+                </li>
+                <li class="linkItem">
+                    <div class="clip" onclick="toggle('dropdown-content')">
+                        <div class="greetings-clip">Welcome</div>
+                        <img class="picture-clip" src="./images/admin.jpg" />
+                    </div>
+                    <ul class="dropdown-content" id="dropdown-content">
+                        <li class="dropdown-linkItem">
+                            <a href="#./profile.html" style="width: 90px;">Profile</a>
+                        </li>
+                        <li class="dropdown-linkItem">
+                            <a href="./index.html" style="width: 90px;">Logout</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="backdrop hide-on-large-only" id="backdrop" onclick="closenav()" style="width:100%;">
+
+        </div>
+        <!-- Side navgation -->
+        <nav class="sidenav close" id="sidenav">
+            <div class="s-12 m-12 side-nav-logo">
+
+                <a>
+                    <img src="./images/admin.jpg" style="border-radius: 50%;" />
+                </a>
+
+            </div>
+            <ul class="sideItems">
+                <li class="sideItem s-12 m-12">
+                    <a class="side-link" href="./profile.html">Profile</a>
+                </li>
+                <li class="sideItem s-12 m-12">
+                    <a class="side-link" href="./index.html">Home</a>
+                </li>
+                <li class="sideItem s-12 m-12">
+                    <a class="side-link" href="./admin.html">Dashboard</a>
+                </li>
+                <li class="sideItem s-12 m-12">
+                    <a class="side-link" href="./menu.html">Menu</a>
+                </li>
+                <li class="sideItem s-12 m-12">
+                    <a class="side-link" href="./orders.html">Orders</a>
+                </li>
+            </ul>
+        </nav>
+
+    </header>
+    <main class="s-12" style="height: 1000px; position: relative;" class="mo-main-h">
+        <div class="page-title transbox s-12">
+            <div class="title white" style="font-size: 42px">
+                Order History
+            </div>
+        </div>
+        <div class="s-12 flex-box" style="background-color: white; height: auto; justify-content: space-around; flex-flow: wrap;">
+            <div class="s-12 m-5 l-4" style="height: 500px;">
+                <h2 style="color: gray;">Order Summary</h2>
+                <div class="s-12" style="margin-bottom: 20px;">
+                    <form class="s-12">
+                        <div class="s-12 m-8 l-9">
+                            <input type="date" name="orderDate" style="margin-left: 0%!important;" />
+                        </div>
+                        <div class="s-12 m-4 l-3">
+                            <input type="button" value="Go" name="orderDate" style="margin-left: 0%!important;" />
+                        </div>
+                    </form>
+                </div>
+
+                <table class="order-summary">
+                    <tr>
+                        <th>ORDER ID</th>
+                        <th>User</th>
+                        <th>Price(Naira)</th>
+                    </tr>
+
+                    <tr class="active">
+                        <td>1</td>
+                        <td>Alex</td>
+                        <td>3000</td>
+                    </tr>
+
+                    <tr>
+                        <td>2</td>
+                        <td>Ola</td>
+                        <td>5000</td>
+                    </tr>
+
+                    <tr>
+                        <td>3</td>
+                        <td>Benjamin</td>
+                        <td>3500</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Taju</td>
+                        <td>3300</td>
+                    </tr>
+
+                </table>
+                <table>
+                    <tr>
+                        <td>Total</td>
+                        <td>50,060.00 Naira</td>
+                    </tr>
+                </table>
+                <center>
+                    <ul class="pagination">
+                        <li>
+                            <a href="#">«</a>
+                        </li>
+                        <li>
+                            <a href="#">1</a>
+                        </li>
+                        <li>
+                            <a class="active" href="#">2</a>
+                        </li>
+                    </ul>
+                </center>
+            </div>
+            <div class="s-12 m-7 l-7" style="height: 350px;">
+                <h2 style="color: gray">Order Detail</h2>
+                <table class="order-summary">
+
+                    <tr>
+                        <td>ID</td>
+                        <td>1</td>
+                    </tr>
+
+                    <tr>
+                        <td>user</td>
+                        <td>Alex</td>
+
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>soft-sky@live.co.uk</td>
+
+                    </tr>
+
+                    <tr>
+                        <td>Item(s)</td>
+                        <td style="">
+                            <tr>
+                                <td>Cherry Smoothies</td>
+                                <td>3800</td>
+                            </tr>
+                            <tr>
+
+                                <td>chicken and chips</td>
+                                <td>1200</td>
+
+                            </tr>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Total price</td>
+                        <td>6000</td>
+                    </tr>
+
+                    <tr>
+                        <td>Order Date</td>
+                        <td>4/17/2018</td>
+                    </tr>
+
+                </table>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="s-12" style="position: relative;">
+        <h5 class="white text-align-center">Babatunde@andelabootcamp</h5>
+    </footer>
+    <script type="text/javascript" src="./js/script.js"></script>
+</body>
+
+</html>
