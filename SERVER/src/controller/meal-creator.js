@@ -13,7 +13,7 @@ class MealCreator {
         id: mealId, name, description, price, category,
       });
     } else {
-      res.status(409).json({ msg: 'This meal already exist' });
+      res.status(409).json({ msg: 'This meal already exist' }).end();
     }
 
     const finalMealsCount = data.meals.length;

@@ -22,9 +22,11 @@ class UserCreator {
           success: true,
           user: userId,
           msg: 'users added successfully',
-        });
+        })
+        .end();
     } else {
-      res.status(409).json({ msg: 'user already existing' });
+      res.status(409).json({ msg: 'user already existing' })
+        .end();
     }
   }
 }

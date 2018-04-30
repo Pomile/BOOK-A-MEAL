@@ -10,9 +10,11 @@ class MenuGetter {
     const todaysMenuIndex = data.menus.findIndex(menu => menu.date === todaysDate);
     if (todaysMenuIndex !== -1) {
       const todaysMenu = data.menus.find(menu => menu.date === todaysDate);
-      res.json({ data: todaysMenu, success: true });
+      res.json({ data: todaysMenu, success: true })
+        .end();
     } else {
-      res.status(404).json({ msg: 'menu not set for the day' });
+      res.status(404).json({ msg: 'menu not set for the day' })
+        .end();
     }
   }
 }

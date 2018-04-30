@@ -8,6 +8,8 @@ import MenuCreator from '../controller/menu-creator';
 import MenuGetter from '../controller/menu-getter';
 
 import OrderMaker from '../controller/order-Maker';
+import OrderGetter from '../controller/order-getter';
+import OrdersGetter from '../controller/orders-getter';
 
 import permit from '../middleware/permission';
 import { verifyUser } from '../middleware/verification';
@@ -50,6 +52,13 @@ securedRouter.get(
   '/menu',
   verifyUser,
   MenuGetter.getTodaysMenu,
+
+);
+
+securedRouter.get(
+  '/orders',
+  permit('caterer', 'admin'),
+  OrdersGetter.getOrders,
 
 );
 

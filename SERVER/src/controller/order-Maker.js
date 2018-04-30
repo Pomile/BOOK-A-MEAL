@@ -24,7 +24,9 @@ class OrderMaker {
       price,
       date: todaysDate,
     });
-    res.status(201).json({ msg: `Thank you ${firstname}. you have ordered for ${name}`, success: true });
+    res.status(201)
+      .json({ msg: `Thank you ${firstname}. you have ordered for ${name}`, success: true })
+      .end();
   }
 }
 

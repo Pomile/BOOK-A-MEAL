@@ -444,4 +444,17 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
   });
+
+  describe('No Orders for Specified Date', () => {
+    it('should return false for a specific day', (done) => {
+      request(app)
+        .get('/api/v1/auth/orders?date=4/25/2017')
+        .set({ authorization: `${isAuthentic}`, user: `${userId}` })
+        .end((err, res) => {
+          expect(res.status).to.equal(404);
+          expect(res.body.success).to.equal(false);
+          done();
+        });
+    });
+  });
 });
