@@ -5,6 +5,10 @@ import app from '../server';
 
 const { describe, it } = mocha;
 const expect = chai.expect;
+let isAdminAuthentic;
+let adminId;
+let isCustomerAuthentic;
+let customerId;
 
 describe('BOOK-A-MEAL API TEST SUITE', () => {
   describe('Users can create an account and log in', () => {
@@ -67,7 +71,6 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
           done();
         });
     });
-
     it('should not create an account without firstname', (done) => {
       const userData = {
         firstname: '',
@@ -84,6 +87,72 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         .send(userData)
         .end((err, res) => {
           expect(res.status).to.equal(422);
+          done();
+        });
+    });
+    it('User should be able to log in as a caterer', (done) => {
+      const userData = {
+        username: 'softsky@live.com',
+        password: 'testing123',
+      };
+      request(app)
+        .post('/api/v1/users/auth')
+        .set('Accept', 'application/json')
+        .send(userData)
+        .end((err, res) => {
+          adminId = res.body.user;
+          isAdminAuthentic = res.body.isAuth;
+          expect(res.body.msg).to.equal('user logged in sucessfully');
+          done();
+        });
+    });
+
+    it('User should be able to log in as a customer', (done) => {
+      const userData = {
+        username: 'bola.kudi@live.com',
+        password: 'moneyspeaking123',
+      };
+      request(app)
+        .post('/api/v1/users/auth')
+        .set('Accept', 'application/json')
+        .send(userData)
+        .end((err, res) => {
+          customerId = res.body.user;
+          isCustomerAuthentic = res.body.isAuth;
+          expect(res.body.msg).to.equal('user logged in sucessfully');
+          done();
+        });
+    });
+
+    it('should return invalid password if password provided is not authentic ', (done) => {
+      const userData = {
+        username: 'softsky@live.com',
+        password: 'testing',
+      };
+      request(app)
+        .post('/api/v1/users/auth')
+        .set('Accept', 'application/json')
+        .send(userData)
+        .end((err, res) => {
+          expect(res.status).to.equal(401);
+          expect(res.body.msg).to.equal('invalid password');
+          done();
+        });
+    });
+
+
+    it('should return user not found if email is incorrect', (done) => {
+      const userData = {
+        username: 'soft@live.com',
+        password: 'testing123',
+      };
+      request(app)
+        .post('/api/v1/users/auth')
+        .set('Accept', 'application/json')
+        .send(userData)
+        .end((err, res) => {
+          expect(res.status).to.equal(404);
+          expect(res.body.msg).to.equal('user not found');
           done();
         });
     });

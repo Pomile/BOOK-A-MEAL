@@ -1,11 +1,11 @@
 import express from 'express';
-import { userValidator, validationApi } from '../middleware/validation';
+import { userValidator, validationApi, validateUserCrediential } from '../middleware/validation';
 import passwordEncryption from '../middleware/encryption';
 import User from '../controller/user';
 
-const router = express.Router();
+const openRoutes = express.Router();
 
-router.post(
+openRoutes.post(
   '/',
   userValidator,
   validationApi,
@@ -13,4 +13,11 @@ router.post(
   User.addUser,
 );
 
-export default router;
+openRoutes.post(
+  '/auth',
+  validateUserCrediential,
+  User.authenticate,
+);
+
+
+export default openRoutes;
