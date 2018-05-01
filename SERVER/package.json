@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "nodemon --watch . --exec npm run babel ./server.js",
-    "test": "nodemon --watch . --exec cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text mocha  --compilers js:babel-core/register --recursive ./test/test.js --exit",
+    "test": "nodemon --watch . --exec cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text mocha  --compilers js:babel-core/register --recursive ./specs/test.js --exit",
     "babel": "./node_modules/.bin/babel-node"
   },
   "author": "Babatunde Ogedengbe",
