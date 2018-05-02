@@ -3,6 +3,7 @@ import Meal from '../controller/meal';
 import Menu from '../controller/menu';
 import permit from '../middleware/permission';
 import { sendMenuNotification } from '../middleware/notification';
+import { verifyUser } from '../middleware/verification';
 
 const securedRoutes = express.Router();
 
@@ -35,7 +36,12 @@ securedRoutes.post(
   permit('caterer', 'admin'),
   Menu.setMenu,
   sendMenuNotification,
+);
 
+securedRoutes.get(
+  '/menu',
+  verifyUser,
+  Menu.getTodaysMenu,
 
 );
 

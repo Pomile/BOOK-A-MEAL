@@ -343,4 +343,27 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
   });
+  describe('Customers Should Get Menu', () => {
+    it('Customers should be able to see menu for the day', (done) => {
+      request(app)
+        .get('/api/v1/auth/menu')
+        .set({ authorization: `${isCustomerAuthentic}`, user: `${customerId}` })
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.success).to.equal(true);
+          done();
+        });
+    });
+
+    it('should not return menu for the day if a customer is not authenticated', (done) => {
+      request(app)
+        .get('/api/v1/auth/menu')
+        .set({ authorization: `${isCustomerAuthentic = 'false'}`, user: `${customerId}` })
+        .end((err, res) => {
+          expect(res.status).to.equal(403);
+          expect(res.body.success).to.equal(false);
+          done();
+        });
+    });
+  });
 });

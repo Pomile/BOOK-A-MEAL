@@ -2,7 +2,6 @@ import nodemailer from 'nodemailer';
 
 exports.sendMenuNotification = (req, res) => {
   const menu = req.todaysMenu.meals;
-  console.log(menu);
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     host: 'smtp.gmail.com',
