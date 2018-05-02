@@ -56,7 +56,12 @@ securedRoutes.put(
   '/orders/:orderId',
   verifyUser,
   Order.modifyOrder,
+);
 
+securedRoutes.get(
+  '/:customerId/orders',
+  verifyUser,
+  Order.getCustomerOrdersByName,
 );
 
 
