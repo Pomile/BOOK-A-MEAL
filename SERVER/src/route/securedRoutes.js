@@ -43,7 +43,6 @@ securedRoutes.get(
   '/menu',
   verifyUser,
   Menu.getTodaysMenu,
-
 );
 
 securedRoutes.post(
@@ -56,7 +55,6 @@ securedRoutes.put(
   '/orders/:orderId',
   verifyUser,
   Order.modifyOrder,
-
 );
 
 
