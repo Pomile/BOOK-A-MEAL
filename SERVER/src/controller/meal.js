@@ -52,5 +52,9 @@ class Meal {
     data.meals.splice(mealIndex, 1);
     res.status(204).end();
   }
+  static getMeals(req, res) {
+    const mealList = data.meals;
+    res.json({ data: mealList, sucess: true });
+  }
 }
 export default Meal;

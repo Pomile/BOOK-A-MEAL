@@ -157,7 +157,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
   });
-  describe('Manage Meals Options', () => {
+  describe('Caterers Manage Meals Options', () => {
     it('Caterer should be able to add a meal', (done) => {
       const meal = {
         name: 'Fried Rice with Chicken',
@@ -303,6 +303,42 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         .send(meal)
         .end((err, res) => {
           expect(res.status).to.equal(403);
+          done();
+        });
+    });
+
+    it('Caterers should be able see a list of meals', (done) => {
+      request(app)
+        .get('/api/v1/auth/meals')
+        .set({ authorization: `${isAdminAuthentic}`, user: `${adminId}` })
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.sucess).to.equal(true);
+          done();
+        });
+    });
+  });
+  describe(' Caterers can Setup menu for a specific day', () => {
+    it('Caterer should be able to setup menu by selecting meals from available options', (done) => {
+      request(app)
+        .post('/api/v1/auth/menus')
+        .set({ authorization: `${isAdminAuthentic}`, user: `${adminId}` })
+        .send({ meals: [3, 2] })
+        .end((err, res) => {
+          expect(res.status).to.equal(201);
+          expect(res.body.success).to.equal(true);
+          done();
+        });
+    });
+
+    it('Caterer should not be able to set menu if no meal is selected', (done) => {
+      request(app)
+        .post('/api/v1/auth/menus')
+        .set({ authorization: `${isAdminAuthentic}`, user: `${adminId}` })
+        .send({ meals: [0] })
+        .end((err, res) => {
+          expect(res.status).to.equal(409);
+          expect(res.body.success).to.equal(false);
           done();
         });
     });
