@@ -390,33 +390,8 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
   });
-  describe('Customer Orders is Available', () => {
-    it('should return true if customer has orders', (done) => {
-      request(app)
-        .get(`/api/v1/auth/${customerId}/orders`)
-        .set({ authorization: `${isCustomerAuthentic}`, user: `${customerId}` })
-        .end((err, res) => {
-          expect(res.status).to.equal(200);
-          expect(res.body.success).to.equal(true);
-          done();
-        });
-    });
-  });
-
-  describe('Customer has no orders', () => {
-    it('should return false if no order(s) is found for a customer', (done) => {
-      request(app)
-        .get(`/api/v1/auth/${customerId}/orders`)
-        .set({ authorization: `${isAdminAuthentic}`, user: `${adminId}` })
-        .end((err, res) => {
-          expect(res.status).to.equal(404);
-          expect(res.body.success).to.equal(false);
-          done();
-        });
-    });
-  });
   describe('Authenticated users (customers) should be able to change their meal choice', () => {
-    it('A Customer should be able to Modify an order', (done) => {
+    it('should Modify an order', (done) => {
       request(app)
         .put('/api/v1/auth/orders/4')
         .set({ authorization: `${isCustomerAuthentic = 'true'}`, user: `${customerId}` })
@@ -433,7 +408,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
 
-    it('A Customer should not be able to  Modify an order', (done) => {
+    it('should not Modify an order', (done) => {
       request(app)
         .put('/api/v1/auth/orders/20')
         .set({ authorization: `${isCustomerAuthentic = 'true'}`, user: `${customerId}` })
