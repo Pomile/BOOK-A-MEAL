@@ -4,6 +4,7 @@ import Menu from '../controller/menu';
 import permit from '../middleware/permission';
 import { sendMenuNotification } from '../middleware/notification';
 import { verifyUser } from '../middleware/verification';
+import Order from '../controller/order';
 
 const securedRoutes = express.Router();
 
@@ -44,5 +45,12 @@ securedRoutes.get(
   Menu.getTodaysMenu,
 
 );
+
+securedRoutes.post(
+  '/orders',
+  verifyUser,
+  Order.makeOrder,
+);
+
 
 export default securedRoutes;

@@ -343,7 +343,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
   });
-  describe('Customers Should Get Menu', () => {
+  describe('Customers should Get Menu and make order', () => {
     it('Customers should be able to see menu for the day', (done) => {
       request(app)
         .get('/api/v1/auth/menu')
@@ -362,6 +362,30 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         .end((err, res) => {
           expect(res.status).to.equal(403);
           expect(res.body.success).to.equal(false);
+          done();
+        });
+    });
+
+    it('should make an order from the menu', (done) => {
+      request(app)
+        .post('/api/v1/auth/orders')
+        .set({ authorization: `${isCustomerAuthentic = 'true'}`, user: `${customerId}` })
+        .send({ mealId: 3 })
+        .end((err, res) => {
+          expect(res.status).to.equal(201);
+          expect(res.body.success).to.equal(true);
+          done();
+        });
+    });
+
+    it('should not make an order if selected meal is not available', (done) => {
+      request(app)
+        .post('/api/v1/auth/orders')
+        .set({ authorization: `${isCustomerAuthentic}`, user: `${customerId}` })
+        .send({ mealId: 2 })
+        .end((err, res) => {
+          expect(res.status).to.equal(404);
+          expect(res.body.msg).to.equal('This Meal is not available');
           done();
         });
     });
