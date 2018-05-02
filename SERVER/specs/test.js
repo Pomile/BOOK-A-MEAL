@@ -390,4 +390,39 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
   });
+  describe('Authenticated users (customers) should be able to change their meal choice', () => {
+    it('should Modify an order', (done) => {
+      request(app)
+        .put('/api/v1/auth/orders/4')
+        .set({ authorization: `${isCustomerAuthentic = 'true'}`, user: `${customerId}` })
+        .send({
+          username: 'bola.kudi@live.com',
+          price: 7000,
+          meal: 'Cat fish with vegetable',
+          date: '4/27/2018',
+        })
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.success).to.equal(true);
+          done();
+        });
+    });
+
+    it('should not Modify an order', (done) => {
+      request(app)
+        .put('/api/v1/auth/orders/20')
+        .set({ authorization: `${isCustomerAuthentic = 'true'}`, user: `${customerId}` })
+        .send({
+          username: 'bola.kudi@live.com',
+          price: 7000,
+          meal: 'Cat fish with vegetable',
+          date: '4/27/2018',
+        })
+        .end((err, res) => {
+          expect(res.status).to.equal(404);
+          expect(res.body.success).to.equal(false);
+          done();
+        });
+    });
+  });
 });

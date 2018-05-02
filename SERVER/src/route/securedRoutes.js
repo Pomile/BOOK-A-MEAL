@@ -52,5 +52,12 @@ securedRoutes.post(
   Order.makeOrder,
 );
 
+securedRoutes.put(
+  '/orders/:orderId',
+  verifyUser,
+  Order.modifyOrder,
+
+);
+
 
 export default securedRoutes;
