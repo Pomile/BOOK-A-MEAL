@@ -215,7 +215,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
           done();
         });
     });
-    it('should modify a meal', (done) => {
+    it('Caterer should be able to modify a meal', (done) => {
       const meal = {
         name: 'Fried Rice with Chicken',
         description: 'tasty rice and chicken which include carrot, green beans with salad',
@@ -234,7 +234,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
 
-    it('should not modify a meal that does not exist', (done) => {
+    it('Caterer should not be able to modify a meal that does not exist', (done) => {
       const meal = {
         name: 'Fried Rice with Chicken',
         description: 'tasty rice and chicken which include carrot, green beans with salad',
@@ -253,7 +253,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
 
-    it('should not modify a meal', (done) => {
+    it('Customer should not be able not to modify a meal', (done) => {
       const meal = {
         name: 'Fried Rice with Chicken',
         description: 'tasty rice and chicken which include carrot, green beans with salad',
@@ -268,6 +268,41 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         .end((err, res) => {
           expect(res.status).to.equal(403);
           expect(res.body.message).to.equal('access denied');
+          done();
+        });
+    });
+    it('caterer should be able to delete a meal', (done) => {
+      const meal = {
+        name: 'Fried Rice with Chicken',
+        description: 'tasty rice and chicken which include carrot, green beans with salad',
+        price: '1500',
+        category: 'Lunch',
+      };
+
+      request(app)
+        .delete('/api/v1/auth/meals/1')
+        .set({ authorization: `${isAdminAuthentic}`, user: `${adminId}` })
+        .send(meal)
+        .end((err, res) => {
+          expect(res.status).to.equal(204);
+          done();
+        });
+    });
+
+    it('Customer should not be able delete a meal', (done) => {
+      const meal = {
+        name: 'Fried Rice with Chicken',
+        description: 'tasty rice and chicken which include carrot, green beans with salad',
+        price: '1500',
+        category: 'Lunch',
+      };
+
+      request(app)
+        .delete('/api/v1/auth/meals/1')
+        .set({ authorization: `${isCustomerAuthentic}`, user: `${customerId}` })
+        .send(meal)
+        .end((err, res) => {
+          expect(res.status).to.equal(403);
           done();
         });
     });

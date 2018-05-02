@@ -16,4 +16,10 @@ securedRoutes.put(
   Meal.modifyMeal,
 );
 
+securedRoutes.delete(
+  '/meals/:mealId',
+  permit('caterer', 'admin'),
+  Meal.removeMeal,
+);
+
 export default securedRoutes;

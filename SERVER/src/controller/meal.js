@@ -36,16 +36,21 @@ class Meal {
     const id = req.params.mealId;
 
     const mealIndex = data.meals.findIndex(meal => meal.id === +id);
-    console.log(mealIndex);
     if (mealIndex !== -1) {
       data.meals[mealIndex].name = name;
       data.meals[mealIndex].description = description;
       data.meals[mealIndex].price = price;
       data.meals[mealIndex].category = category;
-      res.status(200).json({ msg: 'meal modified successfully' });
+      res.status(200).json({ msg: 'meal modified successfully' }).end();
     } else {
-      res.status(404).json({ msg: 'meal does not exist' });
+      res.status(404).json({ msg: 'meal does not exist' }).end();
     }
+  }
+  static removeMeal(req, res) {
+    const id = req.params.mealId;
+    const mealIndex = data.meals.findIndex(meal => meal.id === +id);
+    data.meals.splice(mealIndex, 1);
+    res.status(204).end();
   }
 }
 export default Meal;
