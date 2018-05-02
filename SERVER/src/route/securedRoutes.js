@@ -10,4 +10,10 @@ securedRoutes.post(
   Meal.addMeal,
 );
 
+securedRoutes.put(
+  '/meals/:mealId',
+  permit('caterer', 'admin'),
+  Meal.modifyMeal,
+);
+
 export default securedRoutes;

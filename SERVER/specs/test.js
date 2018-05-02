@@ -197,7 +197,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
     });
 
 
-    it('Caterer should not be able to add a meal that is already existing', (done) => {
+    it('Caterer should not be able to add a meal that already exists', (done) => {
       const meal = {
         name: 'Fried Rice with Chicken',
         description: 'tasty fried rice and chicken which include carrot, green beans with salad',
@@ -212,6 +212,62 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         .end((err, res) => {
           expect(res.status).to.equal(409);
           expect(res.body.msg).to.equal('This meal is already existing');
+          done();
+        });
+    });
+    it('should modify a meal', (done) => {
+      const meal = {
+        name: 'Fried Rice with Chicken',
+        description: 'tasty rice and chicken which include carrot, green beans with salad',
+        price: '1500',
+        category: 'Lunch',
+      };
+
+      request(app)
+        .put('/api/v1/auth/meals/1')
+        .set({ authorization: `${isAdminAuthentic}`, user: `${adminId}` })
+        .send(meal)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.msg).to.equal('meal modified successfully');
+          done();
+        });
+    });
+
+    it('should not modify a meal that does not exist', (done) => {
+      const meal = {
+        name: 'Fried Rice with Chicken',
+        description: 'tasty rice and chicken which include carrot, green beans with salad',
+        price: '1500',
+        category: 'Lunch',
+      };
+
+      request(app)
+        .put('/api/v1/auth/meals/15')
+        .set({ authorization: `${isAdminAuthentic}`, user: `${adminId}` })
+        .send(meal)
+        .end((err, res) => {
+          expect(res.status).to.equal(404);
+          expect(res.body.msg).to.equal('meal does not exist');
+          done();
+        });
+    });
+
+    it('should not modify a meal', (done) => {
+      const meal = {
+        name: 'Fried Rice with Chicken',
+        description: 'tasty rice and chicken which include carrot, green beans with salad',
+        price: '1500',
+        category: 'Lunch',
+      };
+
+      request(app)
+        .put('/api/v1/auth/meals/1')
+        .set({ authorization: `${isCustomerAuthentic}`, user: `${customerId}` })
+        .send(meal)
+        .end((err, res) => {
+          expect(res.status).to.equal(403);
+          expect(res.body.message).to.equal('access denied');
           done();
         });
     });
