@@ -1,7 +1,7 @@
 import { data } from '../db/data';
 
 class Menu {
-  static addMenu(req, res) {
+  static setMenu(req, res, next) {
     const selectedMeals = req.body.meals;
     const menu = data.meals.map((meal) => {
       if (selectedMeals.indexOf(meal.id) === 1) {
@@ -25,9 +25,14 @@ class Menu {
         meals: menu,
         date: todaysDate,
       });
-      res.status(201)
-        .json({ success: true, msg: 'menu added sucessfully' })
-        .end();
+      req.todaysMenu = {
+        id: menuLen + 1,
+        meals: menu,
+        date: todaysDate,
+      };
+
+      console.log(req.todaysMenu);
+      next();
     } else {
       res.status(409)
         .json({ success: false, msg: 'menu already set for the day' })

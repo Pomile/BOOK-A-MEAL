@@ -3,7 +3,7 @@ import chai from 'chai';
 import request from 'supertest';
 import app from '../server';
 
-const { describe, it } = mocha;
+const { describe, it, before } = mocha;
 const expect = chai.expect;
 let isAdminAuthentic;
 let adminId;
@@ -163,7 +163,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         name: 'Fried Rice with Chicken',
         description: 'tasty fried rice and chicken which include carrot, green beans with salad',
         price: '1500',
-        category: 'Lunch',
+        category: 'Intercontinental',
       };
 
       request(app)
@@ -182,7 +182,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         name: 'Fried Rice with Chicken',
         description: 'tasty fried rice and chicken which include carrot, green beans with salad',
         price: '1500',
-        category: 'Lunch',
+        category: 'intercontinental',
       };
 
       request(app)
@@ -202,7 +202,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         name: 'Fried Rice with Chicken',
         description: 'tasty fried rice and chicken which include carrot, green beans with salad',
         price: '1500',
-        category: 'Lunch',
+        category: 'Interconinental',
       };
 
       request(app)
@@ -220,7 +220,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         name: 'Fried Rice with Chicken',
         description: 'tasty rice and chicken which include carrot, green beans with salad',
         price: '1500',
-        category: 'Lunch',
+        category: 'Intercontinental',
       };
 
       request(app)
@@ -239,7 +239,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         name: 'Fried Rice with Chicken',
         description: 'tasty rice and chicken which include carrot, green beans with salad',
         price: '1500',
-        category: 'Lunch',
+        category: 'Intercontinental',
       };
 
       request(app)
@@ -258,7 +258,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         name: 'Fried Rice with Chicken',
         description: 'tasty rice and chicken which include carrot, green beans with salad',
         price: '1500',
-        category: 'Lunch',
+        category: 'Intercontinental',
       };
 
       request(app)
@@ -276,7 +276,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         name: 'Fried Rice with Chicken',
         description: 'tasty rice and chicken which include carrot, green beans with salad',
         price: '1500',
-        category: 'Lunch',
+        category: 'Intercontinental',
       };
 
       request(app)
@@ -294,7 +294,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         name: 'Fried Rice with Chicken',
         description: 'tasty rice and chicken which include carrot, green beans with salad',
         price: '1500',
-        category: 'Lunch',
+        category: 'Intercontinental',
       };
 
       request(app)
