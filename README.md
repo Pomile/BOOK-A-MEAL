@@ -1,4 +1,6 @@
 # BOOK-A-MEAL
+[![Coverage Status](https://coveralls.io/repos/github/Pomile/BOOK-A-MEAL/badge.svg?branch=user_signup_and_signin-API)](https://coveralls.io/github/Pomile/BOOK-A-MEAL?branch=user_signup_and_signin-API)
+
 Book-A-Meal is an application that allows customers to make food orders and helps the food  vendor know what the customers want to eat. 
 The app consist of two modes, namely, the authenticated mode and unauthenticated mode . 
 # Unauthenticated mode
