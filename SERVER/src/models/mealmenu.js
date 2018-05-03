@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
     },
     mealId: {
-      type: DataTypes.INT,
+      type: DataTypes.INTEGER,
       allowNull: false,
       constraint: false,
       references: {
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     },
 
     menuId: {
-      type: DataTypes.INT,
+      type: DataTypes.INTEGER,
       allowNull: false,
       constraint: false,
       references: {

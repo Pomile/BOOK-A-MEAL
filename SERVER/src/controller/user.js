@@ -1,34 +1,39 @@
 import bcrypt from 'bcrypt';
-import { data } from '../db/data';
+// import { data } from '../db/data';
+import { Users } from '../models';
 
 
 class User {
   static addUser(req, res) {
-    const initialUsersCount = data.users.length;
+    // const initialUsersCount = data.users.length;
+    console.log(req.body.firstname);
     const {
-      firstname, lastname, email, sex, password, country, role,
+      firstname,
+      lastname,
+      email,
+      password,
+      role,
     } = req.body;
 
-    const userId = initialUsersCount + 1;
-    // find if existing account has a user name
-    const findByEmail = data.users.find(user => user.email === email);
-
-    if (findByEmail === undefined) {
-      data.users.push({
-        id: userId, firstname, lastname, email, sex, password, country, role,
-      });
-      res
-        .status(201)
-        .json({
-          success: true,
-          user: userId,
-          msg: 'users added successfully',
-        })
-        .end();
-    } else {
-      res.status(409).json({ msg: 'user already existing' })
-        .end();
-    }
+    Users.create({
+      firstname,
+      lastname,
+      email,
+      password,
+      role,
+    }).then(user =>
+    // console.log(user.get({plain: true }))
+      res.status(201).send({
+        success: true,
+        msg: 'User added successfully',
+        data: user,
+      })).catch(error =>
+      // console.log(`${error.message}/n${error.stack}`);
+      res.status(409).send({
+        success: false,
+        msg: 'user already exists',
+        err: error.message,
+      }));
   }
 
   static authenticate(req, res) {
