@@ -4,14 +4,15 @@
   "description": "Book a meal application",
   "main": "server.js",
   "nyc": {
-    "include": ["src/"],
+    "include": ["SERVER/src/"],
     "sourceMap": false,
     "instrument": false
   },
   "scripts": {
     "start": "nodemon --watch . --exec npm run babel ./server.js",
-    "test": "nodemon --watch . --exec cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text mocha  --compilers js:babel-core/register --recursive ./specs/test.js --timeout 6500 --exit",
-    "babel": "./node_modules/.bin/babel-node"
+    "test": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text mocha  --compilers js:babel-core/register --recursive ./SERVER/specs/test.js --timeout 6500 --exit",
+    "babel": "./node_modules/.bin/babel-node",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "author": "Babatunde Ogedengbe",
   "license": "ISC",
