@@ -17,7 +17,6 @@ app.use(bodyParser.text({ type: 'text/html' }));
 app.use(bodyParser.text({ type: 'text/plain' }));
 app.use(bodyParser.raw({ type: '*/octet-stream' }));
 
-
 app.use('/api/v1/users', openRoutes);
 app.use('/api/v1/auth', securedRoutes);
 
