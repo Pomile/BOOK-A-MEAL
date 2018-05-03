@@ -425,4 +425,29 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
   });
+  describe('Cutomers get all orders for a specific day', () => {
+    it('should return all orders for a specific day', (done) => {
+      request(app)
+        .get('/api/v1/auth/orders?date=4/25/2018')
+        .set({ authorization: `${isAdminAuthentic}`, user: `${adminId}` })
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.success).to.equal(true);
+          done();
+        });
+    });
+  });
+
+  describe('No Orders for Specified Date', () => {
+    it('should return false for a specific day', (done) => {
+      request(app)
+        .get('/api/v1/auth/orders?date=4/25/2017')
+        .set({ authorization: `${isAdminAuthentic}`, user: `${adminId}` })
+        .end((err, res) => {
+          expect(res.status).to.equal(404);
+          expect(res.body.success).to.equal(false);
+          done();
+        });
+    });
+  });
 });
