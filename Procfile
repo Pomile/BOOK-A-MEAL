@@ -1,0 +1,1 @@
+web:babel-node ./SERVER/server.js
