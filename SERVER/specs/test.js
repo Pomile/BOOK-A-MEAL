@@ -425,7 +425,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
   });
-  describe('Cutomers get all orders for a specific day', () => {
+  describe('Caterer can get all orders for a specific day', () => {
     it('should return all orders for a specific day', (done) => {
       request(app)
         .get('/api/v1/auth/orders?date=4/25/2018')
