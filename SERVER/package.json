@@ -4,14 +4,17 @@
   "description": "Book a meal application",
   "main": "server.js",
   "nyc": {
-    "include": ["src/"],
+    "include": [
+      "src/"
+    ],
     "sourceMap": false,
     "instrument": false
   },
   "scripts": {
     "start": "nodemon --watch . --exec npm run babel ./server.js",
     "test": "nodemon --watch . --exec cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text mocha  --compilers js:babel-core/register --recursive ./specs/test.js --timeout 6500 --exit",
-    "babel": "./node_modules/.bin/babel-node"
+    "babel": "./node_modules/.bin/babel-node",
+    "sequel": "./node_modules/.bin/sequelize"
   },
   "author": "Babatunde Ogedengbe",
   "license": "ISC",
@@ -23,7 +26,11 @@
     "express-fileupload": "^0.4.0",
     "express-validator": "^5.1.2",
     "morgan": "^1.9.0",
-    "nodemailer": "^4.6.4"
+    "nodemailer": "^4.6.4",
+    "pg": "^7.4.1",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.37.6",
+    "sequelize-cli": "^4.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

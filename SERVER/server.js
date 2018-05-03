@@ -4,6 +4,8 @@ import morgan from 'morgan';
 import openRoutes from './src/route/openRoutes';
 import securedRoutes from './src/route/securedRoutes';
 
+// import db from './src/models/index';
+
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -22,6 +24,7 @@ app.use('/api/v1/auth', securedRoutes);
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
+  // db.sequelize.sync();
 });
 
 export default app;
