@@ -9,7 +9,7 @@ openRoutes.post(
   '/',
   userValidator,
   validationApi,
-  passwordEncryption,
+  // passwordEncryption,
   User.addUser,
 );
 

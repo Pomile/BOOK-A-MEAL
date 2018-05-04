@@ -1,4 +1,5 @@
 
+import passwordEncryption from '../middleware/encryption';
 
 module.exports = (sequelize, DataTypes) => {
   const Users = sequelize.define('Users', {
@@ -33,5 +34,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
     },
   }, { timestamps: false });
+  Users.beforeCreate(user => passwordEncryption(user));
   return Users;
 };

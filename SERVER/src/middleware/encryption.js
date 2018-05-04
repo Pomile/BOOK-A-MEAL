@@ -1,15 +1,14 @@
 import bcrypt from 'bcrypt';
 
-
 const saltRounds = 10;
 
-const passwordEncryption = (req, res, next) => {
-  const { password } = req.body;
-  bcrypt.hash(password, saltRounds, (err, hash) => {
+const passwordEncryption = (user) => {
+  // const { password } = req.body;
+  bcrypt.hash(user.password, saltRounds, (err, hash) => {
     // Store hash in your password DB.
-    req.body.password = hash;
+    user.password = hash;
     // console.log(req.body);
-    next();
+    // next();
   });
 };
 
