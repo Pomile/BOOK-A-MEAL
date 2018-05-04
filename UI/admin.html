@@ -126,7 +126,8 @@
 
         .meal-picture {
             height: 150px;
-            width: 150px;
+            width: 80%;
+			margin-left: 9%;
             background-color: rgb(250, 60, 35);
             background-image: url("./images/add_mea_150.png");
             background-repeat: no-repeat;
@@ -221,6 +222,7 @@
                             <img src="./images/meal.png" width = 42px height = 42px >
                         </div>
                         <div class="arrow-up active-arrow-up" id="meal-arrowup">
+						   <div style ="color:white">Meal</div>
                             <img src="./images/arrow_up.png">
                         </div>
                     </center>
@@ -234,7 +236,9 @@
                         <div class="tool-icon">
                             <img src="./images/set_menu_52.png" width = 42px height = 42px>
                         </div>
+						<div style ="color:white">Menu</div>
                         <div class="active arrow-up" id="menu-arrowup">
+						    
                             <img src="./images/arrow_up.png" >
                         </div>
                     </center>
@@ -246,7 +250,9 @@
                         <div class="tool-icon">
                             <img src="./images/admin.png" width = 42px height = 42px>
                         </div>
+						<div style ="color:white">Super Admin</div>
                         <div class="active arrow-up" id="admin-arrowup">
+						
                             <img src="./images/arrow_up.png">
                         </div>
                     </center>
@@ -590,12 +596,12 @@
 
             <span class="close" onclick="closeModal('modal')">&times;</span>
             <div></div>
-            <div class="form-holder" style="background-color: rgb(145, 5, 5); margin-left: 25px;">
+            <div class="form-holder" style="background-color: rgb(236, 95, 95); margin-left: 25px;">
                 <form>
                     <div class="flex-box" style="flex-flow: wrap; justify-content: space-around">
                         <div class="picture-holder s-12 m-4 l-3">
                             <div class="meal-picture">
-                                <img src="./images/Dark_Cherry_Smoothie.jpg" width="150px" height="150px" />
+                                <img src="./images/Dark_Cherry_Smoothie.jpg" width=100% height=100%/>
                             </div>
                             <input type="file" onchange="readURL(this);" name="image" />
                         </div>
@@ -606,22 +612,11 @@
                             <div>
                                 <input type="text" placeholder="price" name="price" value="N3400" />
                             </div>
-                            <div>
-                                <select id="meal-category" name="meal-category" style="height: 50px" placeholder="Category">
-
-                                    <option value="breakfast">Breakfast</option>
-                                    <option value="lunch">Lunch</option>
-                                    <option value="dinner">Dinner</option>
-                                    <option value="super">Super</option>
-                                    <option value="super">All</option>
-                                </select>
+							<div>
+                               <input type ="number" name ="quantity" value = "0" min = "0" />
                             </div>
+                       
 
-                            <div>
-                                <textarea name="message" rows="10" cols="70" style="height: 150px" placeholder="Description">
-                                                        Meal description.
-                                                </textarea>
-                            </div>
                             <div>
                                 <input type="button" value="Save" onclick="getFeedBack('modify'), closeModal('modal')" />
                             </div>

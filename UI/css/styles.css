@@ -28,7 +28,18 @@ body{
     cursor: pointer;
 }
 
-
+.form-btn{
+	width: 65%;
+    background-color: #ff3300;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+	margin-top: 2px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+	margin-left: 17%;
+}
 
 .drawer .menu-stroke{
     height: 4px;
