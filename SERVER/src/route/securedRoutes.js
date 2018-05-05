@@ -10,6 +10,7 @@ const securedRoutes = express.Router();
 
 securedRoutes.post(
   '/meals',
+  verifyUser,
   permit('caterer', 'admin'),
   Meal.addMeal,
 );

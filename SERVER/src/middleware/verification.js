@@ -14,19 +14,16 @@ exports.verifyUser = (req, res, next) => {
           errMsg: err.message,
         });
       }
-      console.log(typeof decoded.data);
-      if (decoded.data) {
-        Users.findById(decoded.data).then((user) => {
-          if (user) {
-            req.user = user.id;
-            next();
-          }
-        }).catch(error => res.status(404).send({
-          success: false,
-          message: 'user not found',
-          error: error.message,
-        }));
-      }
+      console.log(decoded.data);
+      Users.findById(decoded.data).then((user) => {
+        console.log(user.role);
+        req.user = user;
+        next();
+      }).catch(error => res.status(404).send({
+        success: false,
+        message: 'user not found',
+        error: error.message,
+      }));
     });
   } else {
     res.status(403).send({

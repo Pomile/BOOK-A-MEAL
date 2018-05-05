@@ -5,14 +5,14 @@ import User from '../controller/user';
 const openRoutes = express.Router();
 
 openRoutes.post(
-  '/',
+  '/auth/signup',
   userValidator,
   validationApi,
   User.addUser,
 );
 
 openRoutes.post(
-  '/auth',
+  '/auth/signin',
   validateUserCrediential,
   User.authenticate,
 );

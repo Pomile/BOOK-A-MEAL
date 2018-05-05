@@ -14,14 +14,14 @@ let adminToken;
 let customerToken;
 
 describe('BOOK-A-MEAL API TEST SUITE', () => {
+  after(async () => {
+    console.log(`adminPass: ${adminToken}`);
+    console.log(`customerPass: ${customerToken}`);
+    await Users.sync({ force: true }).then(() => {
+      console.log('Users table dropped and created');
+    }).catch(err => console.log(err.message));
+  });
   describe('Users can create an account and log in', () => {
-    after(async () => {
-      console.log(`adminPass: ${adminToken}`);
-      console.log(`customerPass: ${customerToken}`);
-      await Users.sync({ force: true }).then(() => {
-        console.log('Users table dropped and created');
-      }).catch(err => console.log(err.message));
-    });
     it('Caterer should be able to create an account', (done) => {
       const userData = {
         firstname: 'babatunde',
@@ -32,7 +32,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         role: 'caterer',
       };
       request(app)
-        .post('/api/v1/users')
+        .post('/api/v1/users/auth/signup')
         .set('Accept', 'application/json')
         .send(userData)
         .end((err, res) => {
@@ -52,7 +52,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         role: 'user',
       };
       request(app)
-        .post('/api/v1/users')
+        .post('/api/v1/users/auth/signup')
         .set('Accept', 'application/json')
         .send(userData)
         .end((err, res) => {
@@ -72,7 +72,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         role: 'user',
       };
       request(app)
-        .post('/api/v1/users')
+        .post('/api/v1/users/auth/signup')
         .set('Accept', 'application/json')
         .send(userData)
         .end((err, res) => {
@@ -92,7 +92,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         role: 'user',
       };
       request(app)
-        .post('/api/v1/users')
+        .post('/api/v1/users/auth/signup')
         .set('Accept', 'application/json')
         .send(userData)
         .end((err, res) => {
@@ -114,7 +114,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         password: 'testing123',
       };
       request(app)
-        .post('/api/v1/users/auth')
+        .post('/api/v1/users/auth/signin')
         .set('Accept', 'application/json')
         .send(userData)
         .end((err, res) => {
@@ -130,7 +130,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         password: 'moneyspeaking123',
       };
       request(app)
-        .post('/api/v1/users/auth')
+        .post('/api/v1/users/auth/signin')
         .set('Accept', 'application/json')
         .send(userData)
         .expect(200)
@@ -147,7 +147,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         password: 'testing',
       };
       request(app)
-        .post('/api/v1/users/auth')
+        .post('/api/v1/users/auth/signin')
         .set('Accept', 'application/json')
         .send(userData)
         .end((err, res) => {
@@ -162,7 +162,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         password: 'testing123',
       };
       request(app)
-        .post('/api/v1/users/auth')
+        .post('/api/v1/users/auth/signin')
         .set('Accept', 'application/json')
         .send(userData)
         .end((err, res) => {
@@ -172,7 +172,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
   });
-  /* describe('Caterers Manage Meals Options', () => {
+  describe('Caterers Manage Meals Options', () => {
     it('Caterer should be able to add a meal', (done) => {
       const meal = {
         name: 'Fried Rice with Chicken',
@@ -183,7 +183,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
 
       request(app)
         .post('/api/v1/auth/meals')
-        .set({ authorization: `${isAdminAuthentic}`, user: `${adminId}` })
+        .set('authorization', `${adminToken}`)
         .send(meal)
         .end((err, res) => {
           expect(res.status).to.equal(201);
@@ -202,7 +202,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
 
       request(app)
         .post('/api/v1/auth/meals')
-        .set({ authorization: `${isCustomerAuthentic}`, user: `${customerId}` })
+        .set('authorization', `${customerToken}`)
         .send(meal)
         .end((err, res) => {
           expect(res.status).to.equal(403);
@@ -222,7 +222,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
 
       request(app)
         .post('/api/v1/auth/meals')
-        .set({ authorization: `${isAdminAuthentic}`, user: `${adminId}` })
+        .set('authorization', `${adminToken}`)
         .send(meal)
         .end((err, res) => {
           expect(res.status).to.equal(409);
@@ -230,7 +230,8 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
           done();
         });
     });
-    it('Caterer should be able to modify a meal', (done) => {
+
+    /*  it('Caterer should be able to modify a meal', (done) => {
       const meal = {
         name: 'Fried Rice with Chicken',
         description: 'tasty rice and chicken which include carrot, green beans with salad',
@@ -240,7 +241,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
 
       request(app)
         .put('/api/v1/auth/meals/1')
-        .set({ authorization: `${isAdminAuthentic}`, user: `${adminId}` })
+        .set('authorization', `${adminToken}`)
         .send(meal)
         .end((err, res) => {
           expect(res.status).to.equal(200);
@@ -248,7 +249,6 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
           done();
         });
     });
-
     it('Caterer should not be able to modify a meal that does not exist', (done) => {
       const meal = {
         name: 'Fried Rice with Chicken',
@@ -301,10 +301,10 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         .end((err, res) => {
           expect(res.status).to.equal(204);
           done();
-        });
-    });
+        }); */
+  });
 
-    it('Customer should not be able delete a meal', (done) => {
+  /* it('Customer should not be able delete a meal', (done) => {
       const meal = {
         name: 'Fried Rice with Chicken',
         description: 'tasty rice and chicken which include carrot, green beans with salad',
