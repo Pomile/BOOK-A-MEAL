@@ -10,14 +10,14 @@ const {
 } = mocha;
 const expect = chai.expect;
 
-// let isAdminAuthentic;
-// let adminId;
-// let isCustomerAuthentic;
-// let customerId;
+let adminToken;
+let customerToken;
 
 describe('BOOK-A-MEAL API TEST SUITE', () => {
   describe('Users can create an account and log in', () => {
     after(async () => {
+      console.log(`adminPass: ${adminToken}`);
+      console.log(`customerPass: ${customerToken}`);
       await Users.sync({ force: true }).then(() => {
         console.log('Users table dropped and created');
       }).catch(err => console.log(err.message));
@@ -108,9 +108,9 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
           done();
         });
     });
-    /* it('User should be able to log in as a caterer', (done) => {
+    it('User should be able to log in as a caterer', (done) => {
       const userData = {
-        username: 'softsky@live.com',
+        email: 'softsky@live.com',
         password: 'testing123',
       };
       request(app)
@@ -118,8 +118,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         .set('Accept', 'application/json')
         .send(userData)
         .end((err, res) => {
-          adminId = res.body.user;
-          isAdminAuthentic = res.body.isAuth;
+          adminToken = res.body.auth;
           expect(res.body.msg).to.equal('user logged in sucessfully');
           done();
         });
@@ -127,16 +126,16 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
 
     it('User should be able to log in as a customer', (done) => {
       const userData = {
-        username: 'bola.kudi@live.com',
+        email: 'bola.kudi@live.com',
         password: 'moneyspeaking123',
       };
       request(app)
         .post('/api/v1/users/auth')
         .set('Accept', 'application/json')
         .send(userData)
+        .expect(200)
         .end((err, res) => {
-          customerId = res.body.user;
-          isCustomerAuthentic = res.body.isAuth;
+          customerToken = res.body.auth;
           expect(res.body.msg).to.equal('user logged in sucessfully');
           done();
         });
@@ -144,7 +143,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
 
     it('should return invalid password if password provided is not authentic ', (done) => {
       const userData = {
-        username: 'softsky@live.com',
+        email: 'softsky@live.com',
         password: 'testing',
       };
       request(app)
@@ -157,11 +156,9 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
           done();
         });
     });
-
-
     it('should return user not found if email is incorrect', (done) => {
       const userData = {
-        username: 'soft@live.com',
+        email: 'soft@live.com',
         password: 'testing123',
       };
       request(app)
@@ -173,7 +170,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
           expect(res.body.msg).to.equal('user not found');
           done();
         });
-    }); */
+    });
   });
   /* describe('Caterers Manage Meals Options', () => {
     it('Caterer should be able to add a meal', (done) => {

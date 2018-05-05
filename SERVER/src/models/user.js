@@ -1,4 +1,6 @@
 
+// import passwordEncryption from '../middleware/encryption';
+import bcrypt from 'bcrypt';
 
 module.exports = (sequelize, DataTypes) => {
   const Users = sequelize.define('Users', {
@@ -33,5 +35,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
     },
   }, { timestamps: false });
+
+  Users.beforeCreate((user, options) => bcrypt.hash(user.password, 10)
+    .then((hash) => {
+      user.password = hash;
+    })
+    .catch((err) => {
+      throw new Error();
+    }));
+
   return Users;
 };
