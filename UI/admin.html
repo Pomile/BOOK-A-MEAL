@@ -296,7 +296,7 @@
                     <div>
                         <h2 style="color: gray; padding-left: 30px;">Add Meal</h2>
                     </div>
-                    <div class="form-holder" style="background-color: rgb(145, 5, 5); margin-left: 25px;">
+                    <div class="form-holder" style="background-color: rgb(145, 5, 5); margin-left: 25px; border-radius: 20px;">
                         <form>
                             <div class="flex-box" style="flex-flow: wrap; justify-content: space-around; padding-top: 10px">
                                 <div class="picture-holder s-12 m-4 l-3">
@@ -308,6 +308,9 @@
                                 <div class="form-elements s-12 m-8 l-8">
                                     <div>
                                         <input type="text" placeholder="name" name="name" />
+                                    </div>
+									<div>
+                                        <input type="number" placeholder="qty" name="quantity" min = "0"  style ="width:100px!important"/>
                                     </div>
                                     <div>
                                         <input type="text" placeholder="price" name="price" />
@@ -340,12 +343,12 @@
 
                 </div>
                 <div class="mealtabs" id="remove-meal-content">
-                    <h2 style="color: gray; padding-left: 30px;">Remove Meal</h2>
-                    <div class="s-12 flex-box" style="justify-content:space-between; flex-flow:wrap;">
-                        <div class="s-12 m-6 l-5">
-                            <input type="search" placeholder="search meal" style="" />
+                    <h2 style="color: gray; padding-left: 102px;">Remove Meal</h2>
+                    <div class="s-12 m-10 l-10 offset-m-1 offset-l-1 flex-box" style="justify-content:space-between; flex-flow:wrap;">
+                        <div class="s-12 m-6 l-5" style ="">
+                            <input type="search" placeholder="search meal" style="margin-left: 1%!important" />
                         </div>
-                        <div class="menu-category s-12 m-6 l-4">
+                        <div class="menu-category s-12 m-6 l-4" style ="">
                             <select id="meal-category" name="meal-category" style="height: 50px" placeholder="Category">
                                             <option value="">--Category--</option>
                                             <option value="breakfast">Intercontinental</option>
@@ -356,7 +359,7 @@
                                     </select>
                         </div>
                     </div>
-                    <div class="menu-list s-12" style ="justify-content: space-between">
+                    <div class="menu-list s-12 m-10 l-10 offset-m-1 offset-l-1" style ="">
                         <div class="meal boxshadow" id=1 onclick="getFeedBack('remove')">
                             <div class="meal-image">
                                 <img src="./images/Dark_Cherry_Smoothie.jpg" width="200px" height="170px" />
