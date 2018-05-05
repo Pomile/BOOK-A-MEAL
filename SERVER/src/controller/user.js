@@ -1,12 +1,12 @@
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import 'babel-polyfill';
 // import { data } from '../db/data';
 import { Users } from '../models';
 
 
 class User {
   static addUser(req, res) {
-    // const initialUsersCount = data.users.length;
-    console.log(req.body.firstname);
     const {
       firstname,
       lastname,
@@ -22,13 +22,11 @@ class User {
       password,
       role,
     }).then(user =>
-    // console.log(user.get({plain: true }))
       res.status(201).send({
         success: true,
         msg: 'User added successfully',
         data: user,
       })).catch(error =>
-      // console.log(`${error.message}/n${error.stack}`);
       res.status(409).send({
         success: false,
         msg: 'user already exists',
@@ -36,25 +34,36 @@ class User {
       }));
   }
 
-  static authenticate(req, res) {
+  static async authenticate(req, res) {
     const {
-      username, password,
+      email, password,
     } = req.body;
-    const userData = data.users.find(user => user.email === username);
-    if (userData === undefined) {
-      res.status(404).json({ msg: 'user not found' });
-    } else {
-      const hash = userData.password;
-      bcrypt.compare(password, hash, (err, result) => {
-        if (result) {
-          res.status(200).json({
-            sucess: true, msg: 'user logged in sucessfully', isAuth: true, user: userData.id,
-          });
+    Users.find({ where: { email } }).then((user) => {
+      const hash = user.password;
+      bcrypt.compare(password, hash, (err, response) => {
+        if (response === true) {
+          const payload = user.id;
+          const token = jwt.sign({ data: payload }, 'ijiugsghuyqqgbnnzxhuhuq', { expiresIn: '24h' });
+          res.status(200)
+            .json({
+              success: true,
+              msg: 'user logged in sucessfully',
+              auth: token,
+            }).end();
         } else {
-          res.status(401).json({ sucess: false, msg: 'invalid password' });
+          res.status(401).send({
+            success: false,
+            msg: 'invalid password',
+          }).end();
         }
       });
-    }
+    }).catch((err) => {
+      res.status(404).send({
+        success: false,
+        msg: 'user not found',
+        error: err.message,
+      }).end();
+    });
   }
 }
 export default User;
