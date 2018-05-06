@@ -3,7 +3,7 @@ import chai from 'chai';
 import 'babel-polyfill';
 import request from 'supertest';
 import app from '../server';
-import { Users } from '../src/models';
+import { Users, Meals } from '../src/models';
 
 const {
   describe, it, after,
@@ -19,6 +19,10 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
     console.log(`customerPass: ${customerToken}`);
     await Users.sync({ force: true }).then(() => {
       console.log('Users table dropped and created');
+    }).catch(err => console.log(err.message));
+
+    await Meals.sync({ force: true }).then(() => {
+      console.log('Meals table dropped and created');
     }).catch(err => console.log(err.message));
   });
   describe('Users can create an account and log in', () => {
@@ -176,7 +180,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
     it('Caterer should be able to add a meal', (done) => {
       const meal = {
         name: 'Fried Rice with Chicken',
-        description: 'tasty fried rice and chicken which include carrot, green beans with salad',
+        quantity: 1,
         price: '1500',
         category: 'Intercontinental',
       };
@@ -195,7 +199,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
     it('Customer should not be able to add a meal', (done) => {
       const meal = {
         name: 'Fried Rice with Chicken',
-        description: 'tasty fried rice and chicken which include carrot, green beans with salad',
+        quantity: 1,
         price: '1500',
         category: 'intercontinental',
       };
@@ -215,7 +219,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
     it('Caterer should not be able to add a meal that already exists', (done) => {
       const meal = {
         name: 'Fried Rice with Chicken',
-        description: 'tasty fried rice and chicken which include carrot, green beans with salad',
+        quantity: 1,
         price: '1500',
         category: 'Interconinental',
       };

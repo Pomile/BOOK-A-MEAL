@@ -24,12 +24,16 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    description: {
-      type: DataTypes.STRING,
+    quantity: {
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
     image: {
       type: DataTypes.BLOB,
+      allowNull: true,
+    },
+    category: {
+      type: DataTypes.STRING,
       allowNull: true,
     },
   }, { timestamps: false });

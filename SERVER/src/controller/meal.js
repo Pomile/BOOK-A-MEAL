@@ -1,12 +1,34 @@
-import { data } from '../db/data';
+import { Meals } from '../models';
+// import { data } from '../db/data';
 
 class Meal {
   static addMeal(req, res) {
-    const initialMealsCount = data.meals.length;
     const {
-      name, description, price, category,
+      name, price, quantity,
     } = req.body;
-    const mealId = initialMealsCount + 1;
+    const userId = req.user.id;
+
+    Meals.create({
+      userId,
+      name,
+      price,
+      quantity,
+
+    }).then((meal) => {
+      if (meal) {
+        res
+          .status(201)
+          .json({
+            success: true,
+            msg: 'meal added successfully',
+          }).end();
+      }
+    }).catch((err) => {
+      res.status(409)
+        .json({ msg: 'This meal is already existing', error: err.message })
+        .end();
+    });
+    /* const mealId = initialMealsCount + 1;
     const findByMealName = data.meals.find(meal => meal.name === name);
     if (findByMealName === undefined) {
       data.meals.push({
@@ -25,7 +47,7 @@ class Meal {
           success: true,
           msg: 'meal added successfully',
         }).end();
-    }
+    } */
   }
 
   static modifyMeal(req, res) {

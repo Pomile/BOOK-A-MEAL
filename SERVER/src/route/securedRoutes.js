@@ -4,12 +4,14 @@ import Menu from '../controller/menu';
 import permit from '../middleware/permission';
 import { sendMenuNotification } from '../middleware/notification';
 import { verifyUser } from '../middleware/verification';
+import { mealValidator } from '../middleware/validation';
 import Order from '../controller/order';
 
 const securedRoutes = express.Router();
 
 securedRoutes.post(
   '/meals',
+  mealValidator,
   verifyUser,
   permit('caterer', 'admin'),
   Meal.addMeal,

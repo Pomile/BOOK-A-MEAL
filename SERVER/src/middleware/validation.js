@@ -40,3 +40,25 @@ exports.validateUserCrediential = [
     .isLength({ min: 5 })
     .matches(/\d/),
 ];
+
+exports.mealValidator = [
+  check('name', 'Meal name is required')
+    .exists()
+    .trim()
+    .custom(value => value !== ''),
+
+  check('price')
+    .exists()
+    .not()
+    .isEmpty()
+    .withMessage('Meal price is required')
+    .custom(value => value !== 0),
+
+  check('quantity')
+    .exists()
+    .not()
+    .isEmpty()
+    .withMessage('Meal quantity is required')
+    .custom(value => value !== 0),
+
+];

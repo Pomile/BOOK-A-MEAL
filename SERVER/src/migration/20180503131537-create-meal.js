@@ -19,17 +19,23 @@ module.exports = {
     name: {
       type: Sequelize.STRING,
       allowNull: false,
+      unique: true,
     },
     price: {
       type: Sequelize.INTEGER,
       allowNull: false,
     },
-    description: {
-      type: Sequelize.STRING,
-      allowNull: true,
+    quantity: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
     },
     image: {
       type: Sequelize.BLOB,
+      allowNull: true,
+    },
+
+    category: {
+      type: Sequelize.STRING,
       allowNull: true,
     },
   }),
