@@ -106,7 +106,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
           expect(userData).to.have.property('email');
           expect(userData).to.have.property('password');
           expect(userData).to.have.property('cpassword');
-          console.log(res.body);
+          // console.log(res.body);
           expect(res.body.errors[0].msg).to.equal('firstname is required');
           expect(res.status).to.equal(422);
           done();
@@ -235,11 +235,11 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
 
-    /*  it('Caterer should be able to modify a meal', (done) => {
+    it('Caterer should be able to modify a meal', (done) => {
       const meal = {
         name: 'Fried Rice with Chicken',
         description: 'tasty rice and chicken which include carrot, green beans with salad',
-        price: '1500',
+        price: '5500',
         category: 'Intercontinental',
       };
 
@@ -263,7 +263,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
 
       request(app)
         .put('/api/v1/auth/meals/15')
-        .set({ authorization: `${isAdminAuthentic}`, user: `${adminId}` })
+        .set('authorization', `${adminToken}`)
         .send(meal)
         .end((err, res) => {
           expect(res.status).to.equal(404);
@@ -282,7 +282,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
 
       request(app)
         .put('/api/v1/auth/meals/1')
-        .set({ authorization: `${isCustomerAuthentic}`, user: `${customerId}` })
+        .set('authorization', `${customerToken}`)
         .send(meal)
         .end((err, res) => {
           expect(res.status).to.equal(403);
@@ -290,7 +290,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
           done();
         });
     });
-    it('caterer should be able to delete a meal', (done) => {
+    /* it('caterer should be able to delete a meal', (done) => {
       const meal = {
         name: 'Fried Rice with Chicken',
         description: 'tasty rice and chicken which include carrot, green beans with salad',

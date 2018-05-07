@@ -52,12 +52,31 @@ class Meal {
 
   static modifyMeal(req, res) {
     const {
-      name, description, price, category,
+      name, quantity, description, price, category,
     } = req.body;
 
     const id = req.params.mealId;
+    Meals.findById(id).then((meal) => {
+      meal.update({
+        name,
+        price,
+        quantity,
+        category,
+        description,
+      }).then((updatedMeal) => {
+        res.status(200).send({
+          success: true,
+          data: updatedMeal,
+          msg: 'meal modified successfully',
+        });
+      });
+    }).catch((err) => {
+      res.status(404)
+        .json({ msg: 'meal does not exist', error: err.message })
+        .end();
+    });
 
-    const mealIndex = data.meals.findIndex(meal => meal.id === +id);
+    /* const mealIndex = data.meals.findIndex(meal => meal.id === +id);
     if (mealIndex !== -1) {
       data.meals[mealIndex].name = name;
       data.meals[mealIndex].description = description;
@@ -66,7 +85,7 @@ class Meal {
       res.status(200).json({ msg: 'meal modified successfully' }).end();
     } else {
       res.status(404).json({ msg: 'meal does not exist' }).end();
-    }
+    } */
   }
   static removeMeal(req, res) {
     const id = req.params.mealId;
