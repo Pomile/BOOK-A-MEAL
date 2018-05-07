@@ -19,6 +19,8 @@ securedRoutes.post(
 
 securedRoutes.put(
   '/meals/:mealId',
+  mealValidator,
+  verifyUser,
   permit('caterer', 'admin'),
   Meal.modifyMeal,
 );
