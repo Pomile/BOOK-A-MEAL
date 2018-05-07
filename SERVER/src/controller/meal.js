@@ -104,8 +104,13 @@ class Meal {
       });
   }
   static getMeals(req, res) {
-    const mealList = data.meals;
-    res.json({ data: mealList, sucess: true });
+    Meals.findAll({ offset: 0, limit: 5 })
+      .then((meals) => {
+        res.status(200)
+          .json({ data: meals, success: true });
+      }).catch((err) => {
+        res.status(404).json({ msg: err.message });
+      });
   }
 }
 export default Meal;

@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+export default function (sequelize, DataTypes) {
   const Meals = sequelize.define('Meals', {
     id: {
       allowNull: false,
@@ -39,4 +39,4 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, { timestamps: false });
   return Meals;
-};
+}

@@ -34,7 +34,7 @@ securedRoutes.delete(
 
 securedRoutes.get(
   '/meals',
-  permit('caterer', 'admin'),
+  verifyUser,
   Meal.getMeals,
 );
 

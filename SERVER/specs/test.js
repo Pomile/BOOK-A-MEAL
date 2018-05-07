@@ -310,16 +310,16 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
 
-    /* it('Caterers should be able see a list of meals', (done) => {
+    it('Caterers should be able see a list of meals', (done) => {
       request(app)
         .get('/api/v1/auth/meals')
-        .set({ authorization: `${isAdminAuthentic}`, user: `${adminId}` })
+        .set('authorization', `${adminToken}`)
         .end((err, res) => {
           expect(res.status).to.equal(200);
-          expect(res.body.sucess).to.equal(true);
+          expect(res.body.success).to.equal(true);
           done();
         });
-    }); */
+    });
   });
   /* describe(' Caterers can Setup menu for a specific day', () => {
     it('Caterer should be able to setup menu by selecting meals from available options', (done) => {
