@@ -27,6 +27,7 @@ securedRoutes.put(
 
 securedRoutes.delete(
   '/meals/:mealId',
+  verifyUser,
   permit('caterer', 'admin'),
   Meal.removeMeal,
 );

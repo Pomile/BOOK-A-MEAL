@@ -89,9 +89,19 @@ class Meal {
   }
   static removeMeal(req, res) {
     const id = req.params.mealId;
-    const mealIndex = data.meals.findIndex(meal => meal.id === +id);
-    data.meals.splice(mealIndex, 1);
-    res.status(204).end();
+    return Meals.find({
+      where: {
+        id,
+      },
+    })
+      .then(meal => meal.destroy())
+      .then(() => res.status(204).end())
+      .catch((err) => {
+        res.status(404)
+          .json({
+            msg: err.message,
+          });
+      });
   }
   static getMeals(req, res) {
     const mealList = data.meals;

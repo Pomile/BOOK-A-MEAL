@@ -290,43 +290,27 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
           done();
         });
     });
-    /* it('caterer should be able to delete a meal', (done) => {
-      const meal = {
-        name: 'Fried Rice with Chicken',
-        description: 'tasty rice and chicken which include carrot, green beans with salad',
-        price: '1500',
-        category: 'Intercontinental',
-      };
-
+    it('caterer should be able to delete a meal', (done) => {
       request(app)
         .delete('/api/v1/auth/meals/1')
-        .set({ authorization: `${isAdminAuthentic}`, user: `${adminId}` })
-        .send(meal)
+        .set('authorization', `${adminToken}`)
         .end((err, res) => {
           expect(res.status).to.equal(204);
           done();
-        }); */
-  });
+        });
+    });
 
-  /* it('Customer should not be able delete a meal', (done) => {
-      const meal = {
-        name: 'Fried Rice with Chicken',
-        description: 'tasty rice and chicken which include carrot, green beans with salad',
-        price: '1500',
-        category: 'Intercontinental',
-      };
-
+    it('Customer should not be able delete a meal', (done) => {
       request(app)
         .delete('/api/v1/auth/meals/1')
-        .set({ authorization: `${isCustomerAuthentic}`, user: `${customerId}` })
-        .send(meal)
+        .set('authorization', `${customerToken}`)
         .end((err, res) => {
           expect(res.status).to.equal(403);
           done();
         });
     });
 
-    it('Caterers should be able see a list of meals', (done) => {
+    /* it('Caterers should be able see a list of meals', (done) => {
       request(app)
         .get('/api/v1/auth/meals')
         .set({ authorization: `${isAdminAuthentic}`, user: `${adminId}` })
@@ -335,9 +319,9 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
           expect(res.body.sucess).to.equal(true);
           done();
         });
-    });
+    }); */
   });
-  describe(' Caterers can Setup menu for a specific day', () => {
+  /* describe(' Caterers can Setup menu for a specific day', () => {
     it('Caterer should be able to setup menu by selecting meals from available options', (done) => {
       request(app)
         .post('/api/v1/auth/menus')
