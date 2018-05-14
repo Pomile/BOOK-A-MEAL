@@ -40,6 +40,7 @@ securedRoutes.get(
 
 securedRoutes.post(
   '/menus',
+  verifyUser,
   permit('caterer', 'admin'),
   Menu.setMenu,
   sendMenuNotification,

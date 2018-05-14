@@ -3,7 +3,7 @@ import chai from 'chai';
 import 'babel-polyfill';
 import request from 'supertest';
 import app from '../server';
-import { Users, Meals } from '../src/models';
+import { Users, Meals, MealMenus, Menus } from '../src/models';
 
 const {
   describe, it, after,
@@ -23,6 +23,14 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
 
     await Meals.sync({ force: true }).then(() => {
       console.log('Meals table dropped and created');
+    }).catch(err => console.log(err.message));
+
+    await MealMenus.sync({ force: true }).then(() => {
+      console.log('MealMenus table dropped and created');
+    }).catch(err => console.log(err.message));
+
+    await Menus.sync({ force: true }).then(() => {
+      console.log('Menus table dropped and created');
     }).catch(err => console.log(err.message));
   });
   describe('Users can create an account and log in', () => {
@@ -321,12 +329,53 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
   });
-  /* describe(' Caterers can Setup menu for a specific day', () => {
+  describe(' Menu API', () => {
+    it('create Bulk meals', (done) => {
+      Meals.bulkCreate([
+        {
+          name: 'Jollof Rice with shredded beef',
+          userId: 1,
+          quantity: 40,
+          price: 3000,
+          date: '4/26/2018',
+          category: 'Intercontinental',
+        },
+
+        {
+          name: 'AMala with Goat Meat',
+          userId: 1,
+          quantity: 0,
+          price: 3000,
+          date: '4/26/2018',
+          category: 'Africa',
+        },
+
+        {
+          name: 'Pounded Yam with Egusi soup',
+          userId: 1,
+          quantity: 20,
+          price: 5000,
+          date: '4/27/2018',
+          category: 'Africa',
+        },
+
+        {
+          name: 'Beans and plaintain',
+          userId: 1,
+          quantity: 0,
+          price: 3000,
+          date: '4/26/2018',
+          category: 'Africa',
+        },
+      ]).then(() => Meals.findAll()).then(meals => console.log(JSON.stringify(meals)))
+        .catch(err => console.log(err.message));
+      done();
+    });
     it('Caterer should be able to setup menu by selecting meals from available options', (done) => {
       request(app)
         .post('/api/v1/auth/menus')
-        .set({ authorization: `${isAdminAuthentic}`, user: `${adminId}` })
-        .send({ meals: [3, 2] })
+        .set('authorization', `${adminToken}`)
+        .send({ meals: [3, 4, 5], title: 'Morning start' })
         .end((err, res) => {
           expect(res.status).to.equal(201);
           expect(res.body.success).to.equal(true);
@@ -334,23 +383,22 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
 
-    it('Caterer should not be able to set menu if no meal is selected', (done) => {
+    it('Caterer should not be able to set meal if meal quantity is equal to 0', (done) => {
       request(app)
         .post('/api/v1/auth/menus')
-        .set({ authorization: `${isAdminAuthentic}`, user: `${adminId}` })
-        .send({ meals: [0] })
+        .set('authorization', `${adminToken}`)
+        .send({ meals: [4], title: 'Morning start' })
         .end((err, res) => {
-          expect(res.status).to.equal(409);
+          expect(res.status).to.equal(404);
           expect(res.body.success).to.equal(false);
           done();
         });
     });
-  });
-  describe('Customers should Get Menu and make order', () => {
+
     it('Customers should be able to see menu for the day', (done) => {
       request(app)
         .get('/api/v1/auth/menu')
-        .set({ authorization: `${isCustomerAuthentic}`, user: `${customerId}` })
+        .set('authorization', `${customerToken}`)
         .end((err, res) => {
           expect(res.status).to.equal(200);
           expect(res.body.success).to.equal(true);
@@ -358,17 +406,18 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
 
-    it('should not return menu for the day if a customer is not authenticated', (done) => {
+    it('Customers Should not be able to see menu with invalid token', (done) => {
       request(app)
         .get('/api/v1/auth/menu')
-        .set({ authorization: `${isCustomerAuthentic = 'false'}`, user: `${customerId}` })
+        .set('authorization', `${customerToken}${'ghghjgjghg'}`)
         .end((err, res) => {
           expect(res.status).to.equal(403);
           expect(res.body.success).to.equal(false);
           done();
         });
     });
-
+  });
+  /* describe('Order-API', () => {
     it('should make an order from the menu', (done) => {
       request(app)
         .post('/api/v1/auth/orders')
@@ -392,8 +441,6 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
           done();
         });
     });
-  });
-  describe('Authenticated users (customers) should be able to change their meal choice', () => {
     it('should Modify an order', (done) => {
       request(app)
         .put('/api/v1/auth/orders/4')

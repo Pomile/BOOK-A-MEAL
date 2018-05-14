@@ -21,8 +21,13 @@ app.use('/api/v1/auth', securedRoutes);
 
 
 app.listen(port, () => {
-  console.log(`Server is listening on port ${port}`);
-  db.sequelize.sync();
+  if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development') {
+    console.log(`${process.env.NODE_ENV} server is listening on port ${port}`);
+    db.sequelize.sync();
+  } else {
+    db.sequelize.sync();
+    console.log(`${process.env.NODE_ENV} Server is listening on port ${port}`);
+  }
 });
 
 export default app;
