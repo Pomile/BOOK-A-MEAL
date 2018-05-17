@@ -33,7 +33,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
       console.log('Menus table dropped and created');
     }).catch(err => console.log(err.message));
   });
-  describe('Users can create an account and log in', () => {
+  describe('Users API', () => {
     it('Caterer should be able to create an account', (done) => {
       const userData = {
         firstname: 'babatunde',
@@ -184,7 +184,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
   });
-  describe('Caterers Manage Meals Options', () => {
+  describe('Manage Meals Options API', () => {
     it('Caterer should be able to add a meal', (done) => {
       const meal = {
         name: 'Fried Rice with Chicken',
@@ -330,7 +330,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
     });
   });
   describe(' Menu API', () => {
-    it('create Bulk meals', (done) => {
+    it('Create bulk meals', (done) => {
       Meals.bulkCreate([
         {
           name: 'Jollof Rice with shredded beef',
@@ -417,12 +417,12 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
   });
-  /* describe('Order-API', () => {
+  describe('Order-API', () => {
     it('should make an order from the menu', (done) => {
       request(app)
         .post('/api/v1/auth/orders')
-        .set({ authorization: `${isCustomerAuthentic = 'true'}`, user: `${customerId}` })
-        .send({ mealId: 3 })
+        .set('authorization', `${customerToken}`)
+        .send({ mealId: 3, quantity: 1 })
         .end((err, res) => {
           expect(res.status).to.equal(201);
           expect(res.body.success).to.equal(true);
@@ -433,8 +433,8 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
     it('should not make an order if selected meal is not available', (done) => {
       request(app)
         .post('/api/v1/auth/orders')
-        .set({ authorization: `${isCustomerAuthentic}`, user: `${customerId}` })
-        .send({ mealId: 2 })
+        .set('authorization', `${customerToken}`)
+        .send({ mealId: 4 })
         .end((err, res) => {
           expect(res.status).to.equal(404);
           expect(res.body.msg).to.equal('This Meal is not available');
@@ -444,9 +444,8 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
     it('should Modify an order', (done) => {
       request(app)
         .put('/api/v1/auth/orders/4')
-        .set({ authorization: `${isCustomerAuthentic = 'true'}`, user: `${customerId}` })
+        .set('authorization', `${customerToken}`)
         .send({
-          username: 'bola.kudi@live.com',
           price: 7000,
           meal: 'Cat fish with vegetable',
           date: '4/27/2018',
@@ -461,7 +460,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
     it('should not Modify an order', (done) => {
       request(app)
         .put('/api/v1/auth/orders/20')
-        .set({ authorization: `${isCustomerAuthentic = 'true'}`, user: `${customerId}` })
+        .set('authorization', `${customerToken}${'ghghjgjghg'}`)
         .send({
           username: 'bola.kudi@live.com',
           price: 7000,
@@ -474,30 +473,32 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
           done();
         });
     });
-  });
-  describe('Cutomers get all orders for a specific day', () => {
+
     it('should return all orders for a specific day', (done) => {
+      const date = new Date();
+      const todaysDate = date.toISOString();
+
       request(app)
-        .get('/api/v1/auth/orders?date=4/25/2018')
-        .set({ authorization: `${isAdminAuthentic}`, user: `${adminId}` })
+        .get(`/api/v1/auth/orders?date=${todaysDate}`)
+        .set('authorization', `${customerToken}`)
         .end((err, res) => {
           expect(res.status).to.equal(200);
           expect(res.body.success).to.equal(true);
           done();
         });
     });
-  });
+    it('A customer should not be able see orders for a specific day', (done) => {
+      const date = new Date();
+      const todaysDate = date.toISOString();
 
-  describe('No Orders for Specified Date', () => {
-    it('should return false for a specific day', (done) => {
       request(app)
-        .get('/api/v1/auth/orders?date=4/25/2017')
-        .set({ authorization: `${isAdminAuthentic}`, user: `${adminId}` })
+        .get(`/api/v1/auth/orders?date=${todaysDate}`)
+        .set('authorization', `${customerToken}`)
         .end((err, res) => {
           expect(res.status).to.equal(404);
           expect(res.body.success).to.equal(false);
           done();
         });
     });
-  }); */
+  });
 });

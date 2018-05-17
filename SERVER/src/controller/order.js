@@ -1,19 +1,35 @@
+import { Orders, Meals } from '../models';
 import { data } from '../db/data';
 
 class Order {
   static makeOrder(req, res) {
-    const { email, firstname } = req.user;
-    const { mealId } = req.body;
-    const countOrders = data.orders.length;
+    const userId = req.user.id;
+    const { mealId, quantity } = req.body;
 
     const date = new Date();
-    const month = (date.getMonth() + 1).toString();
-    const day = date.getDate().toString();
-    const year = date.getFullYear().toString();
-    const todaysDate = `${month}/${day}/${year}`;
+    const todaysDate = date.toISOString();
+    const meal = Meals.findById(mealId);
 
+    if (!meal) {
+      res.status(404).json({ msg: 'Meal not found' });
+    } else if (meal.quantity < quantity) {
+      res.status(200).json({ msg: 'Meal quantity exceeded' });
+    } else {
+      Orders.create({
+        mealId,
+        userId,
+        quantity,
+        date: todaysDate,
+      }).then((order) => {
+        console.log(JSON.stringify(order));
+        res.status(201).json({ success: true, msg: `You have ordered for ${meal.name}` });
+      }).catch((err) => {
+        console.log(err.message);
+        res.status(409).json({ msg: 'Order not successful', success: false });
+      });
+    }
     // find selected meal in the menu
-    const todaysMenu = data.menus.map(menu => (menu.date === todaysDate ? menu : null));
+    /*  const todaysMenu = data.menus.map(menu => (menu.date === todaysDate ? menu : null));
 
     const mealsOption = todaysMenu[0].meals;
 
@@ -33,7 +49,7 @@ class Order {
         .end();
     } else {
       res.status(404).json({ msg: 'This Meal is not available' }).end();
-    }
+    } */
   }
 
   static modifyOrder(req, res) {
