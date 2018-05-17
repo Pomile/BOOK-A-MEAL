@@ -9,7 +9,7 @@ export default function (sequelize, DataTypes) {
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      constraint: false,
+      constraint: true,
       references: {
         model: 'Users',
         key: 'id',
@@ -38,5 +38,10 @@ export default function (sequelize, DataTypes) {
       allowNull: true,
     },
   }, { timestamps: false });
+
+  Meals.associate = (models) => {
+    Meals.hasMany(models.MealMenus, { foreignKey: 'mealId' });
+    Meals.hasMany(models.Orders, { foreignKey: 'mealId' });
+  };
   return Meals;
 }

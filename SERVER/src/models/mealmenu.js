@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     mealId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      constraint: false,
+      constraint: true,
       references: {
         model: 'Meals',
         key: 'id',
@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     menuId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      constraint: false,
+      constraint: true,
       references: {
         model: 'Menus',
         key: 'id',

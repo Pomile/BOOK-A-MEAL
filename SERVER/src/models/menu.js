@@ -1,5 +1,3 @@
-
-
 module.exports = (sequelize, DataTypes) => {
   const Menus = sequelize.define('Menus', {
     id: {
@@ -23,9 +21,12 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     date: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: false,
     },
   }, { timestamps: false });
+  Menus.associate = (models) => {
+    Menus.hasMany(models.MealMenus, { foreignKey: 'menuId' });
+  };
   return Menus;
 };
