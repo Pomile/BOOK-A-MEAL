@@ -34,6 +34,10 @@ module.exports = {
       type: Sequelize.DATEONLY,
       allowNull: false,
     },
+    time: {
+      type: Sequelize.DATE,
+      allowNull: false,
+    },
   }),
   down: (queryInterface, Sequelize) => queryInterface.dropTable('Orders'),
 };

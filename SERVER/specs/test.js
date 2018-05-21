@@ -3,7 +3,7 @@ import chai from 'chai';
 import 'babel-polyfill';
 import request from 'supertest';
 import app from '../server';
-import { Users, Meals, MealMenus, Menus } from '../src/models';
+import { Users, Meals, MealMenus, Menus, Orders } from '../src/models';
 
 const {
   describe, it, after,
@@ -17,6 +17,8 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
   after(async () => {
     console.log(`adminPass: ${adminToken}`);
     console.log(`customerPass: ${customerToken}`);
+
+
     await Users.sync({ force: true }).then(() => {
       console.log('Users table dropped and created');
     }).catch(err => console.log(err.message));
@@ -25,12 +27,16 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
       console.log('Meals table dropped and created');
     }).catch(err => console.log(err.message));
 
-    await MealMenus.sync({ force: true }).then(() => {
-      console.log('MealMenus table dropped and created');
-    }).catch(err => console.log(err.message));
-
     await Menus.sync({ force: true }).then(() => {
       console.log('Menus table dropped and created');
+    }).catch(err => console.log(err.message));
+
+    await Orders.sync({ force: true }).then(() => {
+      console.log('Orders table dropped and created');
+    }).catch(err => console.log(err.message));
+
+    await MealMenus.sync({ force: true }).then(() => {
+      console.log('MealMenus table dropped and created');
     }).catch(err => console.log(err.message));
   });
   describe('Users API', () => {
@@ -430,14 +436,14 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
 
-    it('should not make an order if selected meal is not available', (done) => {
+    it('Customer should not make an order if specified quantity exceeds available quantity', (done) => {
       request(app)
         .post('/api/v1/auth/orders')
         .set('authorization', `${customerToken}`)
-        .send({ mealId: 4 })
+        .send({ mealId: 4, quantity: 20 })
         .end((err, res) => {
           expect(res.status).to.equal(404);
-          expect(res.body.msg).to.equal('This Meal is not available');
+          expect(res.body.msg).to.equal('Available quantity exceeded');
           done();
         });
     });
