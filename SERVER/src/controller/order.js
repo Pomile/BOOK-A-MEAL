@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { Orders, Meals } from '../models';
 import { data } from '../db/data';
 
@@ -32,29 +33,28 @@ class Order {
     }
   }
 
-  static modifyOrder(req, res) {
+  static async modifyOrder(req, res) {
     const { orderId } = req.params;
     const {
       mealId,
     } = req.body;
-
-    Orders.update({ mealId }).then(() => {
-
+    console.log(orderId);
+    await Orders.findById(orderId).then((order) => {
+      console.log(JSON.stringify(order.date.toLocaleTimeString()));
+      const orderTime = moment(Object.values(moment(order.date.toLocaleTimeString(), 'hh:mm:ss').toObject()));
+      // const now = moment('2018-05-22T13:59:47.357');
+      const now = moment(Object.values(moment().toObject()));
+      const modifyOrderTimeLimit = now.diff(orderTime, 'minute');
+      if (modifyOrderTimeLimit > 30) {
+        res.status(200).json({ msg: 'Its Over 30 minutes you cannot change meal choice', success: false });
+      } else {
+        order.update({
+          mealId,
+        }).then(() => {
+          res.status(200).json({ success: true });
+        });
+      }
     });
-
-    /* const orderIndex = data.orders.findIndex(order => order.id === +orderId);
-    if (orderIndex !== -1) {
-      data.orders[orderIndex].username = username;
-      data.orders[orderIndex].meal = meal;
-      data.orders[orderIndex].price = price;
-      data.orders[orderIndex].date = date;
-      res.status(200).json({
-        msg: `you have Change your Order from ${data.orders[orderIndex].meal} to ${meal}`,
-        success: true,
-      });
-    } else {
-      res.status(404).json({ msg: 'This Order does not exist', success: false });
-    } */
   }
   static getAllCustomersOrder(req, res) {
     const specifiedDate = req.query.date;
