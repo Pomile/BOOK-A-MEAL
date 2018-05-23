@@ -440,7 +440,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
       request(app)
         .post('/api/v1/auth/orders')
         .set('authorization', `${customerToken}`)
-        .send({ mealId: 4, quantity: 20 })
+        .send({ mealId: 3, quantity: 70 })
         .end((err, res) => {
           expect(res.status).to.equal(404);
           expect(res.body.msg).to.equal('Available quantity exceeded');
@@ -452,7 +452,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         .put('/api/v1/auth/orders/1')
         .set('authorization', `${customerToken}`)
         .send({
-          mealId: 4,
+          mealId: 5,
         })
         .end((err, res) => {
           expect(res.status).to.equal(200);
@@ -466,7 +466,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         .put('/api/v1/auth/orders/20')
         .set('authorization', `${customerToken}${'ghghjgjghg'}`)
         .send({
-          mealId: 4,
+          mealId: 5,
         })
         .end((err, res) => {
           expect(res.status).to.equal(403);
@@ -475,12 +475,9 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
 
-    it('should return all orders for a specific day', (done) => {
-      const date = new Date();
-      const todaysDate = date.toISOString();
-
+    it('A customer should be able see his/her orders for the day', (done) => {
       request(app)
-        .get(`/api/v1/auth/orders?date=${todaysDate}`)
+        .get('/api/v1/auth/orders')
         .set('authorization', `${customerToken}`)
         .end((err, res) => {
           expect(res.status).to.equal(200);
@@ -488,13 +485,14 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
           done();
         });
     });
-    it('A customer should not be able see orders for a specific day', (done) => {
+
+    it('A Caterer should be able see orders for a specific day', (done) => {
       const date = new Date();
       const todaysDate = date.toISOString();
 
       request(app)
         .get(`/api/v1/auth/orders?date=${todaysDate}`)
-        .set('authorization', `${customerToken}`)
+        .set('authorization', `${adminToken}`)
         .end((err, res) => {
           expect(res.status).to.equal(404);
           expect(res.body.success).to.equal(false);

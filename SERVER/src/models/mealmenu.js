@@ -30,5 +30,10 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
   }, { timestamps: false });
+
+  MealMenus.associate = (models) => {
+    MealMenus.belongsTo(models.Meals, { foreignKey: 'mealId', targetKey: 'id' });
+    MealMenus.belongsTo(models.Menus, { foreignKey: 'menuId', targetKey: 'id' });
+  };
   return MealMenus;
 };

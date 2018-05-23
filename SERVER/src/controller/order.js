@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { Orders, Meals } from '../models';
+import { Orders, Meals, Users } from '../models';
 import { data } from '../db/data';
 
 class Order {
@@ -24,7 +24,10 @@ class Order {
         quantity,
         date: todaysDate,
       }).then((order) => {
-        // console.log(JSON.stringify(order));
+        console.log(JSON.stringify(order));
+        Meals.findById(mealId).then((orderedMeal) => {
+          orderedMeal.decrement('quantity', { by: order.quantity });
+        });
         res.status(201).json({ success: true, msg: `You have ordered for ${meal.name} , data:${order}` });
       }).catch((err) => {
         console.log(err.message);
@@ -40,8 +43,8 @@ class Order {
     } = req.body;
     console.log(orderId);
     await Orders.findById(orderId).then((order) => {
-      console.log(JSON.stringify(order.date.toLocaleTimeString()));
-      const orderTime = moment(Object.values(moment(order.date.toLocaleTimeString(), 'hh:mm:ss').toObject()));
+      console.log(JSON.stringify(order.time.toLocaleTimeString()));
+      const orderTime = moment(Object.values(moment(order.time.toLocaleTimeString(), 'hh:mm:ss').toObject()));
       // const now = moment('2018-05-22T13:59:47.357');
       const now = moment(Object.values(moment().toObject()));
       const modifyOrderTimeLimit = now.diff(orderTime, 'minute');
@@ -56,20 +59,53 @@ class Order {
       }
     });
   }
-  static getAllCustomersOrder(req, res) {
-    const specifiedDate = req.query.date;
-    const findOrdersByDate = data.orders.map((order) => {
-      if (order.date === specifiedDate) {
-        return order;
-      }
-      return null;
-    }).filter(item => item !== null);
-    if (findOrdersByDate.length > 0) {
-      const sumTotalOfOrders = findOrdersByDate.reduce((sum, order) => sum + order.price, 0);
-      res.status(200).json({ data: findOrdersByDate, total: sumTotalOfOrders, success: true });
-    } else {
-      res.status(404).json({ msg: `No Order(s) is available for ${specifiedDate} `, success: false });
-    }
+  static getCustomerOrders(req, res) {
+    const date = new Date();
+    const todaysdate = date.toISOString();
+    console.log(todaysdate);
+    const userId = req.user.id;
+    console.log(userId);
+    Orders.findAll({
+      where: {
+        date: todaysdate,
+        userId,
+      },
+      attributes: ['id', 'date'],
+      include: [{
+        model: Users,
+        attributes: ['email'],
+
+      }, {
+        model: Meals,
+        attributes: ['name', 'price'],
+      }],
+    }).then((customerOrders) => {
+      console.log(JSON.stringify(customerOrders));
+      res.status(200).json({ success: true, data: customerOrders });
+    });
+  }
+
+  static getCustomersOrders(req, res) {
+    const date = new Date();
+    const todaysdate = date.toISOString();
+    console.log(todaysdate);
+    Orders.findAll({
+      where: {
+        date: todaysdate,
+      },
+      attributes: ['id', 'date'],
+      include: [{
+        model: Users,
+        attributes: ['email'],
+
+      }, {
+        model: Meals,
+        attributes: ['name', 'price'],
+      }],
+    }).then((customersOrders) => {
+      console.log(JSON.stringify(customersOrders));
+      res.status(200).json({ success: true, data: customersOrders });
+    });
   }
 }
 

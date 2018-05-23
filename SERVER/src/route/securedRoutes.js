@@ -65,7 +65,7 @@ securedRoutes.put(
 );
 securedRoutes.get(
   '/orders',
-  permit('caterer', 'admin'),
-  Order.getAllCustomersOrder,
+  verifyUser,
+  Order.getCustomerOrders,
 );
 export default securedRoutes;

@@ -31,10 +31,20 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     date: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: false,
     },
+    time: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    },
   }, { timestamps: false });
+
+  Orders.associate = (models) => {
+    Orders.belongsTo(models.Users, { foreignKey: 'userId', targetKey: 'id' });
+    Orders.belongsTo(models.Meals, { foreignKey: 'mealId', targetKey: 'id' });
+  };
 
   return Orders;
 };

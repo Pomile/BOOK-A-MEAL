@@ -43,10 +43,11 @@ class Menu {
         date: todaysDate,
       },
     }).then(menu =>
-      Meals.findAll({
+      MealMenus.findAll({
+        where: { menuId: menu.id },
         include: [{
-          model: MealMenus,
-          where: { menuId: menu.id },
+          model: Meals,
+          attributes: ['name', 'price', 'image'],
         }],
       })).then((meals) => {
       console.log(JSON.stringify(meals));
