@@ -28,9 +28,9 @@ class Menu {
       }).then(todaysmenu => todaysmenu);
       const menuMeals = [];
       await availableMeals.map(mx => menuMeals.push({ mealId: mx.id, menuId: menu.id }));
-      await MealMenus.bulkCreate(menuMeals).then((mealMenu) => {
+      await MealMenus.bulkCreate(menuMeals).then((menuMeal) => {
         // console.log(JSON.stringify(mealMenu));
-        res.status(201).json({ success: true, data: mealMenu });
+        res.status(201).json({ success: true, data: menuMeal });
       });
     }
   }
@@ -47,10 +47,10 @@ class Menu {
         where: { menuId: menu.id },
         include: [{
           model: Meals,
-          attributes: ['name', 'price', 'image'],
+          attributes: ['id', 'name', 'price', 'image'],
         }],
       })).then((meals) => {
-      console.log(JSON.stringify(meals));
+      // console.log(JSON.stringify(meals));
       res.status(200).json({ data: meals, success: true })
         .end();
     }).catch((err) => { res.status(404).json({ error: err.message }); });

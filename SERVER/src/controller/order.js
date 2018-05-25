@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { Orders, Meals, Users } from '../models';
-import { data } from '../db/data';
+// import { data } from '../db/data';
 
 class Order {
   static async makeOrder(req, res) {
@@ -24,14 +24,14 @@ class Order {
         quantity,
         date: todaysDate,
       }).then((order) => {
-        console.log(JSON.stringify(order));
+        // console.log(JSON.stringify(order));
         Meals.findById(mealId).then((orderedMeal) => {
           orderedMeal.decrement('quantity', { by: order.quantity });
         });
         res.status(201).json({ success: true, msg: `You have ordered for ${meal.name} , data:${order}` });
       }).catch((err) => {
-        console.log(err.message);
-        res.status(409).json({ msg: 'Order not successful', success: false });
+        // console.log(err.message);
+        res.status(409).json({ msg: 'Order not successful', success: false, error: err.message });
       });
     }
   }
@@ -41,9 +41,9 @@ class Order {
     const {
       mealId,
     } = req.body;
-    console.log(orderId);
+    // console.log(orderId);
     await Orders.findById(orderId).then((order) => {
-      console.log(JSON.stringify(order.time.toLocaleTimeString()));
+      // console.log(JSON.stringify(order.time.toLocaleTimeString()));
       const orderTime = moment(Object.values(moment(order.time.toLocaleTimeString(), 'hh:mm:ss').toObject()));
       // const now = moment('2018-05-22T13:59:47.357');
       const now = moment(Object.values(moment().toObject()));
@@ -62,9 +62,9 @@ class Order {
   static getCustomerOrders(req, res) {
     const date = new Date();
     const todaysdate = date.toISOString();
-    console.log(todaysdate);
+    // console.log(todaysdate);
     const userId = req.user.id;
-    console.log(userId);
+    // console.log(userId);
     Orders.findAll({
       where: {
         date: todaysdate,
@@ -80,7 +80,7 @@ class Order {
         attributes: ['name', 'price'],
       }],
     }).then((customerOrders) => {
-      console.log(JSON.stringify(customerOrders));
+      // console.log(JSON.stringify(customerOrders));
       res.status(200).json({ success: true, data: customerOrders });
     });
   }
@@ -88,24 +88,32 @@ class Order {
   static getCustomersOrders(req, res) {
     const date = new Date();
     const todaysdate = date.toISOString();
-    console.log(todaysdate);
-    Orders.findAll({
-      where: {
-        date: todaysdate,
-      },
-      attributes: ['id', 'date'],
-      include: [{
-        model: Users,
-        attributes: ['email'],
+    // console.log(todaysdate);
+    const roles = ['caterer', 'admin'];
+    if (roles.includes(req.user.role)) {
+      Orders.findAll({
+        where: {
+          date: todaysdate,
+        },
+        attributes: ['id', 'date', 'quantity'],
+        include: [{
+          model: Users,
+          attributes: ['email'],
 
-      }, {
-        model: Meals,
-        attributes: ['name', 'price'],
-      }],
-    }).then((customersOrders) => {
-      console.log(JSON.stringify(customersOrders));
-      res.status(200).json({ success: true, data: customersOrders });
-    });
+        }, {
+          model: Meals,
+          attributes: ['id', 'name', 'price'],
+        }],
+      }).then((customersOrders) => {
+        const total = customersOrders.reduce((sum, order) =>
+          sum + (order.quantity * order.Meal.price), 0);
+        customersOrders.push({ total });
+        // console.log(JSON.stringify(customersOrders));
+        res.status(200).json({ success: true, data: customersOrders });
+      });
+    } else {
+      res.status(403).json({ message: 'access denied', success: false });
+    }
   }
 }
 

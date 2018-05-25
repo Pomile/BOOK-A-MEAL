@@ -8,7 +8,9 @@ import db from './src/models';
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(morgan('short'));
+if (process.env.NODE_ENV === 'production') {
+  app.use(morgan('short'));
+}
 
 app.use(bodyParser.urlencoded({ extended: false, type: '*/x-www-form-urlencoded' }));
 app.use(bodyParser.json({ type: 'application/json' }));
@@ -22,11 +24,11 @@ app.use('/api/v1/auth', securedRoutes);
 
 app.listen(port, () => {
   if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development') {
-    console.log(`${process.env.NODE_ENV} server is listening on port ${port}`);
+    console.log(`${process.env.NODE_ENV.toUpperCase()} server is listening on port ${port}`);
     db.sequelize.sync();
   } else {
     db.sequelize.sync();
-    console.log(`${process.env.NODE_ENV} Server is listening on port ${port}`);
+    console.log(`${process.env.NODE_ENV.toUpperCase()} Server is listening on port ${port}`);
   }
 });
 

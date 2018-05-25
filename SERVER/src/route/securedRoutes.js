@@ -66,6 +66,13 @@ securedRoutes.put(
 securedRoutes.get(
   '/orders',
   verifyUser,
-  Order.getCustomerOrders,
+  (req, res) => {
+    if (req.query.date) {
+      Order.getCustomersOrders(req, res);
+    } else {
+      Order.getCustomerOrders(req, res);
+    }
+  },
+
 );
 export default securedRoutes;
