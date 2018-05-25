@@ -1,7 +1,8 @@
 import nodemailer from 'nodemailer';
 
 exports.sendMenuNotification = (req, res) => {
-  const menu = req.todaysMenu.meals;
+  const { menu } = req;
+  // console.log(menu);
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     host: 'smtp.gmail.com',
@@ -34,7 +35,7 @@ exports.sendMenuNotification = (req, res) => {
             </tr>
           </thead>
           <tbody>
-            ${content}
+          ${content}
           </tbody>
         </table>
         <p>Thank you</p>

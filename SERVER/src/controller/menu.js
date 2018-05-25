@@ -1,4 +1,5 @@
 import { Meals, MealMenus, Menus } from '../models';
+import { sendMenuNotification } from '../middleware/notification';
 // import { data } from '../db/data';
 
 
@@ -26,11 +27,14 @@ class Menu {
         title,
         date: todaysDate,
       }).then(todaysmenu => todaysmenu);
+
       const menuMeals = [];
       await availableMeals.map(mx => menuMeals.push({ mealId: mx.id, menuId: menu.id }));
-      await MealMenus.bulkCreate(menuMeals).then((menuMeal) => {
-        // console.log(JSON.stringify(mealMenu));
-        res.status(201).json({ success: true, data: menuMeal });
+      await MealMenus.bulkCreate(menuMeals).then(() => {
+        // console.log(JSON.stringify(availableMeals));
+        req.menu = availableMeals;
+        sendMenuNotification(req, res);
+        // res.status(201).json({ success: true, data: menuMeal });
       });
     }
   }
