@@ -8,7 +8,9 @@ import db from './src/models';
 const app = express();
 const port = process.env.PORT || 3000;
 
-if (process.env.NODE_ENV === 'production') {
+console.log(`ENV: ${process.env.NODE_ENV}`);
+
+if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'development') {
   app.use(morgan('short'));
 }
 
@@ -23,12 +25,15 @@ app.use('/api/v1/auth', securedRoutes);
 
 
 app.listen(port, () => {
-  if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development') {
-    console.log(`${process.env.NODE_ENV.toUpperCase()} server is listening on port ${port}`);
+  if (process.env.NODE_ENV === 'test') {
+    console.log(`${process.env.NODE_ENV} server is listening on port ${port}`);
     db.sequelize.sync();
+  } else if (process.env.NODE_ENV === 'development') {
+    console.log(`${process.env.NODE_ENV} server is listening on port ${port}`);
+    db.sequelize.sync({ force: true });
   } else {
     db.sequelize.sync();
-    console.log(`${process.env.NODE_ENV.toUpperCase()} Server is listening on port ${port}`);
+    console.log(`${process.env.NODE_ENV} Server is listening on port ${port}`);
   }
 });
 

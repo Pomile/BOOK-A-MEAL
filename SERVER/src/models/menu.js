@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, { timestamps: false });
   Menus.associate = (models) => {
-    Menus.hasMany(models.MealMenus, { foreignKey: 'menuId' });
+    Menus.hasMany(models.MealMenus, { foreignKey: 'menuId', targetKey: 'id' });
   };
   return Menus;
 };

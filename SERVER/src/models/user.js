@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    image: {
+      type: DataTypes.BLOB,
+      allowNull: true,
+    },
     email: {
       type: DataTypes.STRING(50),
       allowNull: false,
@@ -40,6 +44,9 @@ module.exports = (sequelize, DataTypes) => {
     .then((hash) => {
       user.password = hash;
     }));
+  Users.associate = (models) => {
+    Users.hasMany(models.Meals, { foreignKey: 'userId' });
+  };
 
   return Users;
 };

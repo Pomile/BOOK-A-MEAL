@@ -42,6 +42,7 @@ export default function (sequelize, DataTypes) {
   Meals.associate = (models) => {
     Meals.hasMany(models.MealMenus, { foreignKey: 'mealId' });
     Meals.hasMany(models.Orders, { foreignKey: 'mealId' });
+    Meals.belongsTo(models.Users, { foreignKey: 'userId', targetKey: 'id' });
   };
   return Meals;
 }
