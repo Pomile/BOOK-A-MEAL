@@ -17,6 +17,13 @@ securedRoutes.post(
   Meal.addMeal,
 );
 
+securedRoutes.post(
+  '/bulkmeals',
+  verifyUser,
+  permit('caterer', 'admin'),
+  Meal.addMeals,
+);
+
 securedRoutes.put(
   '/meals/:mealId',
   mealValidator,

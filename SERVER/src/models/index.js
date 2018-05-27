@@ -5,7 +5,7 @@ import configs from '../config/config.json';
 import operatorsAliases from '../operators/operatorsAliases';
 
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV;
 const config = configs[env];
 config.operatorsAliases = operatorsAliases;
 const db = {};

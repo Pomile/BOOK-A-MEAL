@@ -31,7 +31,7 @@ export default function (sequelize, DataTypes) {
     },
     image: {
       type: DataTypes.BLOB,
-      allowNull: true,
+      allowNull: false,
     },
     category: {
       type: DataTypes.STRING,

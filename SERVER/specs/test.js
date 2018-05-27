@@ -198,14 +198,81 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         price: '1500',
         category: 'Intercontinental',
       };
-
+      const imagePath = `${__dirname}/images/Chickery-Fish.jpg`;
       request(app)
         .post('/api/v1/auth/meals')
         .set('authorization', `${adminToken}`)
-        .send(meal)
+        .field('name', meal.name)
+        .field('quantity', meal.quantity)
+        .field('price', meal.price)
+        .field('category', meal.category)
+        .attach('image', imagePath)
         .end((err, res) => {
           expect(res.status).to.equal(201);
           expect(res.body.msg).to.equal('meal added successfully');
+          done();
+        });
+    });
+
+    it('A caterer should be able to modify a meal', (done) => {
+      const meal = {
+        name: 'Fried Rice with Chicken',
+        description: 'tasty rice and chicken which include carrot, green beans with salad',
+        price: '5500',
+        category: 'Intercontinental',
+      };
+
+      request(app)
+        .put('/api/v1/auth/meals/1')
+        .set('authorization', `${adminToken}`)
+        .send(meal)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.msg).to.equal('meal modified successfully');
+          done();
+        });
+    });
+
+    it('A caterer should not be able to add a meal that already exists', (done) => {
+      const meal = {
+        name: 'Fried Rice with Chicken',
+        quantity: 1,
+        price: '1500',
+        category: 'Interconinental',
+      };
+      const imagePath = `${__dirname}/images/Chickery-Fish.jpg`;
+      request(app)
+        .post('/api/v1/auth/meals')
+        .set('authorization', `${adminToken}`)
+        .field('name', meal.name)
+        .field('quantity', meal.quantity)
+        .field('price', meal.price)
+        .field('category', meal.category)
+        .attach('image', imagePath)
+        .end((err, res) => {
+          expect(res.status).to.equal(409);
+          expect(res.body.msg).to.equal('This meal is already existing');
+          done();
+        });
+    });
+
+    it('A caterer should be able to delete a meal', (done) => {
+      request(app)
+        .delete('/api/v1/auth/meals/1')
+        .set('authorization', `${adminToken}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(204);
+          done();
+        });
+    });
+
+    it('A Caterer should be able see a list of meals', (done) => {
+      request(app)
+        .get('/api/v1/auth/meals')
+        .set('authorization', `${adminToken}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.success).to.equal(true);
           done();
         });
     });
@@ -229,44 +296,6 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
 
-
-    it('A caterer should not be able to add a meal that already exists', (done) => {
-      const meal = {
-        name: 'Fried Rice with Chicken',
-        quantity: 1,
-        price: '1500',
-        category: 'Interconinental',
-      };
-
-      request(app)
-        .post('/api/v1/auth/meals')
-        .set('authorization', `${adminToken}`)
-        .send(meal)
-        .end((err, res) => {
-          expect(res.status).to.equal(409);
-          expect(res.body.msg).to.equal('This meal is already existing');
-          done();
-        });
-    });
-
-    it('A caterer should be able to modify a meal', (done) => {
-      const meal = {
-        name: 'Fried Rice with Chicken',
-        description: 'tasty rice and chicken which include carrot, green beans with salad',
-        price: '5500',
-        category: 'Intercontinental',
-      };
-
-      request(app)
-        .put('/api/v1/auth/meals/1')
-        .set('authorization', `${adminToken}`)
-        .send(meal)
-        .end((err, res) => {
-          expect(res.status).to.equal(200);
-          expect(res.body.msg).to.equal('meal modified successfully');
-          done();
-        });
-    });
     it('A caterer should not be able to modify a meal that does not exist', (done) => {
       const meal = {
         name: 'Fried Rice with Chicken',
@@ -282,6 +311,16 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         .end((err, res) => {
           expect(res.status).to.equal(404);
           expect(res.body.msg).to.equal('meal does not exist');
+          done();
+        });
+    });
+
+    it('A Customer should not be able to delete a meal that does not exist', (done) => {
+      request(app)
+        .delete('/api/v1/auth/meals/200')
+        .set('authorization', `${adminToken}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(404);
           done();
         });
     });
@@ -304,15 +343,6 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
           done();
         });
     });
-    it('A caterer should be able to delete a meal', (done) => {
-      request(app)
-        .delete('/api/v1/auth/meals/1')
-        .set('authorization', `${adminToken}`)
-        .end((err, res) => {
-          expect(res.status).to.equal(204);
-          done();
-        });
-    });
 
     it('A Customer should not be able to delete a meal', (done) => {
       request(app)
@@ -324,59 +354,69 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
 
-    it('A Caterer should be able see a list of meals', (done) => {
+    it('A user should not be able to access any feature without a token', (done) => {
       request(app)
-        .get('/api/v1/auth/meals')
-        .set('authorization', `${adminToken}`)
+        .delete('/api/v1/auth/meals/1')
         .end((err, res) => {
-          expect(res.status).to.equal(200);
-          expect(res.body.success).to.equal(true);
+          expect(res.status).to.equal(403);
           done();
         });
     });
   });
   describe(' Menu API', () => {
     it('Create bulk meals', (done) => {
-      Meals.bulkCreate([
-        {
-          name: 'Jollof Rice with shredded beef',
-          userId: 1,
-          quantity: 40,
-          price: 3000,
-          date: '4/26/2018',
-          category: 'Intercontinental',
-        },
+      const meals = {
+        data: [
+          {
+            name: 'Jollof Rice with shredded beef',
+            userId: 1,
+            quantity: 40,
+            price: 3000,
+            date: '4/26/2018',
+            category: 'Intercontinental',
+          },
 
-        {
-          name: 'AMala with Goat Meat',
-          userId: 1,
-          quantity: 0,
-          price: 3000,
-          date: '4/26/2018',
-          category: 'Africa',
-        },
+          {
+            name: 'AMala with Goat Meat',
+            userId: 1,
+            quantity: 0,
+            price: 3000,
+            date: '4/26/2018',
+            category: 'Africa',
+          },
 
-        {
-          name: 'Pounded Yam with Egusi soup',
-          userId: 1,
-          quantity: 20,
-          price: 5000,
-          date: '4/27/2018',
-          category: 'Africa',
-        },
+          {
+            name: 'Pounded Yam with Egusi soup',
+            userId: 1,
+            quantity: 20,
+            price: 5000,
+            date: '4/27/2018',
+            category: 'Africa',
+          },
 
-        {
-          name: 'Beans and plaintain',
-          userId: 1,
-          quantity: 0,
-          price: 3000,
-          date: '4/26/2018',
-          category: 'Africa',
-        },
-      ]).then(() => Meals.findAll())
-        // .then(meals => console.log(JSON.stringify(meals)))
-        .catch(err => console.log(err.message));
-      done();
+          {
+            name: 'Beans and plaintain',
+            userId: 1,
+            quantity: 0,
+            price: 3000,
+            date: '4/26/2018',
+            category: 'Africa',
+          },
+        ],
+      };
+      request(app)
+        .post('/api/v1/auth/bulkmeals')
+        .set('authorization', `${adminToken}`)
+        .query({ bulkMeals: meals.data })
+        .attach('images', `${__dirname}/images/amala-yahoo.jpg`)
+        .attach('images', `${__dirname}/images/amala-yahoo.jpg`)
+        .attach('images', `${__dirname}/images/amala-yahoo.jpg`)
+        .attach('images', `${__dirname}/images/amala-yahoo.jpg`)
+        .end((err, res) => {
+          expect(res.status).to.equal(201);
+          expect(res.body.success).to.equal(true);
+          done();
+        });
     });
     it('A Caterer should be able to setup menu', (done) => {
       request(app)
@@ -437,7 +477,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
 
-    it('A customer should not be able make an order if ordered quantity exceeds available quantity', (done) => {
+    it('A customer should not be able to  make an order if ordered quantity exceeds available quantity', (done) => {
       request(app)
         .post('/api/v1/auth/orders')
         .set('authorization', `${customerToken}`)
@@ -448,7 +488,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
           done();
         });
     });
-    it('A customer should be able Modify an order', (done) => {
+    it('A customer should be able to Modify an order', (done) => {
       request(app)
         .put('/api/v1/auth/orders/1')
         .set('authorization', `${customerToken}`)
@@ -476,7 +516,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
 
-    it('A customer should be able see his/her orders for the day', (done) => {
+    it('A customer should be able to see his/her orders for the day', (done) => {
       request(app)
         .get('/api/v1/auth/orders')
         .set('authorization', `${customerToken}`)
@@ -486,22 +526,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
           done();
         });
     });
-
-    it('A Caterer should be able see all orders for a specific day, including total money made', (done) => {
-      const date = new Date();
-      const todaysDate = date.toISOString();
-
-      request(app)
-        .get(`/api/v1/auth/orders?date=${todaysDate}`)
-        .set('authorization', `${adminToken}`)
-        .end((err, res) => {
-          expect(res.status).to.equal(200);
-          expect(res.body.success).to.equal(true);
-          done();
-        });
-    });
-
-    it('A Customer should not be able see all orders for a specific day', (done) => {
+    it('A Customer should not be able to see all orders for a specific day', (done) => {
       const date = new Date();
       const todaysDate = date.toISOString();
 
@@ -512,6 +537,19 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
           expect(res.status).to.equal(403);
           expect(res.body.success).to.equal(false);
           expect(res.body.message).to.equal('access denied');
+          done();
+        });
+    });
+    it('A Caterer should be able to see all orders for a specific day, including total money made', (done) => {
+      const date = new Date();
+      const todaysDate = date.toISOString();
+
+      request(app)
+        .get(`/api/v1/auth/orders?date=${todaysDate}`)
+        .set('authorization', `${adminToken}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.success).to.equal(true);
           done();
         });
     });

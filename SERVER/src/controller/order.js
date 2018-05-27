@@ -6,16 +6,16 @@ class Order {
   static async makeOrder(req, res) {
     const userId = req.user.id;
     const { mealId, quantity } = req.body;
-    const qty = [];
+    let qty = 0;
     const date = new Date();
     const todaysDate = date.toISOString();
     const meal = await Meals.findById(mealId).then((mealData) => {
       // console.log(JSON.stringify(mealData));
-      qty.push(mealData.quantity);
+      qty = mealData.quantity;
       return mealData;
     });
 
-    if (!meal || qty[0] < quantity) {
+    if (!meal || qty < quantity) {
       res.status(404).json({ msg: 'Available quantity exceeded' });
     } else {
       Orders.create({

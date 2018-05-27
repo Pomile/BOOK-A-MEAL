@@ -6,6 +6,8 @@ class Meal {
     const {
       name, price, quantity,
     } = req.body;
+    console.log(req.files.image.data);
+    const image = req.files.image.data;
     const userId = req.user.id;
 
     Meals.create({
@@ -13,6 +15,7 @@ class Meal {
       name,
       price,
       quantity,
+      image,
 
     }).then((meal) => {
       if (meal) {
@@ -28,27 +31,44 @@ class Meal {
         .json({ msg: 'This meal is already existing', error: err.message })
         .end();
     });
-    /* const mealId = initialMealsCount + 1;
-    const findByMealName = data.meals.find(meal => meal.name === name);
-    if (findByMealName === undefined) {
-      data.meals.push({
-        id: mealId, name, description, price, category,
-      });
-    } else {
-      res.status(409).json({ msg: 'This meal is already existing' }).end();
-    }
-
-    const finalMealsCount = data.meals.length;
-
-    if (finalMealsCount > initialMealsCount) {
-      res
-        .status(201)
-        .json({
-          success: true,
-          msg: 'meal added successfully',
-        }).end();
-    } */
   }
+
+  static async addMeals(req, res) {
+    const
+      { bulkMeals }
+    = req.query;
+    const { images } = req.files;
+
+    if (bulkMeals.length === 0 || images.length === 0) {
+      res.status(200).json({ sucess: false });
+    } else {
+      const mealBulk = [];
+      await bulkMeals.name.map(() => mealBulk.push({
+
+      }));
+      await Object.keys(bulkMeals).map(key =>
+        bulkMeals[key].forEach((mealValue, valueIndex) => {
+          mealBulk[valueIndex][key] = mealValue;
+        }));
+
+
+      await mealBulk.map((meal, index) => {
+        const mealCopy = meal;
+        mealCopy.image = images[index].data;
+        return mealCopy;
+      });
+
+      Meals.bulkCreate(mealBulk).then(() => {
+        res
+          .status(201)
+          .json({
+            success: true,
+            msg: 'meals added successfully',
+          }).end();
+      });
+    }
+  }
+
 
   static modifyMeal(req, res) {
     const {
@@ -75,17 +95,6 @@ class Meal {
         .json({ msg: 'meal does not exist', error: err.message })
         .end();
     });
-
-    /* const mealIndex = data.meals.findIndex(meal => meal.id === +id);
-    if (mealIndex !== -1) {
-      data.meals[mealIndex].name = name;
-      data.meals[mealIndex].description = description;
-      data.meals[mealIndex].price = price;
-      data.meals[mealIndex].category = category;
-      res.status(200).json({ msg: 'meal modified successfully' }).end();
-    } else {
-      res.status(404).json({ msg: 'meal does not exist' }).end();
-    } */
   }
   static removeMeal(req, res) {
     const id = req.params.mealId;
@@ -104,7 +113,7 @@ class Meal {
       });
   }
   static getMeals(req, res) {
-    Meals.findAll({ offset: 0, limit: 5 })
+    Meals.findAll({ offset: 0, limit: 10 })
       .then((meals) => {
         res.status(200)
           .json({ data: meals, success: true });

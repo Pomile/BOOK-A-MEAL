@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
+import fileUpload from 'express-fileupload';
 import openRoutes from './src/route/openRoutes';
 import securedRoutes from './src/route/securedRoutes';
 import db from './src/models';
@@ -13,6 +14,8 @@ console.log(`ENV: ${process.env.NODE_ENV}`);
 if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'development') {
   app.use(morgan('short'));
 }
+
+app.use(fileUpload());
 
 app.use(bodyParser.urlencoded({ extended: false, type: '*/x-www-form-urlencoded' }));
 app.use(bodyParser.json({ type: 'application/json' }));

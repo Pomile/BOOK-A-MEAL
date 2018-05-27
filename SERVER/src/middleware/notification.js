@@ -47,9 +47,9 @@ exports.sendMenuNotification = (req, res) => {
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.log(error);
-      res.status(201).json({ success: true, msg: 'menu has been set sucessfully but users are not notified' });
+      res.status(201).json({ success: true, msg: 'menu is set sucessfully but users are not notified', err: error.message });
     } else {
-      res.status(201).json({ success: true, msg: 'menu has been set sucessfully and customers are notified' });
+      res.status(201).json({ success: true, msg: 'menu is set sucessfully and customers are notified' });
       console.log(`Email sent: ${info.response}`);
     }
   });
