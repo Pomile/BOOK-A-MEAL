@@ -730,7 +730,7 @@ cursor: pointer;
 
 .home .caption-message{
 	font-size: 40px;
-	color: rgba(255,255, 255);
+	color: white;
 	animation-name: fade-in-text;
 	animation-duration: 1s;
 	animation-timing-function: ease-in;
@@ -741,7 +741,7 @@ cursor: pointer;
 	top: 0px;
 	font-size: 50px;
 	text-shadow: 2px 2px 4px rgba(0,0, 0);
-	color: rgba(255,255, 255);
+	color: white;
 	animation-name: fade-in-text2;
 	animation-duration: 1s;
 	animation-timing-function: ease-in;
@@ -752,7 +752,7 @@ cursor: pointer;
 	position: relative;
 	top: 10px;
 	font-size: 50px;
-	color: rgba(255,255, 255);
+	color: white;
 	animation-name: fade-in-text3;
 	animation-duration: 4s;
 	animation-timing-function: ease-in;
