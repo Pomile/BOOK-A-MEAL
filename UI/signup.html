@@ -10,14 +10,16 @@
         <style>
             main{
                 display: flex;
-                background-image: url("./images/delicious-food-1.jpg");
+				background-image: url("./images/deli.jpg");
                 background-repeat: no-repeat;
                 background-size: cover;
+				
             }
 
             .signup-box {
                 height: 600px;
                 margin: auto;
+				
                 
             }
 
@@ -65,11 +67,14 @@
             
         </header> <!--End Header-->
         <!--Main-->
-        <main style ="height: 650px">
+        <main style ="height: 700px">
             <!--Sign Up form container -->
-            <div class = "s-12 signup-box">
-                <form>
-                    <div class="transbox   s-11 m-6 l-5 offset-l-7 offset-m-3" style ="padding-top: 20px;">
+			 <div class="transbox s-12 m-12 l-12 "  style="height: 700px; filter: blur(20px); z-index: 10; position: absolute"></div>
+            <div class = "s-12 signup-box" style="z-index: 25">
+			   
+                <form class="">
+				    
+                    <div class="transbox s-11 m-6 l-4 offset-l-4" style ="padding-top: 20px;">
                             <h2 style = "color:white; text-align:center">Sign Up</h2>
                             <input type="text" id="fname" name="firstname" placeholder="Firstname">
                             <input type="text" id="lname" name="lastname" placeholder="Lastname">
@@ -85,7 +90,7 @@
         </main>
         <!-- Footer -->
         <footer class= "s-12" style = "">
-            <h5 class="white text-align-center">Babatunde@andelabootcamp</h5>
+            
         </footer><!--end footer-->
     </body>
 </html>

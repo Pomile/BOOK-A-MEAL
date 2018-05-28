@@ -8,6 +8,8 @@ body{
     box-sizing: border-box;
 }
 
+/* Header */
+
 .header{
     width: 100%;
     height: 70px;
@@ -80,6 +82,41 @@ body{
 .linkItems a.active{
     color: #ffd6cc;
 }
+.linkItem #pic-clip {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: white;
+    margin-top: 15px;
+} /* End Header */
+
+
+/* Side Navigation */
+.backdrop {
+    background-color: rgba(0,0,0,0.5);
+    height: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 900;
+    display: none;
+}
+
+.sidenav {
+    position: fixed;
+    width: 280px;
+    max-width: 70%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    background-color: white;
+    box-sizing: border-box;
+    transition: transform 0.3s ease-out;
+}
+
+.close{
+    transform: translateX(-100%);
+}
 
 .sideItems{
     margin: 0;
@@ -92,15 +129,15 @@ body{
 }
 
 .sideItem a{
-        display: block;
-        width:100%;
-        height: 45px;
-        padding-top: 10px;
-        font-size: 18px;
-        text-align: justify;
-        color: #e62e00;
-        padding: 10px 22px;
-        text-decoration: none;
+    display: block;
+    width:100%;
+    height: 45px;
+    padding-top: 10px;
+    font-size: 18px;
+    text-align: justify;
+    color: #e62e00;
+    padding: 10px 22px;
+    text-decoration: none;
 }
 .clip{
     border-radius: 35px;
@@ -173,21 +210,63 @@ body{
     color: white!important;
     background-color: #e62e00!important;
 
-}
+} /* End Side Navigation */
 
-.linkItem #pic-clip {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: white;
-    margin-top: 15px;
-}
 
+/* Main */
 main {
     margin: 0px;
     padding: 0px;
 }
 
+/* Index */
+.home {
+	position: relative;
+}
+.home .background-img{
+	height: 700px;
+	width: 100%;
+	background-image: url("../images/Chickery-Fish-Geelong2.jpg");
+	background-size: cover;
+	position:absolute;
+	top:0;
+	z-index: 10;
+}
+
+.home .overlay{
+    top: 0;
+	height: 700px;
+	width: 100%;
+	position: absolute;
+	z-index: 20;
+}
+
+.home .caption-container{
+	width: 80%;
+	height: 500px;
+	position: absolute;
+	margin-left: 10%;
+	padding-top: 100px;
+	top: 120px;
+	z-index: 40;
+}
+
+.home .button{
+	width: 200px;
+	height: 50px;
+	margin-top: 15px;
+	font-size: 18px;
+	padding-top: 15px;
+	color: white;
+	text-align: center;
+	background-color: orangered;
+	cursor: pointer;
+}
+
+.home .button:hover{
+	background-color: orange;
+}
+/* Caption Section */
 .caption {
     position: relative;
     height: 350px;
@@ -275,32 +354,6 @@ main {
     float: right;
 }
 
-.backdrop {
-    background-color: rgba(0,0,0,0.5);
-    height: 100%;
-    position: fixed;
-    top: 0;
-    z-index: 900;
-    display: none;
-}
-
-.sidenav {
-    position: fixed;
-    width: 280px;
-    max-width: 70%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    z-index: 1000;
-    background-color: white;
-    box-sizing: border-box;
-    transition: transform 0.3s ease-out;
-}
-
-.close{
-    transform: translateX(-100%);
-}
-
 .container {
     width: 76%;
     padding: 10px;
@@ -379,14 +432,7 @@ select#meal-category {
     background: white;
 }
 
-.transbox {
-    background-color: rgba(0,0,0,0.5);
-}
-
-.flex-box {
-    display: flex;
-}
-
+/* Pagination */
 
 ul.pagination {
     display: inline-block;
@@ -411,45 +457,30 @@ ul.pagination li a.active {
 }
 
 ul.pagination li a:hover:not(.active) {background-color: #ddd;}
+/* End pagination */
+
 
 /* text*/
+.flow-text{text-overflow:ellipsis!important;}
+.text-align-center {text-align: center;}
+.flow-text {text-overflow:ellipsis!important;}
+.fs-16{font-size: 15px;}
+.fs-12{font-size: 12px;}
+.fs-10{font-size: 10px;}
+.fs-9{font-size: 9px;}
+.fs-8{font-size: 8px;}
+.white{color: white;}
 
-.white{
-    color: white;
-}
-.red {
-    background-color: red;
-}
+/* End text */
 
-.btn-floating {
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    cursor: pointer;
 
-}
+.transbox {background-color: rgba(0,0,0,0.5);}
+.flex-box {display: flex;}
+.red {background-color: red;}
 
-.flow-text {
-    text-overflow:ellipsis!important;
-}
-
+.btn-floating {width: 52px; height: 52px; border-radius: 50%; cursor: pointer;}
 .pmargin{ margin-top: -10px;}
-
-.text-align-center {
-    text-align: center;
-}
-
-
-.fs-16{
-    font-size: 15px;
-}
-
-footer{
-    height: 50px;
-    background-color: #e62e00;
-    padding-top:  10px;
-}
-
+footer{height: 30px; background-color: #e62e00; padding-top:  10px; margin-bottom: -10px;}
 
 
 /* Responsive styles */
@@ -675,3 +706,56 @@ color: #000;
 text-decoration: none;
 cursor: pointer;
 }
+
+/*Animation*/
+
+@keyframes fade-in-text{
+	from {color: rgba(255,255, 255, 0.1);}
+	to {color: rgba(255,255, 255);}
+}
+
+@keyframes fade-in-text2{
+	25% {color: rgba(255,255, 255, 0); text-shadow: 2px 2px 4px rgba(0,0, 0, 0); top: -12px;}
+	50%{color: rgba(255,255, 255, 0.4); text-shadow: 2px 2px 4px rgba(0,0, 0, 0.5); top: -8px;}
+	75%{color: rgba(255,255, 255, 0.7); text-shadow: 2px 2px 4px rgba(0,0, 0, 1); top: -4px;}
+	100%{color: rgba(255,255, 255); text-shadow: 2px 2px 4px rgba(0,0, 0); top: 0px;}
+}
+
+@keyframes fade-in-text3{
+	25% {color: rgba(255,255, 255, 0); text-shadow: 2px 2px 4px rgba(0,0, 0, 0); top: 0px;}
+	50%{color: rgba(255,255, 255, 0.4); text-shadow: 2px 2px 4px rgba(0,0, 0, 0.8); top: 4px;}
+	75%{color: rgba(255,255, 255, 0.7); text-shadow: 2px 2px 4px rgba(0,0, 0, 1); top: 8px;}
+	100%{color: rgba(255,255, 255); text-shadow: 2px 2px 4px rgba(0,0, 0); top: 10px;}
+}
+
+.home .caption-message{
+	font-size: 40px;
+	color: rgba(255,255, 255);
+	animation-name: fade-in-text;
+	animation-duration: 1s;
+	animation-timing-function: ease-in;
+}
+
+.home .caption-message2{
+	position: relative;
+	top: 0px;
+	font-size: 50px;
+	text-shadow: 2px 2px 4px rgba(0,0, 0);
+	color: rgba(255,255, 255);
+	animation-name: fade-in-text2;
+	animation-duration: 1s;
+	animation-timing-function: ease-in;
+	animation-direction: alternate;
+}
+
+.home .caption-message3{
+	position: relative;
+	top: 10px;
+	font-size: 50px;
+	color: rgba(255,255, 255);
+	animation-name: fade-in-text3;
+	animation-duration: 4s;
+	animation-timing-function: ease-in;
+	
+}
+
