@@ -31,7 +31,7 @@ module.exports = {
     },
     image: {
       type: Sequelize.BLOB,
-      allowNull: true,
+      allowNull: false,
     },
 
     category: {
