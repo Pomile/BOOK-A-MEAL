@@ -1,4 +1,5 @@
 import express from 'express';
+import Users from '../controller/user';
 import Meal from '../controller/meal';
 import Menu from '../controller/menu';
 import permit from '../middleware/permission';
@@ -8,6 +9,12 @@ import { mealValidator } from '../middleware/validation';
 import Order from '../controller/order';
 
 const securedRoutes = express.Router();
+
+securedRoutes.get(
+  '/user/profile',
+  verifyUser,
+  Users.getUserProfile,
+);
 
 securedRoutes.post(
   '/meals',
@@ -70,6 +77,7 @@ securedRoutes.put(
   verifyUser,
   Order.modifyOrder,
 );
+
 securedRoutes.get(
   '/orders',
   verifyUser,
@@ -82,4 +90,5 @@ securedRoutes.get(
   },
 
 );
+
 export default securedRoutes;

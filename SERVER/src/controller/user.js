@@ -34,6 +34,18 @@ class User {
       }));
   }
 
+  static getUserProfile(req, res) {
+    const {
+      firstname, lastname, email, role, image,
+    } = req.user;
+    res.status(200).json({
+      data: {
+        firstname, lastname, role, email, image,
+      },
+      success: true,
+    });
+  }
+
   static async authenticate(req, res) {
     const {
       email, password,

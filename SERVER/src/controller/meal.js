@@ -6,7 +6,7 @@ class Meal {
     const {
       name, price, quantity,
     } = req.body;
-    console.log(req.files.image.data);
+    // console.log(req.files.image.data);
     const image = req.files.image.data;
     const userId = req.user.id;
 

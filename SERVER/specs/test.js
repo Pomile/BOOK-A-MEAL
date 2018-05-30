@@ -159,6 +159,17 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
 
+    it('A user should be able to see his/her profile', (done) => {
+      request(app)
+        .get('/api/v1/auth/user/profile')
+        .set('authorization', `${customerToken}`)
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body.success).to.equal(true);
+          done();
+        });
+    });
+
     it('A user should not be able to login if the password provided is invalid', (done) => {
       const userData = {
         email: 'softsky@live.com',

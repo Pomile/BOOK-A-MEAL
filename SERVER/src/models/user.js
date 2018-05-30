@@ -37,6 +37,7 @@ module.exports = (sequelize, DataTypes) => {
     role: {
       type: DataTypes.STRING(15),
       allowNull: true,
+      defaultValue: 'user',
     },
   }, { timestamps: false });
 
