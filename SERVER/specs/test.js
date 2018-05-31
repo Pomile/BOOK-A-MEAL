@@ -200,6 +200,26 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
           done();
         });
     });
+
+    it('A user should be able to update his/her profile', (done) => {
+      const user = {
+        firstname: 'Babatunde',
+        lastname: 'Ogedengbe',
+        email: 'Softsky@live.com',
+      };
+      request(app)
+        .post('/api/v1/auth/user/profile')
+        .set('authorization', `${adminToken}`)
+        .field('firstname', user.firstname)
+        .field('lastname', user.lastname)
+        .field('email', user.email)
+        .attach('image', `${__dirname}/images/oba.jpg`)
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body.success).to.equal(true);
+          done();
+        });
+    });
   });
   describe('Manage Meals Options API', () => {
     it('A caterer should be able to add a meal', (done) => {
