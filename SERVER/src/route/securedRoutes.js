@@ -17,6 +17,12 @@ securedRoutes.get(
 );
 
 securedRoutes.post(
+  '/user/profile',
+  verifyUser,
+  Users.updateUserProfile,
+);
+
+securedRoutes.post(
   '/meals',
   mealValidator,
   verifyUser,

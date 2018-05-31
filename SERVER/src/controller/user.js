@@ -46,6 +46,29 @@ class User {
     });
   }
 
+  static updateUserProfile(req, res) {
+    const {
+      firstname, lastname, email,
+    } = req.body;
+    const { id } = req.user;
+    const image = req.files.image.data;
+    Users.findById(id).then(user => user.update({
+      firstname,
+      lastname,
+      email,
+      image,
+    }).then(() => {
+      res.status(200).send({
+        success: true,
+        msg: 'user profile modified successfully',
+      });
+    })).catch((err) => {
+      res.status(404)
+        .json({ msg: 'user does not exist', error: err.message })
+        .end();
+    });
+  }
+
   static async authenticate(req, res) {
     const {
       email, password,
