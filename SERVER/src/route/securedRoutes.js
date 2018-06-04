@@ -3,9 +3,10 @@ import Users from '../controller/user';
 import Meal from '../controller/meal';
 import Menu from '../controller/menu';
 import permit from '../middleware/permission';
+import passwordEncryption from '../middleware/encryption';
 import { sendMenuNotification } from '../middleware/notification';
 import { verifyUser } from '../middleware/verification';
-import { mealValidator, validationApi } from '../middleware/validation';
+import { mealValidator, validationApi, validatePasswordReset } from '../middleware/validation';
 import Order from '../controller/order';
 
 const securedRoutes = express.Router();
@@ -20,6 +21,15 @@ securedRoutes.put(
   '/user/profile',
   verifyUser,
   Users.updateUserProfile,
+);
+
+securedRoutes.put(
+  '/user/reset-password',
+  validatePasswordReset,
+  validationApi,
+  verifyUser,
+  passwordEncryption,
+  Users.resetPassword,
 );
 
 securedRoutes.post(

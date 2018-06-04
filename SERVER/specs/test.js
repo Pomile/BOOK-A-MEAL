@@ -222,7 +222,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
 
-    it('A user should be able to verify an email for password reset', (done) => {
+    it('A user should be able to verify email for password reset', (done) => {
       request(app)
         .get('/api/v1/users/auth/email-confirmation')
         .set('Accept', 'application/json')
@@ -231,6 +231,33 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
           verifiedEmailToken = res.body.token;
           expect(res.status).to.equal(200);
           expect(res.body.isValid).to.equal(true);
+          done();
+        });
+    });
+
+    it('A user should be able to reset password', (done) => {
+      request(app)
+        .put('/api/v1/auth/user/reset-password')
+        .set('authorization', `${verifiedEmailToken}`)
+        .send({
+          password: 'mekudispeaking123',
+          cpassword: 'mekudispeaking123',
+        })
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.isPasswordUpdated).to.equal(true);
+          done();
+        });
+    });
+
+    it('A user should not be able to verify email for reset password', (done) => {
+      request(app)
+        .get('/api/v1/users/auth/email-confirmation')
+        .set('Accept', 'application/json')
+        .send({ email: 'bol.kudi@live.com' })
+        .end((err, res) => {
+          expect(res.status).to.equal(404);
+          expect(res.body.isValid).to.equal(false);
           done();
         });
     });

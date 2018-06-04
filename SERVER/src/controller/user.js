@@ -81,6 +81,18 @@ class User {
     }).catch(err => res.status(404).json({ isValid: false, error: err.message }));
   }
 
+  static resetPassword(req, res) {
+    const { password } = req.body;
+    const { id } = req.user;
+    Users.findOne({ where: { id } })
+      .then(user => user.update({
+        password,
+      })
+        .then(() => res.status(200).json({ success: true, isPasswordUpdated: true })))
+      .catch(err => res.status(500)
+        .json({ msg: 'something went wrong', error: err.message, isPasswordUpdated: false }));
+  }
+
   static async authenticate(req, res) {
     const {
       email, password,
