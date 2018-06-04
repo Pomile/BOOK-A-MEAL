@@ -17,5 +17,10 @@ openRoutes.post(
   User.authenticate,
 );
 
+openRoutes.get(
+  '/auth/email-confirmation',
+  User.verifyUserEmail,
+);
+
 
 export default openRoutes;

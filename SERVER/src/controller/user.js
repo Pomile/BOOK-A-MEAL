@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import 'babel-polyfill';
 // import { data } from '../db/data';
 import { Users } from '../models';
+import { INSPECT_MAX_BYTES } from 'buffer';
 
 
 class User {
@@ -65,6 +66,19 @@ class User {
           .json({ msg: 'user does not exist', error: err.message })
           .end();
       });
+  }
+
+  static verifyUserEmail(req, res) {
+    const { email } = req.body;
+    Users.findOne({
+      where: {
+        email,
+      },
+    }).then((user) => {
+      const payload = user.id;
+      const token = jwt.sign({ data: payload }, 'ijiugsghuyqqgbnnzxhuhuq', { expiresIn: '24h' });
+      return res.status(200).json({ token, isValid: true });
+    }).catch(err => res.status(404).json({ isValid: false, error: err.message }));
   }
 
   static async authenticate(req, res) {

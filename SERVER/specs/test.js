@@ -12,6 +12,7 @@ const expect = chai.expect;
 
 let adminToken;
 let customerToken;
+let verifiedEmailToken;
 
 describe('BOOK-A-MEAL API TEST SUITE', () => {
   after(async () => {
@@ -217,6 +218,19 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         .end((err, res) => {
           expect(res.status).to.equal(200);
           expect(res.body.success).to.equal(true);
+          done();
+        });
+    });
+
+    it('A user should be able to verify an email for password reset', (done) => {
+      request(app)
+        .get('/api/v1/users/auth/email-confirmation')
+        .set('Accept', 'application/json')
+        .send({ email: 'bola.kudi@live.com' })
+        .end((err, res) => {
+          verifiedEmailToken = res.body.token;
+          expect(res.status).to.equal(200);
+          expect(res.body.isValid).to.equal(true);
           done();
         });
     });
