@@ -208,14 +208,14 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         email: 'Softsky@live.com',
       };
       request(app)
-        .post('/api/v1/auth/user/profile')
+        .put('/api/v1/auth/user/profile')
         .set('authorization', `${adminToken}`)
         .field('firstname', user.firstname)
         .field('lastname', user.lastname)
         .field('email', user.email)
         .attach('image', `${__dirname}/images/oba.jpg`)
-        .expect(200)
         .end((err, res) => {
+          expect(res.status).to.equal(200);
           expect(res.body.success).to.equal(true);
           done();
         });
@@ -226,7 +226,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
       const meal = {
         name: 'Fried Rice with Chicken',
         quantity: 1,
-        price: '1500',
+        price: 1500,
         category: 'Intercontinental',
       };
       const imagePath = `${__dirname}/images/Chickery-Fish.jpg`;
@@ -248,15 +248,19 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
     it('A caterer should be able to modify a meal', (done) => {
       const meal = {
         name: 'Fried Rice with Chicken',
-        description: 'tasty rice and chicken which include carrot, green beans with salad',
-        price: '5500',
+        quantity: 40,
+        price: 5500,
         category: 'Intercontinental',
       };
-
+      const imagePath = `${__dirname}/images/Chickery-Fish.jpg`;
       request(app)
         .put('/api/v1/auth/meals/1')
         .set('authorization', `${adminToken}`)
-        .send(meal)
+        .field('name', meal.name)
+        .field('quantity', meal.quantity)
+        .field('price', meal.price)
+        .field('category', meal.category)
+        .attach('image', imagePath)
         .end((err, res) => {
           expect(res.status).to.equal(200);
           expect(res.body.msg).to.equal('meal modified successfully');
@@ -268,8 +272,8 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
       const meal = {
         name: 'Fried Rice with Chicken',
         quantity: 1,
-        price: '1500',
-        category: 'Interconinental',
+        price: 1500,
+        category: 'Intercontinental',
       };
       const imagePath = `${__dirname}/images/Chickery-Fish.jpg`;
       request(app)
@@ -281,8 +285,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         .field('category', meal.category)
         .attach('image', imagePath)
         .end((err, res) => {
-          expect(res.status).to.equal(409);
-          expect(res.body.msg).to.equal('This meal is already existing');
+          expect(res.body.msg).to.equal('This meal already exists');
           done();
         });
     });
@@ -297,104 +300,6 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
 
-    it('A Caterer should be able see a list of meals', (done) => {
-      request(app)
-        .get('/api/v1/auth/meals')
-        .set('authorization', `${adminToken}`)
-        .end((err, res) => {
-          expect(res.status).to.equal(200);
-          expect(res.body.success).to.equal(true);
-          done();
-        });
-    });
-
-    it('A customer should not be able to add a meal', (done) => {
-      const meal = {
-        name: 'Fried Rice with Chicken',
-        quantity: 1,
-        price: '1500',
-        category: 'intercontinental',
-      };
-
-      request(app)
-        .post('/api/v1/auth/meals')
-        .set('authorization', `${customerToken}`)
-        .send(meal)
-        .end((err, res) => {
-          expect(res.status).to.equal(403);
-          expect(res.body.message).to.equal('access denied');
-          done();
-        });
-    });
-
-    it('A caterer should not be able to modify a meal that does not exist', (done) => {
-      const meal = {
-        name: 'Fried Rice with Chicken',
-        description: 'tasty rice and chicken which include carrot, green beans with salad',
-        price: '1500',
-        category: 'Intercontinental',
-      };
-
-      request(app)
-        .put('/api/v1/auth/meals/15')
-        .set('authorization', `${adminToken}`)
-        .send(meal)
-        .end((err, res) => {
-          expect(res.status).to.equal(404);
-          expect(res.body.msg).to.equal('meal does not exist');
-          done();
-        });
-    });
-
-    it('A Customer should not be able to delete a meal that does not exist', (done) => {
-      request(app)
-        .delete('/api/v1/auth/meals/200')
-        .set('authorization', `${adminToken}`)
-        .end((err, res) => {
-          expect(res.status).to.equal(404);
-          done();
-        });
-    });
-
-    it('A Customer should not be able not to modify a meal', (done) => {
-      const meal = {
-        name: 'Fried Rice with Chicken',
-        description: 'tasty rice and chicken which include carrot, green beans with salad',
-        price: '1500',
-        category: 'Intercontinental',
-      };
-
-      request(app)
-        .put('/api/v1/auth/meals/1')
-        .set('authorization', `${customerToken}`)
-        .send(meal)
-        .end((err, res) => {
-          expect(res.status).to.equal(403);
-          expect(res.body.message).to.equal('access denied');
-          done();
-        });
-    });
-
-    it('A Customer should not be able to delete a meal', (done) => {
-      request(app)
-        .delete('/api/v1/auth/meals/1')
-        .set('authorization', `${customerToken}`)
-        .end((err, res) => {
-          expect(res.status).to.equal(403);
-          done();
-        });
-    });
-
-    it('A user should not be able to access any feature without a token', (done) => {
-      request(app)
-        .delete('/api/v1/auth/meals/1')
-        .end((err, res) => {
-          expect(res.status).to.equal(403);
-          done();
-        });
-    });
-  });
-  describe(' Menu API', () => {
     it('Create bulk meals', (done) => {
       const meals = {
         data: [
@@ -410,7 +315,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
           {
             name: 'AMala with Goat Meat',
             userId: 1,
-            quantity: 0,
+            quantity: 2,
             price: 3000,
             date: '4/26/2018',
             category: 'Africa',
@@ -449,14 +354,157 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
           done();
         });
     });
+
+    it('A customer should not be able to add a meal', (done) => {
+      const meal = {
+        name: 'Fried Rice with Chicken',
+        quantity: 1,
+        price: '1500',
+        category: 'intercontinental',
+      };
+      const imagePath = `${__dirname}/images/Chickery-Fish.jpg`;
+      request(app)
+        .post('/api/v1/auth/meals')
+        .set('authorization', `${customerToken}`)
+        .field('name', meal.name)
+        .field('quantity', meal.quantity)
+        .field('price', meal.price)
+        .field('category', meal.category)
+        .attach('image', imagePath)
+        .end((err, res) => {
+          expect(res.status).to.equal(403);
+          expect(res.body.message).to.equal('access denied');
+          done();
+        });
+    });
+
+    it('A caterer should not be able to add a meal without image', (done) => {
+      const meal = {
+        name: 'Fried Rice with Chicken',
+        quantity: 1,
+        price: '1500',
+        category: 'Intercontinental',
+      };
+      request(app)
+        .post('/api/v1/auth/meals')
+        .set('authorization', `${adminToken}`)
+        .field('name', meal.name)
+        .field('quantity', meal.quantity)
+        .field('price', meal.price)
+        .field('category', meal.category)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.msg).to.equal('Meal image is required');
+          done();
+        });
+    });
+
+    it('A caterer should not be able to modify a meal that does not exist', (done) => {
+      const meal = {
+        name: 'Fried Rice with Chicken',
+        quantity: 100,
+        price: '1500',
+        category: 'Intercontinental',
+      };
+      const imagePath = `${__dirname}/images/Chickery-Fish.jpg`;
+      request(app)
+        .put('/api/v1/auth/meals/15')
+        .set('authorization', `${adminToken}`)
+        .field('name', meal.name)
+        .field('quantity', meal.quantity)
+        .field('price', meal.price)
+        .field('category', meal.category)
+        .attach('image', imagePath)
+        .end((err, res) => {
+          expect(res.status).to.equal(404);
+          expect(res.body.msg).to.equal('meal does not exist');
+          done();
+        });
+    });
+
+    it('A Customer should not be able to delete a meal that does not exist', (done) => {
+      request(app)
+        .delete('/api/v1/auth/meals/200')
+        .set('authorization', `${adminToken}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(404);
+          done();
+        });
+    });
+
+    it('A Customer should not be able not to modify a meal', (done) => {
+      const meal = {
+        name: 'Fried Rice with Chicken',
+        quantity: 20,
+        price: 1500,
+        category: 'Intercontinental',
+      };
+      const imagePath = `${__dirname}/images/Chickery-Fish.jpg`;
+      request(app)
+        .put('/api/v1/auth/meals/1')
+        .set('authorization', `${customerToken}`)
+        .field('name', meal.name)
+        .field('quantity', meal.quantity)
+        .field('price', meal.price)
+        .field('category', meal.category)
+        .attach('image', imagePath)
+        .end((err, res) => {
+          expect(res.status).to.equal(403);
+          expect(res.body.message).to.equal('access denied');
+          done();
+        });
+    });
+
+    it('A Customer should not be able to delete a meal', (done) => {
+      request(app)
+        .delete('/api/v1/auth/meals/1')
+        .set('authorization', `${customerToken}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(403);
+          done();
+        });
+    });
+
+    it('A user should not be able to access any feature without a token', (done) => {
+      request(app)
+        .delete('/api/v1/auth/meals/1')
+        .end((err, res) => {
+          expect(res.status).to.equal(403);
+          done();
+        });
+    });
+    it('A Caterer should be able see a list of meals', (done) => {
+      request(app)
+        .get('/api/v1/auth/meals')
+        .set('authorization', `${adminToken}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.success).to.equal(true);
+          done();
+        });
+    });
+  });
+  describe(' Menu API', () => {
     it('A Caterer should be able to setup menu', (done) => {
       request(app)
         .post('/api/v1/auth/menus')
         .set('authorization', `${adminToken}`)
-        .send({ meals: [3, 4, 5], title: 'Morning start' })
+        .send({ meals: [2, 3, 4, 5], title: 'Morning start' })
         .end((err, res) => {
           expect(res.status).to.equal(201);
           expect(res.body.success).to.equal(true);
+          done();
+        });
+    });
+
+    it('A Caterer should not be able to setup menu on the same day', (done) => {
+      request(app)
+        .post('/api/v1/auth/menus')
+        .set('authorization', `${adminToken}`)
+        .send({ meals: [2, 3, 4, 5], title: 'Morning start' })
+        .end((err, res) => {
+          expect(res.status).to.equal(409);
+          expect(res.body.success).to.equal(false);
           done();
         });
     });
@@ -465,7 +513,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
       request(app)
         .post('/api/v1/auth/menus')
         .set('authorization', `${adminToken}`)
-        .send({ meals: [4], title: 'Morning start' })
+        .send({ meals: [6], title: 'Lunch' })
         .end((err, res) => {
           expect(res.status).to.equal(404);
           expect(res.body.success).to.equal(false);

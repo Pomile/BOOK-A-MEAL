@@ -5,7 +5,7 @@ import Menu from '../controller/menu';
 import permit from '../middleware/permission';
 import { sendMenuNotification } from '../middleware/notification';
 import { verifyUser } from '../middleware/verification';
-import { mealValidator } from '../middleware/validation';
+import { mealValidator, validationApi } from '../middleware/validation';
 import Order from '../controller/order';
 
 const securedRoutes = express.Router();
@@ -16,7 +16,7 @@ securedRoutes.get(
   Users.getUserProfile,
 );
 
-securedRoutes.post(
+securedRoutes.put(
   '/user/profile',
   verifyUser,
   Users.updateUserProfile,
@@ -25,6 +25,7 @@ securedRoutes.post(
 securedRoutes.post(
   '/meals',
   mealValidator,
+  validationApi,
   verifyUser,
   permit('caterer', 'admin'),
   Meal.addMeal,
@@ -40,6 +41,7 @@ securedRoutes.post(
 securedRoutes.put(
   '/meals/:mealId',
   mealValidator,
+  validationApi,
   verifyUser,
   permit('caterer', 'admin'),
   Meal.modifyMeal,

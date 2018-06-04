@@ -27,7 +27,7 @@ export default function (sequelize, DataTypes) {
     },
     quantity: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
     },
     image: {
       type: DataTypes.BLOB,

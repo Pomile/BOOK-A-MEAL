@@ -33,7 +33,7 @@ app.listen(port, () => {
     db.sequelize.sync();
   } else if (process.env.NODE_ENV === 'development') {
     console.log(`${process.env.NODE_ENV} server is listening on port ${port}`);
-    db.sequelize.sync({ force: true });
+    db.sequelize.sync({ force: false });
   } else {
     db.sequelize.sync();
     console.log(`${process.env.NODE_ENV} Server is listening on port ${port}`);

@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     date: {
       type: DataTypes.DATEONLY,
       allowNull: false,
+      unique: true,
     },
   }, { timestamps: false });
   Menus.associate = (models) => {

@@ -4,33 +4,39 @@ import { Meals } from '../models';
 class Meal {
   static addMeal(req, res) {
     const {
-      name, price, quantity,
+      name, price, quantity, category,
     } = req.body;
     // console.log(req.files.image.data);
-    const image = req.files.image.data;
-    const userId = req.user.id;
 
-    Meals.create({
-      userId,
-      name,
-      price,
-      quantity,
-      image,
+    if (req.files === null || req.files.image === null) {
+      res.status(200).json({ msg: 'Meal image is required', success: false });
+    } else {
+      const image = req.files.image.data;
+      const userId = req.user.id;
 
-    }).then((meal) => {
-      if (meal) {
-        res
-          .status(201)
-          .json({
-            success: true,
-            msg: 'meal added successfully',
-          }).end();
-      }
-    }).catch((err) => {
-      res.status(409)
-        .json({ msg: 'This meal is already existing', error: err.message })
-        .end();
-    });
+      Meals.create({
+        userId,
+        name,
+        price,
+        quantity,
+        category,
+        image,
+
+      }).then((meal) => {
+        if (meal) {
+          res
+            .status(201)
+            .json({
+              success: true,
+              msg: 'meal added successfully',
+            }).end();
+        }
+      }).catch((err) => {
+        res.status(409)
+          .json({ msg: 'This meal already exists', error: err.message })
+          .end();
+      });
+    }
   }
 
   static async addMeals(req, res) {
@@ -51,7 +57,7 @@ class Meal {
           mealBulk[valueIndex][key] = mealValue;
         }));
 
-
+      // console.log(mealBulk);
       await mealBulk.map((meal, index) => {
         const mealCopy = meal;
         mealCopy.image = images[index].data;
@@ -72,29 +78,26 @@ class Meal {
 
   static modifyMeal(req, res) {
     const {
-      name, quantity, description, price, category,
+      name, quantity, price, category,
     } = req.body;
-
     const id = req.params.mealId;
-    Meals.findById(id).then((meal) => {
-      meal.update({
-        name,
-        price,
-        quantity,
-        category,
-        description,
-      }).then((updatedMeal) => {
-        res.status(200).send({
-          success: true,
-          data: updatedMeal,
-          msg: 'meal modified successfully',
-        });
+    const image = req.files.image.data;
+    Meals.findById(id).then(meal => meal.update({
+      name,
+      price,
+      quantity,
+      category,
+      image,
+    }).then((updatedMeal) => {
+      res.status(200).send({
+        success: true,
+        data: updatedMeal,
+        msg: 'meal modified successfully',
       });
-    }).catch((err) => {
+    })).catch(err =>
       res.status(404)
         .json({ msg: 'meal does not exist', error: err.message })
-        .end();
-    });
+        .end());
   }
   static removeMeal(req, res) {
     const id = req.params.mealId;
@@ -112,14 +115,18 @@ class Meal {
           });
       });
   }
-  static getMeals(req, res) {
-    Meals.findAll({ offset: 0, limit: 10 })
-      .then((meals) => {
-        res.status(200)
-          .json({ data: meals, success: true });
-      }).catch((err) => {
-        res.status(404).json({ msg: err.message });
-      });
+  static async getMeals(req, res) {
+    const meals = await Meals.findAll({
+      offset: 0,
+      limit: 10,
+      attributes: ['id', 'name', 'price', 'quantity', 'image'],
+    }).then(mealItems => mealItems);
+
+    if (meals.length === 0) {
+      res.status(404).json({ msg: 'No Meals Found;' });
+    } else {
+      res.status(200).json({ length: meals.length, data: meals, success: true });
+    }
   }
 }
 export default Meal;

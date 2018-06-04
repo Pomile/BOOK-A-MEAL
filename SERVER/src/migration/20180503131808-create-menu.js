@@ -25,6 +25,7 @@ module.exports = {
     date: {
       type: Sequelize.DATEONLY,
       allowNull: false,
+      unique: true,
     },
   }),
   down: (queryInterface, Sequelize) => queryInterface.dropTable('Menus'),

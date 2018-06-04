@@ -28,7 +28,7 @@ class Order {
         Meals.findById(mealId).then((orderedMeal) => {
           orderedMeal.decrement('quantity', { by: order.quantity });
         });
-        res.status(201).json({ success: true, msg: `You have ordered for ${meal.name} , data:${order}` });
+        res.status(201).json({ success: true, msg: `You have ordered for ${meal.name}`, data: order });
       }).catch((err) => {
         // console.log(err.message);
         res.status(409).json({ msg: 'Order not successful', success: false, error: err.message });
@@ -77,7 +77,7 @@ class Order {
 
       }, {
         model: Meals,
-        attributes: ['name', 'price'],
+        attributes: ['id', 'name', 'price', 'image'],
       }],
     }).then((customerOrders) => {
       // console.log(JSON.stringify(customerOrders));
@@ -102,7 +102,7 @@ class Order {
 
         }, {
           model: Meals,
-          attributes: ['id', 'name', 'price'],
+          attributes: ['id', 'name', 'price', 'image'],
         }],
       }).then((customersOrders) => {
         const total = customersOrders.reduce((sum, order) =>
