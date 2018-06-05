@@ -20,11 +20,6 @@
     "logging": false
   },
   "production": {
-    "username": "postgres",
-    "password": "Skylinq24",
-    "database": "book-a-meal",
-    "host": "127.0.0.1",
-    "port": 2400,
-    "dialect": "postgres"
+    "environment": "production"
   }
 }

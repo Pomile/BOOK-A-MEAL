@@ -29,9 +29,6 @@ class Order {
           orderedMeal.decrement('quantity', { by: order.quantity });
         });
         res.status(201).json({ success: true, msg: `You have ordered for ${meal.name}`, data: order });
-      }).catch((err) => {
-        // console.log(err.message);
-        res.status(409).json({ msg: 'Order not successful', success: false, error: err.message });
       });
     }
   }
