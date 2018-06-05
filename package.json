@@ -5,17 +5,18 @@
   "main": "server.js",
   "nyc": {
     "include": [
-      "src/"
+      "SERVER/src/"
     ],
     "sourceMap": false,
     "instrument": false
   },
   "scripts": {
-    "start": "nodemon --watch . --exec npm run babel ./bin/www",
+    "start": "nodemon --watch . --exec npm run babel ./SERVER/bin/www",
     "test": "nodemon --watch . --exec cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text npm run mocha:test",
-    "mocha:test": "mocha  --compilers js:babel-core/register --recursive ./specs/test.js --timeout 6500 --exit",
+    "mocha:test": "mocha  --compilers js:babel-core/register --recursive ./SERVER/specs/test.js --timeout 6500 --exit",
     "babel": "./node_modules/.bin/babel-node",
-    "sequelize": "./node_modules/.bin/sequelize"
+    "sequelize": "./node_modules/.bin/sequelize",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "author": "Babatunde Ogedengbe",
   "license": "ISC",
