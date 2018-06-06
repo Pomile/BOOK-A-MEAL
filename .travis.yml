@@ -25,7 +25,7 @@ env:
    - PGHOST=localhost
 
 before_script:
-  - psql -c 'create database book-a-meal-test;' -U postgres
+  - createdb --username=postgres --password --host=localhost --port=2400 book-a-meal-test
   - sequelize db:migrate 
   
 after_success:
