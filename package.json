@@ -16,7 +16,7 @@
     "mocha:test": "mocha  --compilers js:babel-core/register --recursive ./SERVER/specs/test.js --timeout 6500 --exit",
     "babel": "./node_modules/.bin/babel-node",
     "sequelize": "./node_modules/.bin/sequelize",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "author": "Babatunde Ogedengbe",
   "license": "ISC",

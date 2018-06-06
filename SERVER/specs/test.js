@@ -11,6 +11,7 @@ const {
 const expect = chai.expect;
 
 let adminToken;
+let superAdminToken;
 let customerToken;
 let verifiedEmailToken;
 
@@ -48,7 +49,26 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         email: 'softsky@live.com',
         password: 'testing123',
         cpassword: 'testing123',
-        role: 'caterer',
+      };
+      request(app)
+        .post('/api/v1/users/auth/signup')
+        .set('Accept', 'application/json')
+        .send(userData)
+        .end((err, res) => {
+          expect(res.status).to.equal(201);
+          expect(res.body.msg).to.equal('User added successfully');
+          done();
+        });
+    });
+
+    it('A user(super-user) should be able to create an account', (done) => {
+      const userData = {
+        firstname: 'admin',
+        lastname: 'admin',
+        email: 'admin@live.com',
+        password: 'admin123',
+        cpassword: 'admin123',
+        role: 'admin',
       };
       request(app)
         .post('/api/v1/users/auth/signup')
@@ -68,7 +88,6 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         email: 'bola.kudi@live.com',
         password: 'moneyspeaking123',
         cpassword: 'moneyspeaking123',
-        role: 'user',
       };
       request(app)
         .post('/api/v1/users/auth/signup')
@@ -88,7 +107,6 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         email: 'bola.kudi@live.com',
         password: 'moneyspeaking123',
         cpassword: 'moneyspeaking123',
-        role: 'user',
       };
       request(app)
         .post('/api/v1/users/auth/signup')
@@ -108,7 +126,6 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         email: 'olusegun@live.com',
         password: 'warlord123',
         cpassword: 'warlod123',
-        role: 'user',
       };
       request(app)
         .post('/api/v1/users/auth/signup')
@@ -124,6 +141,21 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
           // console.log(res.body);
           expect(res.body.errors[0].msg).to.equal('firstname is required');
           expect(res.status).to.equal(422);
+          done();
+        });
+    });
+    it('A user(super-user) should be able to log in', (done) => {
+      const userData = {
+        email: 'admin@live.com',
+        password: 'admin123',
+      };
+      request(app)
+        .post('/api/v1/users/auth/signin')
+        .set('Accept', 'application/json')
+        .send(userData)
+        .end((err, res) => {
+          superAdminToken = res.body.auth;
+          expect(res.body.msg).to.equal('user logged in sucessfully');
           done();
         });
     });
@@ -258,6 +290,20 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         .end((err, res) => {
           expect(res.status).to.equal(404);
           expect(res.body.isValid).to.equal(false);
+          done();
+        });
+    });
+
+    it('A user(super-user) should be able to modify a user role', (done) => {
+      const user = { email: 'Softsky@live.com', role: 'caterer' };
+      request(app)
+        .put('/api/v1/auth/user/grant-role')
+        .set('authorization', `${superAdminToken}`)
+        .send(user)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.msg).to.equal('Priviledge granted');
+          expect(res.body.success).to.equal(true);
           done();
         });
     });

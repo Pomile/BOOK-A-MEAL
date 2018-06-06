@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken';
 import 'babel-polyfill';
 // import { data } from '../db/data';
 import { Users } from '../models';
-import { INSPECT_MAX_BYTES } from 'buffer';
 
 
 class User {
@@ -91,6 +90,21 @@ class User {
         .then(() => res.status(200).json({ success: true, isPasswordUpdated: true })))
       .catch(err => res.status(500)
         .json({ msg: 'something went wrong', error: err.message, isPasswordUpdated: false }));
+  }
+
+  static grantPriviledge(req, res) {
+    const { role, email } = req.body;
+    Users.findOne({
+      where: {
+        email,
+      },
+    }).then(user => user.update({
+      firstname: user.firstname,
+      lastname: user.lastname,
+      email,
+      role,
+    })).then(() => res.status(200).json({ msg: 'Priviledge granted', success: true }))
+      .catch(err => res.status(404).json({ msg: 'user not found', error: err.message }));
   }
 
   static async authenticate(req, res) {

@@ -32,6 +32,13 @@ securedRoutes.put(
   Users.resetPassword,
 );
 
+securedRoutes.put(
+  '/user/grant-role',
+  verifyUser,
+  permit('admin'),
+  Users.grantPriviledge,
+);
+
 securedRoutes.post(
   '/meals',
   mealValidator,

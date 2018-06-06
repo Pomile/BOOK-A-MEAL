@@ -1,7 +1,32 @@
 language: node_js
 node_js:
-  - "8.11.1"
+    - "8.11.1"
+install:
+    - npm install
 script:
-  - npm test
-after_success: 
-  - npm run coverage
+    - npm test
+cache: 
+  - npm install
+
+services:
+  - postgresql
+
+addons:
+  postgresql: "10"
+  apt:
+    packages:
+     - postgresql-10
+     - postgresql-client-10
+env:
+  global:
+   - NODE_ENV=test
+   - PGPORT=2400
+   - PGPASSWORD="Skylinq24"
+   - PGHOST=localhost
+
+before_script:
+  - psql -c 'create database book-a-meal-test;' -U postgres
+  - sequelize db:migrate 
+  
+after_success:
+  - npm run coveralls
