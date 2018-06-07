@@ -12,11 +12,12 @@
   },
   "scripts": {
     "start": "nodemon --watch . --exec npm run babel ./SERVER/bin/www",
-    "test": "nodemon --watch . --exec cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text npm run mocha:test",
-    "mocha:test": "mocha  --compilers js:babel-core/register --recursive ./SERVER/specs/test.js --timeout 6500 --exit",
+    "test": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text npm run mocha:test",
+    "mocha:test": "mocha  --compilers js:babel-core/register ./SERVER/specs/test.js --timeout 6500 --exit",
     "babel": "./node_modules/.bin/babel-node",
     "sequelize": "./node_modules/.bin/sequelize",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "author": "Babatunde Ogedengbe",
   "license": "ISC",
