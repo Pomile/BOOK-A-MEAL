@@ -111,7 +111,8 @@ class User {
     const {
       email, password,
     } = req.body;
-    Users.find({ where: { email } }).then((user) => {
+
+    return Users.findOne({ where: { email } }).then((user) => {
       const hash = user.password;
       bcrypt.compare(password, hash, (err, response) => {
         if (response === true) {
