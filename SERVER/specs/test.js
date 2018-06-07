@@ -3,7 +3,7 @@ import chai from 'chai';
 import 'babel-polyfill';
 import request from 'supertest';
 import app from '../server';
-import { Users, Meals, MealMenus, Menus, Orders } from '../src/models';
+// import { Users, Meals, MealMenus, Menus, Orders } from '../src/models';
 
 const {
   describe, it, after,
@@ -16,31 +16,6 @@ let customerToken;
 let verifiedEmailToken;
 
 describe('BOOK-A-MEAL API TEST SUITE', () => {
-  after(async () => {
-    // console.log(`adminPass: ${adminToken}`);
-    // console.log(`customerPass: ${customerToken}`);
-
-
-    await Users.sync({ force: true }).then(() => {
-      // console.log('Users table dropped and created');
-    }).catch(err => console.log(err.message));
-
-    await Meals.sync({ force: true }).then(() => {
-      // console.log('Meals table dropped and created');
-    }).catch(err => console.log(err.message));
-
-    await Menus.sync({ force: true }).then(() => {
-      // console.log('Menus table dropped and created');
-    }).catch(err => console.log(err.message));
-
-    await Orders.sync({ force: true }).then(() => {
-      // console.log('Orders table dropped and created');
-    }).catch(err => console.log(err.message));
-
-    await MealMenus.sync({ force: true }).then(() => {
-      // console.log('MealMenus table dropped and created');
-    }).catch(err => console.log(err.message));
-  });
   describe('Users API', () => {
     it('A caterer should be able to create an account', (done) => {
       const userData = {

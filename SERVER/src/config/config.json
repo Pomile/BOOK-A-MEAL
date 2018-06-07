@@ -11,10 +11,10 @@
   },
   "test": {
     "username": "postgres",
-    "password": "Skylinq24",
-    "database": "book-a-meal-test",
+    "password": "",
+    "database": "book_a_meal",
     "host": "127.0.0.1",
-    "port": 2400,
+    "port": 5432,
     "dialect": "postgres",
     "timezone": "+01:00",
     "logging": false

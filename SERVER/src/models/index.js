@@ -20,13 +20,7 @@ if (config.environment === 'production') {
     timezone: process.env.TIMEZONE,
   });
 } else {
-  sequelize = new Sequelize(config.database, config.username, config.password, {
-    host: config.host,
-    port: config.port,
-    dialect: config.dialect,
-    logging: config.logging,
-    timezone: config.timezone,
-  });
+  sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
 fs
