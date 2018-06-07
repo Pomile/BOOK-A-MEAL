@@ -13,7 +13,7 @@
   "scripts": {
     "start": "nodemon --watch . --exec npm run babel ./SERVER/bin/www",
     "test": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text npm run mocha:test",
-    "mocha:test": "mocha  --compilers js:babel-core/register ./SERVER/specs/test.js --require babel-polyfill --reporter nyan --timeout 15000 --exit",
+    "mocha:test": "mocha  --compilers js:babel-core/register ./SERVER/specs/test.js --require babel-polyfill --timeout 15000 --exit",
     "babel": "./node_modules/.bin/babel-node",
     "sequelize": "./node_modules/.bin/sequelize",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
