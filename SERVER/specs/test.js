@@ -24,6 +24,7 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         email: 'softsky@live.com',
         password: 'testing123',
         cpassword: 'testing123',
+        role: 'caterer',
       };
       request(app)
         .post('/api/v1/users/auth/signup')
@@ -32,6 +33,58 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         .end((err, res) => {
           expect(res.status).to.equal(201);
           expect(res.body.msg).to.equal('User added successfully');
+          done();
+        });
+    });
+
+    it('A user(caterer) should be able to log in', (done) => {
+      const userData = {
+        email: 'softsky@live.com',
+        password: 'testing123',
+      };
+      request(app)
+        .post('/api/v1/users/auth/signin')
+        .set('Accept', 'application/json')
+        .send(userData)
+        .end((err, res) => {
+          adminToken = res.body.auth;
+          expect(res.body.msg).to.equal('user logged in sucessfully');
+          done();
+        });
+    });
+
+    it('A user(customer) should be able to create an account', (done) => {
+      const userData = {
+        firstname: 'Bolanle',
+        lastname: 'Muritala',
+        email: 'bola.kudi@live.com',
+        password: 'moneyspeaking123',
+        cpassword: 'moneyspeaking123',
+      };
+      request(app)
+        .post('/api/v1/users/auth/signup')
+        .set('Accept', 'application/json')
+        .send(userData)
+        .end((err, res) => {
+          expect(res.status).to.equal(201);
+          expect(res.body.msg).to.equal('User added successfully');
+          done();
+        });
+    });
+
+    it('A user (customer) should be able to log in', (done) => {
+      const userData = {
+        email: 'bola.kudi@live.com',
+        password: 'moneyspeaking123',
+      };
+      request(app)
+        .post('/api/v1/users/auth/signin')
+        .set('Accept', 'application/json')
+        .send(userData)
+        .expect(200)
+        .end((err, res) => {
+          customerToken = res.body.auth;
+          expect(res.body.msg).to.equal('user logged in sucessfully');
           done();
         });
     });
@@ -56,25 +109,21 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         });
     });
 
-    it('A user(customer) should be able to create an account', (done) => {
+    it('A user(super-user) should be able to log in', (done) => {
       const userData = {
-        firstname: 'Bolanle',
-        lastname: 'Muritala',
-        email: 'bola.kudi@live.com',
-        password: 'moneyspeaking123',
-        cpassword: 'moneyspeaking123',
+        email: 'admin@live.com',
+        password: 'admin123',
       };
       request(app)
-        .post('/api/v1/users/auth/signup')
+        .post('/api/v1/users/auth/signin')
         .set('Accept', 'application/json')
         .send(userData)
         .end((err, res) => {
-          expect(res.status).to.equal(201);
-          expect(res.body.msg).to.equal('User added successfully');
+          superAdminToken = res.body.auth;
+          expect(res.body.msg).to.equal('user logged in sucessfully');
           done();
         });
     });
-
     it('A user should not be able to create an existing email address', (done) => {
       const userData = {
         firstname: 'Bolanle',
@@ -116,53 +165,6 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
           // console.log(res.body);
           expect(res.body.errors[0].msg).to.equal('firstname is required');
           expect(res.status).to.equal(422);
-          done();
-        });
-    });
-    it('A user(super-user) should be able to log in', (done) => {
-      const userData = {
-        email: 'admin@live.com',
-        password: 'admin123',
-      };
-      request(app)
-        .post('/api/v1/users/auth/signin')
-        .set('Accept', 'application/json')
-        .send(userData)
-        .end((err, res) => {
-          superAdminToken = res.body.auth;
-          expect(res.body.msg).to.equal('user logged in sucessfully');
-          done();
-        });
-    });
-    it('A user(caterer) should be able to log in', (done) => {
-      const userData = {
-        email: 'softsky@live.com',
-        password: 'testing123',
-      };
-      request(app)
-        .post('/api/v1/users/auth/signin')
-        .set('Accept', 'application/json')
-        .send(userData)
-        .end((err, res) => {
-          adminToken = res.body.auth;
-          expect(res.body.msg).to.equal('user logged in sucessfully');
-          done();
-        });
-    });
-
-    it('A user (customer) should be able to log in', (done) => {
-      const userData = {
-        email: 'bola.kudi@live.com',
-        password: 'moneyspeaking123',
-      };
-      request(app)
-        .post('/api/v1/users/auth/signin')
-        .set('Accept', 'application/json')
-        .send(userData)
-        .expect(200)
-        .end((err, res) => {
-          customerToken = res.body.auth;
-          expect(res.body.msg).to.equal('user logged in sucessfully');
           done();
         });
     });
