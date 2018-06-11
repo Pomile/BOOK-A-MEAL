@@ -112,7 +112,10 @@ class User {
       email, password,
     } = req.body;
 
-    return Users.findOne({ where: { email } }).then((user) => {
+    const user = await Users.findOne({ where: { email } });
+    if (!user) {
+      res.status(404).json({ msg: 'user not found', success: false });
+    } else {
       const hash = user.password;
       bcrypt.compare(password, hash, (err, response) => {
         if (response === true) {
@@ -131,13 +134,7 @@ class User {
           }).end();
         }
       });
-    }).catch((err) => {
-      res.status(404).send({
-        success: false,
-        msg: 'user not found',
-        error: err.message,
-      }).end();
-    });
+    }
   }
 }
 export default User;

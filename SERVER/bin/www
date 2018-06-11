@@ -73,10 +73,10 @@ function onError(error) {
  */
 
 function onListening() {
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
     console.log(`${process.env.NODE_ENV.toLocaleUpperCase()} Server is listening on port ${port}`);
     // Create the tables if it does not exit
-    db.sequelize.sync({ force: false });
+    db.sequelize.sync({ force: true });
   } else {
     // Create the tables if it does not exit
     db.sequelize.sync();
