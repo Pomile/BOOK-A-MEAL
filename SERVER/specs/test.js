@@ -10,11 +10,12 @@ const {
 } = mocha;
 const expect = chai.expect;
 
+let adminToken;
+let superAdminToken;
+let customerToken;
+let verifiedEmailToken;
+
 describe('BOOK-A-MEAL API TEST SUITE', () => {
-  let adminToken;
-  let superAdminToken;
-  let customerToken;
-  let verifiedEmailToken;
   before(() => db.sequelize.sync({ force: true }));
   describe('Users API', () => {
     it('A caterer should be able to create an account', (done) => {

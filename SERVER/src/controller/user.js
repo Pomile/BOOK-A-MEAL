@@ -15,7 +15,7 @@ class User {
       role,
     } = req.body;
 
-    Users.create({
+    return Users.create({
       firstname,
       lastname,
       email,
@@ -53,7 +53,7 @@ class User {
     const { id } = req.user;
     const image = req.files.image.data;
 
-    Users.findById(id).then(user => user.update({
+    return Users.findById(id).then(user => user.update({
       firstname,
       lastname,
       email,
@@ -69,7 +69,7 @@ class User {
 
   static verifyUserEmail(req, res) {
     const { email } = req.body;
-    Users.findOne({
+    return Users.findOne({
       where: {
         email,
       },
@@ -83,7 +83,7 @@ class User {
   static resetPassword(req, res) {
     const { password } = req.body;
     const { id } = req.user;
-    Users.findOne({ where: { id } })
+    return Users.findOne({ where: { id } })
       .then(user => user.update({
         password,
       })
@@ -94,7 +94,7 @@ class User {
 
   static grantPriviledge(req, res) {
     const { role, email } = req.body;
-    Users.findOne({
+    return Users.findOne({
       where: {
         email,
       },
