@@ -1,18 +1,16 @@
 import nodemailer from 'nodemailer';
+import smtpTransport from 'nodemailer-smtp-transport';
 
 exports.sendMenuNotification = (req, res) => {
   const { menu } = req;
   // console.log(menu);
-  const transporter = nodemailer.createTransport({
+  const transporter = nodemailer.createTransport(smtpTransport({
     service: 'gmail',
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false,
     auth: {
       user: 'ogedengbe123@gmail.com',
       pass: 'ayomide44',
     },
-  });
+  }));
 
   const content = menu.reduce((initial, meal) => `
             ${initial} <tr>
