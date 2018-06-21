@@ -10,9 +10,9 @@
     "timezone": "+01:00"
   },
   "test": {
-    "username": "postgres",
+    "username": "root",
     "password": "Skylinq24",
-    "database": "book-a-meal-test",
+    "database": "book_a_meal",
     "host": "127.0.0.1",
     "port": 2400,
     "dialect": "postgres",
