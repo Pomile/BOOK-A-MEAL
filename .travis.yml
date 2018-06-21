@@ -5,13 +5,27 @@ install:
     - npm install
 
 env:
-  - NODE_ENV=test
+  global:
+   - PGPORT=2400
+   - NODE_ENV=test
+
+addons:
+  postgresql: "10"
+  apt:
+    packages:
+    - postgresql-10
+    - postgresql-client-10
 
 services:
   - postgresql
 
 before_script:
-  - psql -c 'CREATE DATABASE book_a_meal;' -U postgres
+  - createdb --host=127.0.0.1 --port=2400  --username=postgres book_a_meal
+  - createuser --host=127.0.0.1 --port=2400  --username=postgres root
+  - psql  --host=127.0.0.1 --port=2400  --username=postgres book_a_meal
+  - alter user root with encrypted password 'Skylinq24';
+  - grant all privileges on database book_a_meal to root;
+  - \q
   - sequelize db:migrate 
 
 script:
