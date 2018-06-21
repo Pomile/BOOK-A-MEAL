@@ -1,5 +1,5 @@
 import { Meals, MealMenus, Menus } from '../models';
-import { sendMenuNotification } from '../middleware/notification';
+import { googleAuth } from '../middleware/notification';
 // import { data } from '../db/data';
 
 
@@ -20,7 +20,7 @@ class Menu {
       },
     });
     // console.log(JSON.stringify(availableMeals.map(meal => meal.name)));
-    if (availableMeals.length === 0) {
+    if (availableMeals.length === 0 || availableMeals.isFulfilled === false) {
       res.status(404).json({ msg: 'meal is not available', success: false });
     } else {
       const menu = await Menus.create({
@@ -38,7 +38,7 @@ class Menu {
         await MealMenus.bulkCreate(menuMeals).then(() => {
           // console.log(JSON.stringify(availableMeals));
           req.menu = availableMeals;
-          sendMenuNotification(req, res);
+          googleAuth(req, res);
           // res.status(201).json({ success: true, data: menuMeal });
         });
       }

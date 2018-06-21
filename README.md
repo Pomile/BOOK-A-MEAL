@@ -1,38 +1,116 @@
 # BOOK-A-MEAL
-Book-A-Meal is an application that allows customers to make food orders and helps the food  vendor know what the customers want to eat. 
-The app consist of two modes, namely, the authenticated mode and unauthenticated mode . 
-# Unauthenticated mode
-The Home page displays list of meals for the day, and also provides a link to sign in and  signup . 
-In this mode Users can see list of meals in the menu for the day. Users can also view menu base on meal category. on each meal, users can do the following:
-1.	order a meal 
-2.	add meal to the basket
+https://travis-ci.org/Pomile/BOOK-A-MEAL.svg?branch=chore%2Ftravis-postgres-integration
 
-if any the action stated above is performed in this mode, the user will directed to a signup page. 
-User can navigate to sign in and sign up pages.
-Users needs to switch to authenticated mode have to access to more feature.
-# Authenticated mode
-To switch to the authenticated mode users need to sign up for an account  on the signup page. When the user  account is created successfully, then the user  can log in on the sign in page. If the credential provided are aunthentic, the user is directed to a user page.  Here the user can do the following:
-1.	view  meal menu
-2.	order for a meal or more
-3.	add a meal to the basket
-4.	view order history
-on order users will be directed to a page where the user can see 
-1.	summary of the meal(s) ordered.
-2.	Total price of the orderand,
-3.	Order details
-4.	total price.
+[![Coverage Status](https://coveralls.io/repos/github/Pomile/BOOK-A-MEAL/badge.svg?branch=chore%2Ftravis-postgres-integration)](https://coveralls.io/github/Pomile/BOOK-A-MEAL?branch=chore%2Ftravis-postgres-integration)
+
+Book-A-Meal is an application that allows customers to make food orders and helps the food  vendor know what the customers want to eat.
+
+#Getting Started
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+
+#Prerequisites
+1. nodejs: 
+2. PostgresSQL including pgAdmin 
+3. visual studio code;
+   
+#Installation
+
+STEP1
+INSTALL THE FOLLOWING PREREQUISITES ON THE DEVELOPMENT MACHINE:
+>nodejs
+>Postgres 9.x or 10.x - PostgreSQL can be installed by any unprivileged user; no superuser (root) access is required.
+>visual studio code or equivalent
+
+STEP2
+
+> clone central repository
+> open command prompt in the OS
+> change directory to the project root folder
+> run npm install
+
+STEP 3
+> create database for test and development environment;
+   By default postgres installation  create a user - postgres with blank password
+  >> change user to postgres
+  >> create user
+  >> create database
+  >> Access the postgres Shell
+  >> Provide privileges to the postgres user
+     
+# Example
+
+In Linux Envrionment:
+
+$ su <user>
+$ createuser <testuser>
+$ createdb <testdb>
+$ psql ( enter the password for postgressql)
+$ alter user <testuser> with encrypted password <pass>;
+$ grant all privileges on database <testdb> to <testuser>;
+
+In Windows Envrionment:
+
+Depending on how postgres is installed, you might need to change directory to the path where postgres is installed
+example: C:\Program Files\PostgreSQL\10\bin\
+
+> createuser --host=<localhost> --port=<port>  --username=postgres <username>
+> createdb --host=<localhost> --port=<port> --username=<postgres> <dbname>
+> psql --host=<localhost> --port=<port>  --username=postgres <username> --dbname=<dbname>
+> alter user <root> with encrypted password <pass>;
+> grant all privileges on database <testdb> to <testuser>;
+>\q
+
+STEP 3
+
+> run npm install
+
+#Deploy database schema with sequelize
+
+>run sequelize db:migrate
 
 
-some users have specials roles e.g caterer, admin. By default when a user sign up for an account, the role of the user is null. While the admin users have access to all of the features above they can also assign priviledges or a role to users.  
+#Running the tests
+1. get google authorization code through the link below which will be used to access google api (https://mail.google.com/).
+https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&scope=https%3A%2F%2Fmail.google.com%2F&response_type=code&client_id=689151234993-7bcjnid76h639skieoqc4qkiafv8hbi6.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fapi%2Fv1%2Fauth%2Foauth2callback
+
+2. copy the google authorization code (eg: 4/AABViH_-dANgUQqvHmCXtGoTFZLORrLJwX3oAlm-AVVPezo8qyj1GaPmC-Xt96wIfeGSmGvm2j7AnJEwFDpRwxo) and pastes in the googleAuthCode.json file as value for code property in the JSON content.-{ code: <authcode>}
+
+3. open cmd prompt and cd to the project root directory
+4. run npm test in the command prompt
+
+#end to end tests
 
 
-# Roles
-The admin user can assign the following roles:
-1.	caterer
-2.	superuser
-3.	admin
+#Give an example
+And coding style tests
+Explain what these tests test and why
+
+#Give an example
+Deployment
+Add additional notes about how to deploy this on a live system
+
+#Technologies
+Express - web framework
+Postgres - Relational database Management System
+Nodejs- Runtime Environment for Javascript.
+NodeMailer - Email library for nodejs
+Sequelize - object relational Mapper
+Mocha, Chai, and supertest - Test framework and other dependencies
+nyc and coveralls - for coverage test.
+morgan - logging library
+express fileupload - middleware used to handle files(image format - jpg, png, doc formats-docx, pdf)
+opn
 
 
-A caterer can set menu for the day, add a meal, remove a meal, update a meal , view ordered history, view total money made for the day.
-A superuser leverage on the priviledges of a caterer and can also delete a user, freeze user account.
-Admin user can perform all of the above and assign priviledges to users.
+#Versioning
+We use SemVer for versioning. For the versions available, see the tags on this repository.
+
+#Authors
+Babatunde Ogedengbe
+#Contributor
+Mayowa Makinde
+License
+This project is licensed under the MIT License - see the LICENSE.md file for details
+
+Acknowledgments
+I salute the Andela software developers for their support and encouragement.

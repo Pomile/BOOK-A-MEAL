@@ -4,6 +4,7 @@ import 'babel-polyfill';
 import request from 'supertest';
 import app from '../server';
 import db from '../src/models';
+import auth2Code from '../../googleAuthCode.json';
 
 const {
   describe, it, after, before,
@@ -14,6 +15,8 @@ let adminToken;
 let superAdminToken;
 let customerToken;
 let verifiedEmailToken;
+const auth = auth2Code;
+const expiredAuth = '4/AAC3IqyNQgVsY8soU_Uwubo0v8MlFu3NMRzg9pkPS_Ze8fl7Q6muSp519ZAtbkh1BLmoJEmWz7Oa6K6RlzEVc6I';
 
 describe('BOOK-A-MEAL API TEST SUITE', () => {
   before(() => db.sequelize.sync({ force: true }));
@@ -369,12 +372,12 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
       const meals = {
         data: [
           {
-            name: 'Jollof Rice with shredded beef',
+            name: 'Oha soup',
             userId: 1,
             quantity: 40,
             price: 3000,
             date: '4/26/2018',
-            category: 'Intercontinental',
+            category: 'Africa',
           },
 
           {
@@ -387,21 +390,20 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
           },
 
           {
-            name: 'Pounded Yam with Egusi soup',
+            name: 'Chiken and chips',
             userId: 1,
             quantity: 20,
             price: 5000,
             date: '4/27/2018',
-            category: 'Africa',
+            category: 'Intercontinental',
           },
-
           {
-            name: 'Beans and plaintain',
+            name: 'Pastal with shredded beef',
             userId: 1,
             quantity: 0,
             price: 3000,
             date: '4/26/2018',
-            category: 'Africa',
+            category: 'Intercontinental',
           },
         ],
       };
@@ -409,10 +411,10 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         .post('/api/v1/auth/bulkmeals')
         .set('authorization', `${adminToken}`)
         .query({ bulkMeals: meals.data })
+        .attach('images', `${__dirname}/images/oha_soup.jpg`)
         .attach('images', `${__dirname}/images/amala-yahoo.jpg`)
-        .attach('images', `${__dirname}/images/amala-yahoo.jpg`)
-        .attach('images', `${__dirname}/images/amala-yahoo.jpg`)
-        .attach('images', `${__dirname}/images/amala-yahoo.jpg`)
+        .attach('images', `${__dirname}/images/Chickery-Fish.jpg`)
+        .attach('images', `${__dirname}/images/pastal.jpg`)
         .end((err, res) => {
           expect(res.status).to.equal(201);
           expect(res.body.success).to.equal(true);
@@ -558,6 +560,39 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         .end((err, res) => {
           expect(res.status).to.equal(201);
           expect(res.body.success).to.equal(true);
+          done();
+        });
+    });
+
+    it('A caterer should be able to send an email when menu is set', (done) => {
+      request(app)
+        .get(`/api/v1/auth/oauth2callback?code=${auth.code}`)
+        .set('Accept', 'application/json')
+        .end((err, res) => {
+          expect(res.status).to.equal(201);
+          expect(res.body.msg).to.equal('menu is set sucessfully and customers are notified');
+          done();
+        });
+    });
+
+    it('A caterer should be able to send an email without auth code', (done) => {
+      request(app)
+        .get('/api/v1/auth/oauth2callback?')
+        .set('Accept', 'application/json')
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body.msg).to.equal('Bad request');
+          done();
+        });
+    });
+
+    it('A caterer should be able to send an email without auth code', (done) => {
+      request(app)
+        .get(`/api/v1/auth/oauth2callback?code=${expiredAuth}`)
+        .set('Accept', 'application/json')
+        .end((err, res) => {
+          expect(res.status).to.equal(401);
+          expect(res.body.msg).to.equal('invalid grant');
           done();
         });
     });

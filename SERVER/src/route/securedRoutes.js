@@ -4,7 +4,7 @@ import Meal from '../controller/meal';
 import Menu from '../controller/menu';
 import permit from '../middleware/permission';
 import passwordEncryption from '../middleware/encryption';
-import { sendMenuNotification } from '../middleware/notification';
+import { sendMenuNotification, storeAuth, getTodaysMenu } from '../middleware/notification';
 import { verifyUser } from '../middleware/verification';
 import { mealValidator, validationApi, validatePasswordReset } from '../middleware/validation';
 import Order from '../controller/order';
@@ -82,6 +82,13 @@ securedRoutes.post(
   verifyUser,
   permit('caterer', 'admin'),
   Menu.setMenu,
+  sendMenuNotification,
+);
+
+securedRoutes.get(
+  '/oauth2callback',
+  storeAuth,
+  getTodaysMenu,
   sendMenuNotification,
 );
 
