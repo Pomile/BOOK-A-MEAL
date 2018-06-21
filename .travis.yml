@@ -6,26 +6,20 @@ install:
 
 env:
   global:
-   - PGPORT=2400
    - NODE_ENV=test
 
 addons:
-  postgresql: "10"
-  apt:
-    packages:
-    - postgresql-10
-    - postgresql-client-10
+  postgresql: "9.6"
+  
 
 services:
   - postgresql
 
 before_script:
-  - createdb book_a_meal --username=postgres 
-  - createuser root --username=postgres 
-  - psql  --host=127.0.0.1 --port=2400  --username=postgres book_a_meal
-  - alter user root with encrypted password 'Skylinq24';
-  - grant all privileges on database book_a_meal to root;
-  - \q
+  - createdb --username=postgres book_a_meal
+  - createuser --username=postgres root
+  - psql -c "ALTER ROLE root WITH PASSWORD 'Skylinq24'";
+  - psql -c "GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO root"; 
   - sequelize db:migrate 
 
 script:

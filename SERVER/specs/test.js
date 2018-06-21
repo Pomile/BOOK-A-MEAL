@@ -4,10 +4,10 @@ import 'babel-polyfill';
 import request from 'supertest';
 import app from '../server';
 import db from '../src/models';
-import auth2Code from '../../googleAuthCode.json';
+import auth2Code from './googleAuthCode.json';
 
 const {
-  describe, it, after, before,
+  describe, it, before,
 } = mocha;
 const expect = chai.expect;
 

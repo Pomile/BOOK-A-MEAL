@@ -3,6 +3,7 @@ import fs from 'fs';
 import { google } from 'googleapis';
 import opn from 'opn';
 import { Meals, MealMenus, Menus } from '../models';
+import auth from '../../specs/googleAuthCode.json'
 
 const clientId = '689151234993-7bcjnid76h639skieoqc4qkiafv8hbi6.apps.googleusercontent.com';
 const clientSecret = 'mVi2uY6_cxgthdoG1L8sG0l5';
@@ -18,7 +19,7 @@ exports.storeAuth = async (req, res, next) => {
   const { code } = req.query;
   if (code !== undefined) {
     await fs.writeFileSync(
-      `${__dirname}../../../../googleAuthCode.json`,
+      `${__dirname}/../../specs/googleAuthCode.json`,
       JSON.stringify({ code }, null, 2),
       'utf-8',
     );
