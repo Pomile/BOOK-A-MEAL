@@ -29,15 +29,9 @@ checks:
       threshold: 4
   similar-code:
     enabled: false
-
   identical-code:
     enabled: true
-
 exclude_patterns:
-  - "config/"
-  - "db/"
-  - "dist/"
-  - "features/""
   - "node_modules/"
   - "**/node_modules/"
   - "SERVER/src/migration/*"
