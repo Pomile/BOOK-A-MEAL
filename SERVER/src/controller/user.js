@@ -1,26 +1,16 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import 'babel-polyfill';
-// import { data } from '../db/data';
 import { Users } from '../models';
 
 
 class User {
   static addUser(req, res) {
     const {
-      firstname,
-      lastname,
-      email,
-      password,
-      role,
+      firstname, lastname, email, password, role,
     } = req.body;
 
     return Users.create({
-      firstname,
-      lastname,
-      email,
-      password,
-      role,
+      firstname, lastname, email, password, role,
     }).then(user =>
       res.status(201).send({
         success: true,
@@ -52,19 +42,13 @@ class User {
     } = req.body;
     const { id } = req.user;
     const image = req.files.image.data;
-
     return Users.findById(id).then(user => user.update({
-      firstname,
-      lastname,
-      email,
-      image,
+      firstname, lastname, email, image,
     })).then(updatedUser => res.status(200)
       .json({ success: true, data: updatedUser }))
-      .catch((err) => {
-        res.status(404)
-          .json({ msg: 'user does not exist', error: err.message })
-          .end();
-      });
+      .catch(err => res.status(404)
+        .json({ msg: 'user does not exist', error: err.message })
+        .end());
   }
 
   static verifyUserEmail(req, res) {
@@ -111,7 +95,6 @@ class User {
     const {
       email, password,
     } = req.body;
-
     const user = await Users.findOne({ where: { email } });
     if (!user) {
       res.status(404).json({ msg: 'user not found', success: false });
@@ -122,16 +105,9 @@ class User {
           const payload = user.id;
           const token = jwt.sign({ data: payload }, 'ijiugsghuyqqgbnnzxhuhuq', { expiresIn: '24h' });
           res.status(200)
-            .json({
-              success: true,
-              msg: 'user logged in sucessfully',
-              auth: token,
-            }).end();
+            .json({ success: true, msg: 'user logged in sucessfully', auth: token }).end();
         } else {
-          res.status(401).send({
-            success: false,
-            msg: 'invalid password',
-          }).end();
+          res.status(401).send({ success: false, msg: 'invalid password' }).end();
         }
       });
     }

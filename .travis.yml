@@ -3,14 +3,12 @@ node_js:
     - "8.11.1"
 install:
     - npm install
-
 env:
   global:
    - NODE_ENV=test
 
 addons:
   postgresql: "9.6"
-  
 
 services:
   - postgresql

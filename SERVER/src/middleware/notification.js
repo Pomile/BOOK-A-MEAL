@@ -3,7 +3,6 @@ import fs from 'fs';
 import { google } from 'googleapis';
 import opn from 'opn';
 import { Meals, MealMenus, Menus } from '../models';
-import auth from '../../specs/googleAuthCode.json'
 
 const clientId = '689151234993-7bcjnid76h639skieoqc4qkiafv8hbi6.apps.googleusercontent.com';
 const clientSecret = 'mVi2uY6_cxgthdoG1L8sG0l5';
@@ -23,7 +22,6 @@ exports.storeAuth = async (req, res, next) => {
       JSON.stringify({ code }, null, 2),
       'utf-8',
     );
-
     await oauth2Client.getToken(code, (err, tokens) => {
       if (!err) {
         req.token = tokens;
@@ -41,44 +39,33 @@ exports.getTodaysMenu = async (req, res, next) => {
   const date = new Date();
   const todaysDate = date.toISOString();
   const menu = await Menus.findOne({
-    where: {
-      date: todaysDate,
-    },
+    where: { date: todaysDate },
   });
-
   if (!menu) {
-    res.status(401).json({ msg: 'Menu is not set for today', success: false });
-  } else {
-    const meals = MealMenus.findAll({
-      where: { menuId: menu.id },
-      include: [{
-        model: Meals,
-        attributes: ['id', 'name', 'price', 'quantity', 'image', 'category'],
-      }],
-    });
-    const availableMeals = [];
-    if (meals.length === 0 || meals.isFulfilled === false) {
-      res.status(401).json({ msg: 'No meal found' });
-    } else {
-      await meals.map(meal => availableMeals.push(meal.Meal));
-      req.mealsMenu = availableMeals;
-      next();
-    }
+    return res.status(401).json({ msg: 'Menu is not set for today', success: false });
   }
+  const meals = await MealMenus.findAll({
+    where: { menuId: menu.id },
+    include: [{
+      model: Meals,
+      attributes: ['name', 'price', 'quantity', 'image', 'category'],
+    }],
+  });
+  const availableMeals = [];
+  if (meals.length === 0 || meals.isFulfilled === false) {
+    return res.status(401).json({ msg: 'No meal found' });
+  }
+  await meals.map(meal => availableMeals.push(meal.Meal));
+  req.mealsMenu = availableMeals;
+  return next();
 };
-exports.googleAuth = async (req, res) => {
-  const scopes = [
-    'https://mail.google.com/',
-  ];
 
+exports.googleAuth = async (req, res) => {
+  const scopes = ['https://mail.google.com/'];
   const url = oauth2Client.generateAuthUrl({
-    // 'online' (default) or 'offline' (gets refresh_token)
     access_type: 'offline',
-    // If you only need one scope you can pass it as a string
     scope: scopes,
   });
-
-  console.log(url);
   if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
     opn(url);
     res.status(201).json({ msg: 'Menu is set for the day', success: true });
@@ -87,10 +74,8 @@ exports.googleAuth = async (req, res) => {
   }
 };
 
-
 exports.sendMenuNotification = (req, res) => {
   const menu = req.mealsMenu;
-  // console.log(menu);
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
@@ -103,52 +88,21 @@ exports.sendMenuNotification = (req, res) => {
       accessToken: req.token.access_token || 'ya29.GlvhBUMvFNO9MZeEdyF-rCXGirShjDzZVAAlzCxeBaAwE-sZI3glZmqrd9-ZIm1NKYd7-l0l5N-CTH6yAQ2HUk3S0dOvgW3dVVt_NKnBq5qrnMd8D6dnuUJpWUl',
     },
   });
-
-  const content = menu.reduce((initial, meal) => `
-            ${initial} <tr>
-              <td>${meal.name}</td>
-              <td>${meal.price}</td>
-              <td>${meal.category}</td>
-              </tr>`, '');
-
+  const content = menu.reduce((initial, meal) => `${initial} <tr><td>${meal.name}</td><td>${meal.price}</td><td>${meal.category}</td></tr>`, '');
   const mailOptions = {
     from: 'ogedengbe123@gmail.com',
     to: 'soft-sky@live.co.uk',
     subject: 'Todays Menu',
     html: `<div>
-        <div><img src="delicious-admin" /></div>
-        <table>
-          <thead>
-            <tr>
-              <th>Meals</th>
-              <th>Price</th>
-              <th>Category</th>
-            </tr>
-          </thead>
-          <tbody>
-          ${content}
-          </tbody>
-        </table>
-        <p>Thank you</p>
-        <p>Babatunde Ogedengbe</p>
-        <h3>@andela-bootcamp-project</h3>
-      </div>`,
-    attachments: [
-      {
-        filename: 'delicious-admin.jpg',
-        path: `${__dirname}/../../public/delicious-admin.jpg`,
-        cid: 'delicious-admin',
-      },
-    ],
+        <div><img src="delicious-admin" /></div><table><thead><tr><th>Meals</th><th>Price</th><th>Category</th></tr></thead><tbody>
+        ${content}</tbody></table><p>Thank you</p><p>Babatunde Ogedengbe</p><h3>@andela-bootcamp-project</h3></div>`,
+    attachments: [{ filename: 'delicious-admin.jpg', path: `${__dirname}/../../public/delicious-admin.jpg`, cid: 'delicious-admin' }],
   };
-
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      console.log(error);
       res.status(201).json({ success: true, msg: 'menu is set sucessfully but users are not notified', err: error.message });
     } else {
-      res.status(201).json({ success: true, msg: 'menu is set sucessfully and customers are notified' });
-      console.log(`Email sent: ${info.response}`);
+      res.status(201).json({ success: true, msg: 'menu is set sucessfully and customers are notified', info: info.response });
     }
   });
 };
