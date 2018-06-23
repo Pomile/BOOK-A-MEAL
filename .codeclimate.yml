@@ -1,25 +1,25 @@
 exclude_patterns
-- "config/"
-- "db/"
-- "dist/"
-- "features/""
-- "node_modules/"
-- "**/node_modules/"
-- "SERVER/src/migration/*"
-- "SERVER/src/config/*"
-- "SERVER/src/db/*"
-- "SERVER/src/seeders/*"
-- "!SERVER/src/*"
-- "UI/"
-- script/
-- "**/specs/"
-- "**/spec/"
-- "**/test/"
-- "**/tests/"
-- "SERVER/spec/*"
-- "Tests/"
-- "**/vendor/"
-- "**/*_test.go"
-- "**/*.d.ts"
+  - config/
+  - db/
+  - dist/
+  - features/
+  - node_modules/
+  - **/node_modules/
+  - SERVER/src/migration/*
+  - SERVER/src/config/*"
+  - "SERVER/src/db/*
+  - SERVER/src/seeders/*
+  - !SERVER/src/*
+  - UI/
+  - script/
+  - **/specs/
+  - **/spec/
+  - **/test/
+  - **/tests/
+  - SERVER/spec/*
+  - Tests/
+  - **/vendor/
+  - **/*_test.go
+  - **/*.d.ts
 
  
