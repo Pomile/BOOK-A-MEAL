@@ -1,25 +1,60 @@
-exclude_patterns
-  - config/
-  - db/
-  - dist/
-  - features/
-  - node_modules/
-  - **/node_modules/
-  - SERVER/src/migration/*
-  - SERVER/src/config/*"
-  - "SERVER/src/db/*
-  - SERVER/src/seeders/*
-  - !SERVER/src/*
-  - UI/
+version: "2"
+plugins:
+  eslint:
+    enabled: true
+checks:
+  argument-count:
+    config:
+      threshold: 4
+  complex-logic:
+    config:
+      threshold: 4
+  file-lines:
+    config:
+      threshold: 250
+  method-complexity:
+    config:
+      threshold: 5
+  method-count:
+    config:
+      threshold: 20
+  method-lines:
+    config:
+      threshold: 25
+  nested-control-flow:
+    config:
+      threshold: 6
+  return-statements:
+    config:
+      threshold: 4
+  similar-code:
+    enabled: false
+
+  identical-code:
+    enabled: true
+
+exclude_patterns:
+  - "config/"
+  - "db/"
+  - "dist/"
+  - "features/""
+  - "node_modules/"
+  - "**/node_modules/"
+  - "SERVER/src/migration/*"
+  - "SERVER/src/config/*"
+  - "SERVER/src/db/*"
+  - "SERVER/src/seeders/*"
+  - "!SERVER/src/*"
+  - "UI/"
   - script/
-  - **/specs/
-  - **/spec/
-  - **/test/
-  - **/tests/
-  - SERVER/spec/*
-  - Tests/
-  - **/vendor/
-  - **/*_test.go
-  - **/*.d.ts
+  - "**/specs/"
+  - "**/spec/"
+  - "**/test/"
+  - "**/tests/"
+  - "SERVER/spec/*"
+  - "Tests/"
+  - "**/vendor/"
+  - "**/*_test.go"
+  - "**/*.d.ts"
 
  
