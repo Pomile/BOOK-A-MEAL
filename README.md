@@ -14,7 +14,7 @@ These instructions will get you a copy of the project up and running on your loc
 ## Installation
 
 ### STEP1
-#### INSTALL THE FOLLOWING PREREQUISITES ON THE DEVELOPMENT MACHINE:
+#### Install the following on the development machine:
 
  * nodejs
  * Postgres 9.x or 10.x - PostgreSQL can be installed by any unprivileged user; no superuser (root) access is required.
@@ -105,7 +105,7 @@ In Linux Envrionment:
     https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&scope=https%3A%2F%2Fmail.google.com%2F&response_type=code&client_id=689151234993-7bcjnid76h639skieoqc4qkiafv8hbi6.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fapi%2Fv1%2Fauth%2Foauth2callback
  ```
 
- 2. copy the google authorization code(eg:4/AABViH_-dANg......) and pastes in the googleAuthCode.json file as value for the property-code in the JSON content.-{ code: "4/AABViH_-dANg...."}
+ 2. copy the google authorization code(eg:4/AABViH_-dANg......) and pastes in the googleAuthCode.json( e.g{ code: "4/AABViH_-dANg...."})
 
  3. open cmd prompt and cd to the project root directory
 

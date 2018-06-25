@@ -38,6 +38,7 @@ exclude_patterns:
   - "SERVER/src/config/*"
   - "SERVER/src/db/*"
   - "SERVER/src/seeders/*"
+  - "SERVER/src/models/*"
   - "!SERVER/src/*"
   - "UI/"
   - script/

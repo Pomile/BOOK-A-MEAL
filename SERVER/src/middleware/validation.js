@@ -27,9 +27,10 @@ exports.validateUserCrediential = [
   check('username', 'must be an email address')
     .isEmail(),
 
-  check('password', 'passwords must be at least 5 chars long and contain one number')
-    .isLength({ min: 5 })
-    .matches(/\d/),
+  check('password', 'Please enter a password')
+    .exists()
+    .trim()
+    .custom(value => value !== ''),
 ];
 
 exports.mealValidator = [
