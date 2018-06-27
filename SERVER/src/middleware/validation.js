@@ -57,7 +57,7 @@ exports.mealValidator = [
 ];
 
 exports.validatePasswordReset = [
-  check('password', 'passwords must be at least 5 chars long and contain one number')
+  check('password', 'Password mismatch. Please try again')
     .isLength({ min: 5 })
     .matches(/\d/)
     .custom((value, { req }) => value === req.body.cpassword),
