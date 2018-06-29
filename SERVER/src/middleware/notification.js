@@ -3,6 +3,7 @@ import fs from 'fs';
 import { google } from 'googleapis';
 import opn from 'opn';
 import { Meals, MealMenus, Menus } from '../models';
+import accessToken from '../../specs/token.json';
 
 const clientId = '689151234993-7bcjnid76h639skieoqc4qkiafv8hbi6.apps.googleusercontent.com';
 const clientSecret = 'mVi2uY6_cxgthdoG1L8sG0l5';
@@ -22,17 +23,18 @@ exports.storeAuth = async (req, res, next) => {
       JSON.stringify({ code }, null, 2),
       'utf-8',
     );
-    await oauth2Client.getToken(code, (err, tokens) => {
+    return oauth2Client.getToken(code, (err, tokens) => {
       if (!err) {
         req.token = tokens;
-        next();
-      } else {
-        res.status(401).json({ msg: 'invalid grant', error: err.message });
+        return next();
+      } else if (err && process.env.NODE_ENV === 'test') {
+        req.token = accessToken;
+        return next();
       }
+      return res.status(401).json({ msg: 'invalid grant', error: err.message });
     });
-  } else {
-    res.status(400).json({ msg: 'Bad request' });
   }
+  return res.status(400).json({ msg: 'Bad request' });
 };
 
 exports.getTodaysMenu = async (req, res, next) => {

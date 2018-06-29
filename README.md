@@ -1,5 +1,6 @@
 # BOOK-A-MEAL
-[![Build Status](https://travis-ci.org/Pomile/BOOK-A-MEAL.svg?branch=develop)](https://travis-ci.org/Pomile/BOOK-A-MEAL) [![Coverage Status](https://coveralls.io/repos/github/Pomile/BOOK-A-MEAL/badge.svg?branch=chore%2Ftravis-postgres-integration)](https://coveralls.io/github/Pomile/BOOK-A-MEAL?branch=chore%2Ftravis-postgres-integration) [![Maintainability](https://api.codeclimate.com/v1/badges/db70723290c73f11ccce/maintainability)](https://codeclimate.com/github/Pomile/BOOK-A-MEAL/maintainability)
+[![Build Status](https://travis-ci.org/Pomile/BOOK-A-MEAL.svg?branch=develop)](https://travis-ci.org/Pomile/BOOK-A-MEAL) [![Coverage Status](https://coveralls.io/repos/github/Pomile/BOOK-A-MEAL/badge.svg?branch=chore%2Ftravis-postgres-integration)](https://coveralls.io/github/Pomile/BOOK-A-MEAL?branch=chore%2Ftravis-postgres-integration) [![Maintainability](https://api.codeclimate.com/v1/badges/db70723290c73f11ccce/maintainability)](https://codeclimate.com/github/Pomile/BOOK-A-MEAL/maintainability) 
+[![Test Coverage](https://api.codeclimate.com/v1/badges/db70723290c73f11ccce/test_coverage)](https://codeclimate.com/github/Pomile/BOOK-A-MEAL/test_coverage)
 
 Book-A-Meal is an application that allows customers to make food orders and helps the food  vendor know what the customers want to eat.
 
