@@ -106,7 +106,9 @@ In Linux Envrionment:
     https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&scope=https%3A%2F%2Fmail.google.com%2F&response_type=code&client_id=689151234993-7bcjnid76h639skieoqc4qkiafv8hbi6.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fapi%2Fv1%2Fauth%2Foauth2callback
  ```
 
- 2. copy the google authorization code(eg:4/AABViH_-dANg......) and pastes in the googleAuthCode.json( e.g{ code: "4/AABViH_-dANg...."})
+ 2. generate access_token from google developer playground. Use your the clientID and clientSecret which you can find in client_secret.json file.  copy and paste the access token into the token.json file which is in the specs folder.
+
+ 2. copy the google authorization code(eg:4/AABViH_-dANg......) and paste it in the googleAuthCode.json( e.g{ code: "4/AABViH_-dANg...."})
 
  3. open cmd prompt and cd to the project root directory
 
@@ -114,7 +116,7 @@ In Linux Envrionment:
    ```sh
      npm test
    ```
-
+s
 # end to end tests
 
 

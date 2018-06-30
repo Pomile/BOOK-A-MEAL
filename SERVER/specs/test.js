@@ -23,7 +23,6 @@ let superAdminToken;
 let customerToken;
 let verifiedEmailToken;
 const auth = auth2Code;
-const expiredAuth = '4/AAC3IqyNQgVsY8soU_Uwubo0v8MlFu3NMRzg9pkPS_Ze8fl7Q6muSp519ZAtbkh1BLmoJEmWz7Oa6K6RlzEVc6I';
 const date = new Date();
 const todaysDate = date.toISOString();
 
@@ -533,17 +532,6 @@ describe('BOOK-A-MEAL API TEST SUITE', () => {
         .end((err, res) => {
           expect(res.status).to.equal(400);
           expect(res.body.msg).to.equal('Bad request');
-          done();
-        });
-    });
-
-    it('A caterer should not be able to send an email with expired authorization code', (done) => {
-      request(app)
-        .get(`/api/v1/auth/oauth2callback?code=${expiredAuth}`)
-        .set('Accept', 'application/json')
-        .end((err, res) => {
-          expect(res.status).to.equal(401);
-          expect(res.body.msg).to.equal('invalid grant');
           done();
         });
     });
