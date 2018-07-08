@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Book a meal application",
   "main": "server.js",
+  "engines": {
+    "node": "8.11.1"
+  },
   "nyc": {
     "include": [
       "SERVER/src/"
