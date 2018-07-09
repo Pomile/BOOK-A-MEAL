@@ -14,7 +14,7 @@
     "instrument": false
   },
   "scripts": {
-    "start": "npm run babel -- ./server/bin/www",
+    "start": "npm run babel -- ./SERVER/bin/www",
     "start:dev": "nodemon --watch . --exec npm run babel ./SERVER/bin/www",
     "test": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text npm run mocha:test",
     "mocha:test": "mocha  --compilers js:babel-core/register ./SERVER/specs/test.js --require babel-polyfill --timeout 15000 --exit",
