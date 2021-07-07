@@ -4,6 +4,7 @@
 <head>
     <title>Set Menu</title>
     <link rel="shortcut icon" href="./images/favicon.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="text/css" rel="stylesheet" href="./css/styles.css" media="screen,projection" />
     <link type="text/css" rel="stylesheet" href="./css/form.css" media="screen,projection" />
     <link type="text/css" rel="stylesheet" href="./css/table.css" media="screen,projection" />
@@ -42,7 +43,7 @@
         }
 
         .tool-icon {
-            width: 72px;
+            width: 38px;
 
         }
 
@@ -192,9 +193,10 @@
                 <div class="">
                     <center>
                         <div class="tool-icon">
-                            <img src="./images/meal.png">
+                            <img src="./images/meal.png" width = 42px height = 42px>
                         </div>
-                        <div class="arrow-up" id="meal-arrowup">
+						<div style ="color:white">Meal</div>
+                        <div class="arrow-up" id="meal-arrowup"> 
                             <img src="./images/arrow_up.png">
                         </div>
                     </center>
@@ -205,9 +207,10 @@
                 <div>
                     <center>
                         <div class="tool-icon">
-                            <img src="./images/set_menu_52.png">
+                            <img src="./images/set_menu_52.png" width = 42px height = 42px>
                         </div>
-                        <div class="active arrow-up active-arrow-up" id="menu-arrowup">
+						<div style ="color:white">Menu</div>
+                        <div class="active arrow-up active-arrow-up" id="menu-arrowup"> 
                             <img src="./images/arrow_up.png">
                         </div>
                     </center>
@@ -217,8 +220,9 @@
                 <div>
                     <center>
                         <div class="tool-icon">
-                            <img src="./images/admin.png">
+                            <img src="./images/admin.png" width = 42px height = 42px>
                         </div>
+						<div style ="color:white">Super Admin</div>
                         <div class="active arrow-up" id="admin-arrowup">
                             <img src="./images/arrow_up.png">
                         </div>
@@ -236,13 +240,13 @@
                 <div class="transbox flex-box flex-column-driection" style="height: 100%; width: 90%; margin-left: 5%;">
                     <div class=" tool-drop add-tool active" onclick="displayTabBox('setup-menu-content', this.id)" id=1>
                         <center>
-                            <img src="./images/add_menu_48.png">
+                            <img src="./images/add_menu_48.png" width = 32px height=32px>
                             <div class="white">Setup Menu</div>
                         </center>
                     </div>
                     <div class="tool-drop remove-tool" onclick="displayTabBox('manage-menu-content', this.id)" id=2>
                         <center>
-                            <img src="./images/manage_menu_52.png">
+                            <img src="./images/manage_menu_52.png" width = 32px height=32px>
                             <div class="white">Manage Menu</div>
                         </center>
 
@@ -262,13 +266,13 @@
                     </div>
 
                     <div class="s-12 flex-box" style="justify-content: center; flex-flow:wrap;">
-                        <div class="s-12 m-12 l-6 ">
-                            <div class="s-12 flex-box" style="justify-content: center; flex-flow:wrap;">
-                                <div class="s-12 m-6 l-5">
-                                    <input type="search" placeholder="search meal" style="" />
+                        <div class="s-12 m-12 l-6 " style = "">
+                            <div class="s-12 flex-box" style="justify-content: justify; flex-flow:wrap;">
+                                <div class="s-12 m-6 l-6" style ="">
+                                    <input type="search" placeholder="search meal" style=" height: 45px; width: 96%!important; margin-left: 2%!important; margin-top: 15px!important" />
                                 </div>
-                                <div class="menu-category s-12 m-6 l-4">
-                                    <select id="meal-category" name="meal-category" style="height: 50px">
+                                <div class="menu-category s-12 m-6 l-6" style = "">
+                                    <select id="meal-category" name="meal-category" style="height: 45px; width: 76%!important; margin-left: 2%!important; margin-top: 15px!important">
                                         <option value="">--Category--</option>
                                         <option value="breakfast">Breakfast</option>
                                         <option value="lunch">Lunch</option>
@@ -278,7 +282,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="menu-list s-12" style="justify-content:center; height: 500px; margin-left: 20px; overflow-y:auto">
+                            <div class="menu-list s-12" style="justify-content:justify; height: 500px; margin-left: 2%; overflow-y:auto">
                                 <div class="meal boxshadow" id=1 onclick="getFeedBack('remove')">
                                     <div class="meal-image">
                                         <img src="./images/Dark_Cherry_Smoothie.jpg" width="200px" height="170px" />
@@ -416,8 +420,8 @@
 
 
                         </div>
-                        <div class="s-12 m-12 l-5" style="height: 600px; margin-left: 20px; overflow-y:auto">
-                            <h2 style="color: gray">New Menu</h2>
+                        <div class="s-12 m-12 l-5 transbox" style="height: 600px; margin-left: 20px; overflow-y:auto; background-color: #ffe0cc">
+                            <h2 style="color: white; background-color: #ff3300">Selected Meal</h2>
                             <div class="menu-list s-12" style="justify-content: justify; overflow: scroll; height:400px">
                                 <div class="meal boxshadow" id=1 onclick="getFeedBack('remove')">
                                     <div class="meal-image">
@@ -535,12 +539,13 @@
                 <div class="mealtabs s-12" id="manage-menu-content" style="">
 
                     <div class="s-12 m-6 l-7 float-left" style="">
+					    <h3 style = "color: gray; padding-left: 10px">Manage Menu</h3>
                         <div class="s-12 flex-box" style="flex-flow:wrap;">
                             <div class="s-12 m-6 l-4">
-                                <input type="date" placeholder="search " style="" />
+                                <input type="date" placeholder="search " style="height: 45px; width: 96%!important; margin-left: 3%!important; margin-top: 15px!important" />
                             </div>
                             <div class="menu-category s-12 m-6 l-4">
-                                <select id="meal-category" name="meal-category" style="height: 50px">
+                                <select id="meal-category" name="meal-category" style="height: 45px; width: 96%!important; margin-left: 2%!important; margin-top: 15px!important">
                                     <option value="">--Category--</option>
                                     <option value="breakfast">Africa</option>
                                     <option value="lunch">Intercontinental</option>
@@ -554,7 +559,7 @@
                             </div>
 
                         </div>
-                        <div class="s-12 m-9 l-8 offset-m-1 offset-l-1">
+                        <div class="s-12 m-10 l-10" style ="margin-left: 2%;">
                             <table class="manage-menu" style="overflow: scroll">
                                 <tr class="menu-tr">
                                     <th>
@@ -613,7 +618,7 @@
 
 
                     </div>
-                    <div class="s-12 m-6 l-5 float-left" style="padding-top: 100px">
+                    <div class="s-12 m-6 l-5 float-left" style="padding-top: 105px;">
                         <div class="menu-list s-12" style="justify-content: justify; overflow: scroll; height:400px">
                             <div class="meal boxshadow" id=1 onclick="getFeedBack('remove')">
                                 <div class="meal-image">

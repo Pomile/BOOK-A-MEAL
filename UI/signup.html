@@ -3,20 +3,23 @@
     <head>
         <title>Sign Up</title>
         <link rel="shortcut icon" href="./images/favicon.ico">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link type="text/css" rel="stylesheet" href="./css/styles.css"  media="screen,projection"/>
         <link type="text/css" rel="stylesheet" href="./css/form.css"  media="screen,projection"/>
         <script type = "text/javascript" src = "./js/script.js"></script>
         <style>
             main{
                 display: flex;
-                background-image: url("./images/delicious-food-1.jpg");
+				background-image: url("./images/Chickery-Fish-Geelong2.jpg");
                 background-repeat: no-repeat;
                 background-size: cover;
+				
             }
 
             .signup-box {
                 height: 600px;
                 margin: auto;
+				
                 
             }
 
@@ -64,26 +67,22 @@
             
         </header> <!--End Header-->
         <!--Main-->
-        <main style ="height: 650px">
+        <main style ="height: 700px">
             <!--Sign Up form container -->
-            <div class = "s-12 signup-box">
-                <form>
-                    <div class="transbox   s-11 m-6 l-5 offset-l-7 offset-m-3" style ="padding-top: 20px;">
+			 <div class="transbox s-12 m-12 l-12 "  style="height: 700px; filter: blur(20px); z-index: 10; position: absolute"></div>
+            <div class = "s-12 signup-box" style="z-index: 25">
+			   
+                <form class="">
+				    
+                    <div class="transbox s-11 m-6 l-4 offset-l-4" style ="padding-top: 20px;">
                             <h2 style = "color:white; text-align:center">Sign Up</h2>
                             <input type="text" id="fname" name="firstname" placeholder="Firstname">
                             <input type="text" id="lname" name="lastname" placeholder="Lastname">
-                            <input type="email" id="email" name="email" placeholder=" john@example.com">
-                            <input type="radio" id="sex" name="sex" value="Male"><label style="font-size: 1.2em; font-weight: bold; color: white;" for="Male">Male</label>
-                            <input type="radio" id="sex" name="sex" value="Female"><label style="font-size: 1.2em; font-weight: bold; color: white;" for="female">Female</label>
+                            <input type="email" id="email" name="email" placeholder="john@example.com">
+                            
                             <input type="password" id="lname" name="lastname" placeholder="Password">
                             <input type="password" id="lname" name="lastname" placeholder=" Confirm Password">
-                               
-                            <select id="country" name="country" placeholder="Country">
-                                <option value="australia">Australia</option>
-                                <option value="canada">Canada</option>
-                                <option value="usa">USA</option>
-                            </select>
-                                
+                   
                             <input type="submit" value=" + Create Account">
                     </div>
                 </form>
@@ -91,7 +90,7 @@
         </main>
         <!-- Footer -->
         <footer class= "s-12" style = "">
-            <h5 class="white text-align-center">Babatunde@andelabootcamp</h5>
+            
         </footer><!--end footer-->
     </body>
 </html>

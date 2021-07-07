@@ -4,6 +4,7 @@
 <head>
     <title>Dashboard</title>
     <link rel="shortcut icon" href="./images/favicon.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="text/css" rel="stylesheet" href="./css/styles.css" media="screen,projection" />
     <link type="text/css" rel="stylesheet" href="./css/form.css" media="screen,projection" />
 
@@ -67,7 +68,7 @@
         }
 
         .tool-icon {
-            width: 72px;
+            width: 52px;
 
         }
 
@@ -83,6 +84,7 @@
         }
 
         .tool-drop {
+		    width: 100px;
             padding-top: 15px;
             cursor: pointer;
 
@@ -124,7 +126,8 @@
 
         .meal-picture {
             height: 150px;
-            width: 150px;
+            width: 80%;
+			margin-left: 9%;
             background-color: rgb(250, 60, 35);
             background-image: url("./images/add_mea_150.png");
             background-repeat: no-repeat;
@@ -216,9 +219,10 @@
                 <div class="">
                     <center>
                         <div class="tool-icon">
-                            <img src="./images/meal.png">
+                            <img src="./images/meal.png" width = 42px height = 42px >
                         </div>
                         <div class="arrow-up active-arrow-up" id="meal-arrowup">
+						   <div style ="color:white">Meal</div>
                             <img src="./images/arrow_up.png">
                         </div>
                     </center>
@@ -230,10 +234,12 @@
                 <div>
                     <center>
                         <div class="tool-icon">
-                            <img src="./images/set_menu_52.png">
+                            <img src="./images/set_menu_52.png" width = 42px height = 42px>
                         </div>
+						<div style ="color:white">Menu</div>
                         <div class="active arrow-up" id="menu-arrowup">
-                            <img src="./images/arrow_up.png">
+						    
+                            <img src="./images/arrow_up.png" >
                         </div>
                     </center>
                 </div>
@@ -242,9 +248,11 @@
                 <div>
                     <center>
                         <div class="tool-icon">
-                            <img src="./images/admin.png">
+                            <img src="./images/admin.png" width = 42px height = 42px>
                         </div>
+						<div style ="color:white">Super Admin</div>
                         <div class="active arrow-up" id="admin-arrowup">
+						
                             <img src="./images/arrow_up.png">
                         </div>
                     </center>
@@ -261,20 +269,20 @@
                 <div class="transbox flex-box flex-column-driection" style="height: 100%; width: 90%; margin-left: 5%;">
                     <div class=" tool-drop add-tool active" onclick="displayTabBox('add-meal-content', this.id)" id=1>
                         <center>
-                            <img src="./images/add_meal.png">
+                            <img src="./images/add_meal.png" width = 40px height = 40px>
                             <div class="white">Add meal</div>
                         </center>
                     </div>
                     <div class="tool-drop remove-tool" onclick="displayTabBox('remove-meal-content', this.id)" id=2>
                         <center>
-                            <img src="./images/remove_meal.png">
+                            <img src="./images/remove_meal.png" width = 40px height = 40px>
                             <div class="white">remove meal</div>
                         </center>
 
                     </div>
                     <div class="tool-drop update-tool" onclick="displayTabBox('update-meal-content', this.id)" id=3>
                         <center>
-                            <img src="./images/update_meal.png">
+                            <img src="./images/update_meal.png" width = 40px height = 40px>
                             <div class="white">Update meal</div>
                         </center>
                     </div>
@@ -288,7 +296,7 @@
                     <div>
                         <h2 style="color: gray; padding-left: 30px;">Add Meal</h2>
                     </div>
-                    <div class="form-holder" style="background-color: rgb(145, 5, 5); margin-left: 25px;">
+                    <div class="form-holder" style="background-color: rgb(145, 5, 5); margin-left: 25px; border-radius: 20px;">
                         <form>
                             <div class="flex-box" style="flex-flow: wrap; justify-content: space-around; padding-top: 10px">
                                 <div class="picture-holder s-12 m-4 l-3">
@@ -301,16 +309,19 @@
                                     <div>
                                         <input type="text" placeholder="name" name="name" />
                                     </div>
+									<div>
+                                        <input type="number" placeholder="qty" name="quantity" min = "0"  style ="width:100px!important"/>
+                                    </div>
                                     <div>
                                         <input type="text" placeholder="price" name="price" />
                                     </div>
                                     <div>
                                         <select id="meal-category" name="meal-category" style="height: 50px" placeholder="Category">
                                             <option value="">--Category--</option>
-                                            <option value="breakfast">Breakfast</option>
-                                            <option value="lunch">Lunch</option>
-                                            <option value="dinner">Dinner</option>
-                                            <option value="super">Super</option>
+                                            <option value="breakfast">Intercontinental</option>
+                                            <option value="lunch">Chinese</option>
+                                            <option value="dinner">African</option>
+                                            <option value="super">Indian</option>
                                             <option value="super">All</option>
                                         </select>
                                     </div>
@@ -332,13 +343,13 @@
 
                 </div>
                 <div class="mealtabs" id="remove-meal-content">
-                    <h2 style="color: gray; padding-left: 30px;">Remove Meal</h2>
+                    <h2 style="color: gray; padding-left: 51px;">Remove Meal</h2>
                     <div class="s-12 flex-box" style="justify-content:space-between; flex-flow:wrap;">
                         <div class="s-12 m-6 l-5">
                             <input type="search" placeholder="search meal" style="" />
                         </div>
                         <div class="menu-category s-12 m-6 l-4">
-                            <select id="meal-category" name="meal-category" style="height: 50px">
+                            <select id="meal-category" name="meal-category" style="height: 45px">
                                 <option value="">--Category--</option>
                                 <option value="breakfast">Breakfast</option>
                                 <option value="lunch">Lunch</option>
@@ -348,7 +359,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="menu-list s-12">
+                    <div class="menu-list s-12 m-10 l-10"  style = "margin-left: 2%;">
                         <div class="meal boxshadow" id=1 onclick="getFeedBack('remove')">
                             <div class="meal-image">
                                 <img src="./images/Dark_Cherry_Smoothie.jpg" width="200px" height="170px" />
@@ -462,7 +473,7 @@
                             <input type="search" placeholder="search meal" style="" />
                         </div>
                         <div class="menu-category s-12 m-6 l-4">
-                            <select id="meal-category" name="meal-category" style="height: 50px">
+                            <select id="meal-category" name="meal-category" style="height: 45px">
                                 <option value="">--Category--</option>
                                 <option value="breakfast">Breakfast</option>
                                 <option value="lunch">Lunch</option>
@@ -588,12 +599,12 @@
 
             <span class="close" onclick="closeModal('modal')">&times;</span>
             <div></div>
-            <div class="form-holder" style="background-color: rgb(145, 5, 5); margin-left: 25px;">
+            <div class="form-holder" style="background-color: rgb(236, 95, 95); margin-left: 25px;">
                 <form>
                     <div class="flex-box" style="flex-flow: wrap; justify-content: space-around">
                         <div class="picture-holder s-12 m-4 l-3">
                             <div class="meal-picture">
-                                <img src="./images/Dark_Cherry_Smoothie.jpg" width="150px" height="150px" />
+                                <img src="./images/Dark_Cherry_Smoothie.jpg" width=100% height=100%/>
                             </div>
                             <input type="file" onchange="readURL(this);" name="image" />
                         </div>
@@ -604,22 +615,11 @@
                             <div>
                                 <input type="text" placeholder="price" name="price" value="N3400" />
                             </div>
-                            <div>
-                                <select id="meal-category" name="meal-category" style="height: 50px" placeholder="Category">
-
-                                    <option value="breakfast">Breakfast</option>
-                                    <option value="lunch">Lunch</option>
-                                    <option value="dinner">Dinner</option>
-                                    <option value="super">Super</option>
-                                    <option value="super">All</option>
-                                </select>
+							<div>
+                               <input type ="number" name ="quantity" value = "0" min = "0" />
                             </div>
+                       
 
-                            <div>
-                                <textarea name="message" rows="10" cols="70" style="height: 150px" placeholder="Description">
-                                                        Meal description.
-                                                </textarea>
-                            </div>
                             <div>
                                 <input type="button" value="Save" onclick="getFeedBack('modify'), closeModal('modal')" />
                             </div>

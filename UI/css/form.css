@@ -2,8 +2,8 @@
 input[type=text],input[type=email],input[type=search], textarea{
     width: 80%!important;
     height: 50px;
-    font-size: 16px;
-    padding: 12px 20px!important;
+    font-size: 14px;
+    padding: 6px 6px!important;
     margin-top: 20px!important;
 	background-color: white!important;
     display: inline-block!important;
@@ -29,11 +29,11 @@ input[type=radio]{
 
 }
 
-input[type=password], select, input[type=date] {
+input[type=password], select, input[type=date], input[type=number]{
     width: 80%!important;
     padding: 12px 20px!important;
     margin-top: 20px!important;
-    font-size: 16px;
+    font-size: 14px;
     display: inline-block!important;
     border: 1px solid #ccc!important;
     border-radius: 4px!important;
