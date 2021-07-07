@@ -1,0 +1,30 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "Skylinq24",
+    "database": "book-a-meal-dev",
+    "host": "127.0.0.1",
+    "port": 2400,
+    "dialect": "postgres",
+    "logging": false,
+    "timezone": "+01:00"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "Skylinq24",
+    "database": "book-a-meal-test",
+    "host": "127.0.0.1",
+    "port": 2400,
+    "dialect": "postgres",
+    "timezone": "+01:00",
+    "logging": false
+  },
+  "production": {
+    "username": "postgres",
+    "password": "Skylinq24",
+    "database": "book-a-meal",
+    "host": "127.0.0.1",
+    "port": 2400,
+    "dialect": "postgres"
+  }
+}
